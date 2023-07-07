@@ -65,33 +65,33 @@ namespace Sifh.ReportGenerator.Core
                 new ReportValue()
                 {
                     MappingFieldName = "ReceivingNoteID",
-                    CellAddress = "D7"
+                    CellAddress = "D4"
                 },
                 new ReportValue()
                 {
                     MappingFieldName = "VesselName",
-                    CellAddress = "H11"
+                    CellAddress = "G8"
                 },
                 new ReportValue()
                 {
                     MappingFieldName = "RegistrationNumber",
-                    CellAddress = "C14"
+                    CellAddress = "K8"
                 },
                 new ReportValue()
                 {
                     MappingFieldName = "RegistrationNumber",
-                    CellAddress = "M11"
+                    CellAddress = "B11"
                 }
                 ,
                 new ReportValue()
                 {
                     MappingFieldName = "OrderDate",
-                    CellAddress = "I28"
+                    CellAddress = "G25"
                 },
                 new ReportValue()
                 {
                     MappingFieldName = "Quantity",
-                    CellAddress = "I32"
+                    CellAddress = "H29"
                 }
             });
 
