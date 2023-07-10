@@ -35,7 +35,9 @@
             this.simpleButtonExecute = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.simpleButtonGenerateReports = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButtonGenerateMCCReports = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButtonGenerateMTReports = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButtonGenerateMRCReports = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -47,50 +49,55 @@
             // dateEditStartDate
             // 
             this.dateEditStartDate.EditValue = null;
-            this.dateEditStartDate.Location = new System.Drawing.Point(180, 97);
+            this.dateEditStartDate.Location = new System.Drawing.Point(120, 63);
+            this.dateEditStartDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dateEditStartDate.Name = "dateEditStartDate";
             this.dateEditStartDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditStartDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateEditStartDate.Size = new System.Drawing.Size(188, 26);
+            this.dateEditStartDate.Size = new System.Drawing.Size(125, 20);
             this.dateEditStartDate.TabIndex = 0;
             // 
             // dateEditEndDate
             // 
             this.dateEditEndDate.EditValue = null;
-            this.dateEditEndDate.Location = new System.Drawing.Point(181, 138);
+            this.dateEditEndDate.Location = new System.Drawing.Point(121, 90);
+            this.dateEditEndDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dateEditEndDate.Name = "dateEditEndDate";
             this.dateEditEndDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditEndDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateEditEndDate.Size = new System.Drawing.Size(187, 26);
+            this.dateEditEndDate.Size = new System.Drawing.Size(125, 20);
             this.dateEditEndDate.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 100);
+            this.label1.Location = new System.Drawing.Point(37, 65);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Start Date";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 141);
+            this.label2.Location = new System.Drawing.Point(37, 92);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 20);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "End Date";
             // 
             // simpleButtonExecute
             // 
-            this.simpleButtonExecute.Location = new System.Drawing.Point(439, 122);
+            this.simpleButtonExecute.Location = new System.Drawing.Point(293, 79);
+            this.simpleButtonExecute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.simpleButtonExecute.Name = "simpleButtonExecute";
-            this.simpleButtonExecute.Size = new System.Drawing.Size(75, 23);
+            this.simpleButtonExecute.Size = new System.Drawing.Size(50, 15);
             this.simpleButtonExecute.TabIndex = 4;
             this.simpleButtonExecute.Text = "Go";
             this.simpleButtonExecute.Click += new System.EventHandler(this.simpleButtonExecute_Click);
@@ -100,10 +107,12 @@
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridControl1.Location = new System.Drawing.Point(12, 187);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gridControl1.Location = new System.Drawing.Point(8, 122);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1042, 459);
+            this.gridControl1.Size = new System.Drawing.Size(695, 298);
             this.gridControl1.TabIndex = 5;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -119,28 +128,54 @@
             this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
             this.gridView1.OptionsView.ShowFooter = true;
             // 
-            // simpleButtonGenerateReports
+            // simpleButtonGenerateMCCReports
             // 
-            this.simpleButtonGenerateReports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.simpleButtonGenerateReports.Location = new System.Drawing.Point(907, 671);
-            this.simpleButtonGenerateReports.Name = "simpleButtonGenerateReports";
-            this.simpleButtonGenerateReports.Size = new System.Drawing.Size(147, 23);
-            this.simpleButtonGenerateReports.TabIndex = 6;
-            this.simpleButtonGenerateReports.Text = "Generate Reports";
-            this.simpleButtonGenerateReports.Click += new System.EventHandler(this.simpleButtonGenerateReports_Click);
+            this.simpleButtonGenerateMCCReports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.simpleButtonGenerateMCCReports.Location = new System.Drawing.Point(401, 436);
+            this.simpleButtonGenerateMCCReports.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButtonGenerateMCCReports.Name = "simpleButtonGenerateMCCReports";
+            this.simpleButtonGenerateMCCReports.Size = new System.Drawing.Size(98, 15);
+            this.simpleButtonGenerateMCCReports.TabIndex = 6;
+            this.simpleButtonGenerateMCCReports.Text = "Generate MCC";
+            this.simpleButtonGenerateMCCReports.Click += new System.EventHandler(this.simpleButtonGenerateMCCReports_Click);
+            // 
+            // simpleButtonGenerateMTReports
+            // 
+            this.simpleButtonGenerateMTReports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.simpleButtonGenerateMTReports.Location = new System.Drawing.Point(605, 436);
+            this.simpleButtonGenerateMTReports.Margin = new System.Windows.Forms.Padding(2);
+            this.simpleButtonGenerateMTReports.Name = "simpleButtonGenerateMTReports";
+            this.simpleButtonGenerateMTReports.Size = new System.Drawing.Size(98, 15);
+            this.simpleButtonGenerateMTReports.TabIndex = 7;
+            this.simpleButtonGenerateMTReports.Text = "Generate MTC";
+            this.simpleButtonGenerateMTReports.Click += new System.EventHandler(this.simpleButtonGenerateMTCReports_Click);
+            // 
+            // simpleButtonGenerateMRCReports
+            // 
+            this.simpleButtonGenerateMRCReports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.simpleButtonGenerateMRCReports.Location = new System.Drawing.Point(503, 436);
+            this.simpleButtonGenerateMRCReports.Margin = new System.Windows.Forms.Padding(2);
+            this.simpleButtonGenerateMRCReports.Name = "simpleButtonGenerateMRCReports";
+            this.simpleButtonGenerateMRCReports.Size = new System.Drawing.Size(98, 15);
+            this.simpleButtonGenerateMRCReports.TabIndex = 8;
+            this.simpleButtonGenerateMRCReports.Text = "Generate MRC";
+            this.simpleButtonGenerateMRCReports.Click += new System.EventHandler(this.simpleButtonGenerateMRCReports_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1090, 706);
-            this.Controls.Add(this.simpleButtonGenerateReports);
+            this.ClientSize = new System.Drawing.Size(727, 459);
+            this.Controls.Add(this.simpleButtonGenerateMRCReports);
+            this.Controls.Add(this.simpleButtonGenerateMTReports);
+            this.Controls.Add(this.simpleButtonGenerateMCCReports);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.simpleButtonExecute);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateEditEndDate);
             this.Controls.Add(this.dateEditStartDate);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).EndInit();
@@ -163,7 +198,9 @@
         private DevExpress.XtraEditors.SimpleButton simpleButtonExecute;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraEditors.SimpleButton simpleButtonGenerateReports;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonGenerateMCCReports;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonGenerateMTReports;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonGenerateMRCReports;
     }
 }
 
