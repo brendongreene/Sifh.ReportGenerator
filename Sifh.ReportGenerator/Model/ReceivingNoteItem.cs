@@ -1,3 +1,4 @@
+using Sifh.ReportGenerator.Contracts;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -31,42 +31,16 @@ namespace Sifh.ReportGenerator
 
         private void simpleButtonGenerateMCCReports_Click(object sender, EventArgs e)
         {
-            var newFile = new FileInfo("TestMCC.xlsx");
-
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as ReceivingNoteView;
+                var reportRNId = row.ReceivingNoteID;
+                var reportName = row.VesselName;
+                var newFile = new FileInfo("Test" + reportName + "_" + reportRNId + ".xlsx");
 
-                _reportGenerator.GenerateMCCExcelReport(Core.ReportGenerator.ReportType.ModelCatch, newFile,row);
-
+                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row);
             }
         }
 
-        private void simpleButtonGenerateMRCReports_Click(object sender, EventArgs e)
-        {
-            var newFile = new FileInfo("TestMRC.xlsx");
-
-            foreach (var rowHandle in gridView1.GetSelectedRows())
-            {
-                var row = gridView1.GetRow(rowHandle) as ReceivingNoteView;
-
-                _reportGenerator.GenerateMRCExcelReport(Core.ReportGenerator.ReportType.ModelReprocessing, newFile, row);
-
-            }
-        }
-
-        private void simpleButtonGenerateMTCReports_Click(object sender, EventArgs e)
-        {
-
-            var newFile = new FileInfo("TestMTC.xlsx");
-
-            foreach (var rowHandle in gridView1.GetSelectedRows())
-            {
-                var row = gridView1.GetRow(rowHandle) as ReceivingNoteView;
-
-                _reportGenerator.GenerateMTCExcelReport(Core.ReportGenerator.ReportType.ModelTransshipping, newFile, row);
-
-            }
-        }
     }
 }

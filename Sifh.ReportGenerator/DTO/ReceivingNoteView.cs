@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sifh.ReportGenerator.Contracts;
 using Sifh.ReportGenerator.Model;
+using System.Globalization;
 
 namespace Sifh.ReportGenerator.DTO
 {
@@ -19,7 +20,6 @@ namespace Sifh.ReportGenerator.DTO
         public ReceivingNoteView(ReceivingNote receivingNote)
         {
             this.ReceivingNoteID = receivingNote.ReceivingNoteID;
-            this.InvoiceDate = receivingNote.InvoiceDate;
             this.VesselID = receivingNote.VesselID;
             this.DateCreated = receivingNote.DateCreated;
             this.ReferenceNumber = receivingNote.ReferenceNumber;
@@ -27,10 +27,18 @@ namespace Sifh.ReportGenerator.DTO
             this.Quantity = receivingNote.ReceivingNoteItems.Sum(x => x.Quantity);
             this.LineItems = receivingNote.ReceivingNoteItems.Count();
             this.RegistrationNumber = receivingNote.Vessel.RegistrationNumber;
-
-
+            this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
+            this.InvoiceDate = receivingNote.InvoiceDate;
         }
 
+
+        public string FormattedDateCreated
+        {
+            get
+            {
+                return DateCreated.ToString("MMMM dd yyyy", CultureInfo.InvariantCulture);
+            }
+        }
         public int ReceivingNoteID { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public string ReferenceNumber { get; set; }
@@ -46,5 +54,6 @@ namespace Sifh.ReportGenerator.DTO
 
         public decimal Quantity { get; set; }
         public int LineItems { get; set; }
+        public string ProductName { get; set; }
     }
 }
