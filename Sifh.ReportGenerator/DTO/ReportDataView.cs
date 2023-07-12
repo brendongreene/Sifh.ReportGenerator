@@ -9,15 +9,15 @@ using System.Globalization;
 
 namespace Sifh.ReportGenerator.DTO
 {
-    public class ReceivingNoteView: IReceivingNote
+    public class ReportDataView: IReceivingNote
     {
 
-        public ReceivingNoteView()
+        public ReportDataView()
         {
 
         }
 
-        public ReceivingNoteView(ReceivingNote receivingNote)
+        public ReportDataView(ReceivingNote receivingNote)
         {
             this.ReceivingNoteID = receivingNote.ReceivingNoteID;
             this.VesselID = receivingNote.VesselID;
@@ -29,6 +29,7 @@ namespace Sifh.ReportGenerator.DTO
             this.RegistrationNumber = receivingNote.Vessel.RegistrationNumber;
             this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
             this.InvoiceDate = receivingNote.InvoiceDate;
+            this.ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString();
         }
 
 
@@ -55,5 +56,12 @@ namespace Sifh.ReportGenerator.DTO
         public decimal Quantity { get; set; }
         public int LineItems { get; set; }
         public string ProductName { get; set; }
+
+        public string CustomerName { get; set; }
+        public string AirwayBillNumber { get; set; }
+        public string ProductionDate { get; set; }
+        public string ReceivingLotIdentifierMRC { get; set; }
+
+        public int BoxNumber { get; set; }
     }
 }

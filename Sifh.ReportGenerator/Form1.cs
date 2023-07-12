@@ -24,8 +24,15 @@ namespace Sifh.ReportGenerator
 
         private void simpleButtonExecute_Click(object sender, EventArgs e)
         {
-            var results =_repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime);
+            var results = _repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime);
 
+            foreach (var result in results)
+            {
+                result.AirwayBillNumber = textBoxAirwayBillNumber.Text;
+                result.CustomerName = comboBoxCustomer.Text.Trim();
+                result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
+                result.BoxNumber = Int32.Parse(textBoxNumberOfBoxes.Text);
+            }
             gridControl1.DataSource = results.ToList();
         }
 
@@ -33,13 +40,28 @@ namespace Sifh.ReportGenerator
         {
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
-                var row = gridView1.GetRow(rowHandle) as ReceivingNoteView;
+                var row = gridView1.GetRow(rowHandle) as ReportDataView;
                 var reportRNId = row.ReceivingNoteID;
-                var reportName = row.VesselName;
-                var newFile = new FileInfo("Test" + reportName + "_" + reportRNId + ".xlsx");
+                var reportName = comboBoxCustomer.Text.Trim();
+                var fileNameDate = dateTimePicker.Value.ToString("MMMM/dd/yyy");
+                var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + reportRNId + ".xlsx");
+
 
                 _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var customers = _repositoryHelper.GetCustomers().Select(x => new CustomerView()
+            {
+                CustomerID = x.CustomerID,
+                CustomerName = x.CustomerName
+            });
+
+            this.comboBoxCustomer.DataSource = customers.ToList();
+            this.comboBoxCustomer.DisplayMember = "CustomerName";
+            this.comboBoxCustomer.ValueMember = "CustomerId";
         }
 
     }

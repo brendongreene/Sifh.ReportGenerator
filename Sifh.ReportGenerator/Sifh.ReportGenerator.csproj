@@ -93,9 +93,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ICustomer.cs" />
     <Compile Include="Core\GenericImporter.cs" />
     <Compile Include="Core\ReportGenerator.cs" />
-    <Compile Include="DTO\ReceivingNoteView.cs" />
+    <Compile Include="DTO\CustomerView.cs" />
+    <Compile Include="DTO\ReportDataView.cs" />
     <Compile Include="Model\Airline.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Form1.cs">

@@ -11,6 +11,8 @@ namespace Sifh.ReportGenerator.Core
 {
     public class ReportGenerator
     {
+
+
         public enum ReportType
         {
             ModelCatch,
@@ -36,7 +38,7 @@ namespace Sifh.ReportGenerator.Core
             public ReportType ReportType { get; set; }
             public List<ReportValue> ExcelValues { get; set; }
 
-            public void ProcessRecord(ReceivingNoteView record)
+            public void ProcessRecord(ReportDataView record)
             {
                 foreach (var dataNum in ExcelValues)
                 {
@@ -121,20 +123,31 @@ namespace Sifh.ReportGenerator.Core
                     CellAddress = "I21"
                 },
 
-                //new ReportValue()
-                //{
-                //    MappingFieldName = "RegistrationNumber",
-                //    CellAddress = "K8"
-                //},
-                //new ReportValue()
-                //{
-                //    MappingFieldName = "OrderDate",
-                //    CellAddress = "G25"
-                //},
+                new ReportValue()
+                {
+                    MappingFieldName = "CustomerName",
+                    CellAddress = "I29"
+                },
+
+                new ReportValue()
+                {
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "I30"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "ProductionDate",
+                    CellAddress = "D34"
+                },
                 new ReportValue()
                 {
                     MappingFieldName = "Quantity",
                     CellAddress = "D26"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "ReceivingLotIdentifierMRC",
+                    CellAddress = "J26"
                 },
                 new ReportValue()
                 {
@@ -148,7 +161,7 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "LineItems",
+                    MappingFieldName = "BoxNumber",
                     CellAddress = "L34"
                 }
 
@@ -187,14 +200,24 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "LineItems",
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "H32"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "BoxNumber",
                     CellAddress = "H35"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "ProductionDate",
+                    CellAddress = "C35"
                 }
             });
 
         }
 
-        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReceivingNoteView receivingNoteView)
+        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView)
         {    
             using (var package = new ExcelPackage(newFile, TemplateFile))
             {
@@ -218,46 +241,6 @@ namespace Sifh.ReportGenerator.Core
             }
         }
 
-        public void GenerateMCCExcelReport(ReportType reportType,FileInfo newFile,ReceivingNoteView receivingNoteView)
-        {
-            modelCatchData.ProcessRecord(receivingNoteView);
-            using (var package = new ExcelPackage(newFile, TemplateFile))
-            {
-                foreach (var excelInfo in modelCatchData.ExcelValues)
-                {
-                    package.Workbook.Worksheets["MCC"].Cells[excelInfo.CellAddress].Value = excelInfo.Value;
-                }
-
-                package.Save();
-            }
-        }
-
-        public void GenerateMRCExcelReport(ReportType reportType, FileInfo newFile, ReceivingNoteView receivingNoteView)
-        {
-            modelReprocessingData.ProcessRecord(receivingNoteView);
-            using (var package = new ExcelPackage(newFile, TemplateFile))
-            {
-                foreach (var excelInfo in modelReprocessingData.ExcelValues)
-                {
-                    package.Workbook.Worksheets["MRC"].Cells[excelInfo.CellAddress].Value = excelInfo.Value;
-                }
-
-                package.Save();
-            }
-        }
-
-        public void GenerateMTCExcelReport(ReportType reportType, FileInfo newFile, ReceivingNoteView receivingNoteView)
-        {
-            modelTransshippingData.ProcessRecord(receivingNoteView);
-            using (var package = new ExcelPackage(newFile, TemplateFile))
-            {
-                foreach (var excelInfo in modelTransshippingData.ExcelValues)
-                {
-                    package.Workbook.Worksheets["MTC"].Cells[excelInfo.CellAddress].Value = excelInfo.Value;
-                }
-
-                package.Save();
-            }
-        }
+       
     }
 }

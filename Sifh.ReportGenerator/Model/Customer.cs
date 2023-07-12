@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Sifh.ReportGenerator.Contracts;
 
 namespace Sifh.ReportGenerator.Model
 {
     [Table("Customer")]
-    public partial class Customer
+    public partial class Customer:ICustomer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
