@@ -43,7 +43,7 @@ namespace Sifh.ReportGenerator
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
                 var reportRNId = row.ReceivingNoteID;
                 var reportName = comboBoxCustomer.Text.Trim();
-                var fileNameDate = dateTimePicker.Value.ToString("MMMM/dd/yyy");
+                var fileNameDate = dateTimePicker.Value.ToString("MMMM_dd_yyy");
                 var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + reportRNId + ".xlsx");
 
 
