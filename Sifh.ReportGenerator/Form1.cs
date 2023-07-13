@@ -8,12 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using Sifh.ReportGenerator.DTO;
 using Sifh.ReportGenerator.Repository;
 
 namespace Sifh.ReportGenerator
 {
-    public partial class Form1 : Form
+    public partial class Form1 : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
