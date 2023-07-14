@@ -218,8 +218,10 @@ namespace Sifh.ReportGenerator.Core
 
         }
 
-        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView)
-        {    
+        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath)
+        {
+            newFile = new FileInfo(filePath);
+
             using (var package = new ExcelPackage(newFile, TemplateFile))
             {
                 var workbook = package.Workbook;

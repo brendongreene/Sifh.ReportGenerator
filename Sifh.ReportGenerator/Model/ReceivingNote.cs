@@ -42,6 +42,8 @@ namespace Sifh.ReportGenerator.Model
         public virtual StatusClass StatusClass { get; set; }
 
         public virtual Vessel Vessel { get; set; }
+        //public virtual VesselCertificate VesselCertificate { get; set; }
+        //public virtual CustomerFiles CustomerFiles { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceivingNoteItem> ReceivingNoteItems { get; set; }

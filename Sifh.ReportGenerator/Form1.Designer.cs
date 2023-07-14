@@ -57,21 +57,16 @@
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemGetDocument = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemAddDocument = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemAddVesselDocument = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemGetVesselDocument = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemAddCustomerFiles = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemGetCustomerFile = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageVesselDocument = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageCustomerFiles = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -366,17 +361,14 @@
             this.barButtonItem1,
             this.barButtonItemGetDocument,
             this.barButtonItemAddDocument,
-            this.barButtonItemAddVesselDocument,
-            this.barButtonItemGetVesselDocument,
             this.barButtonItemAddCustomerFiles,
             this.barButtonItemGetCustomerFile});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.ribbonControl1.MaxItemId = 11;
+            this.ribbonControl1.MaxItemId = 12;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.ribbonPageVesselDocument,
-            this.ribbonPageCustomerFiles});
+            this.ribbonPageVesselDocument});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.TabletOffice;
             this.ribbonControl1.Size = new System.Drawing.Size(1135, 80);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
@@ -402,19 +394,6 @@
             this.barButtonItemAddDocument.Name = "barButtonItemAddDocument";
             this.barButtonItemAddDocument.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
-            // barButtonItemAddVesselDocument
-            // 
-            this.barButtonItemAddVesselDocument.Caption = "ADD A VESSEL LICENCE";
-            this.barButtonItemAddVesselDocument.Id = 7;
-            this.barButtonItemAddVesselDocument.Name = "barButtonItemAddVesselDocument";
-            this.barButtonItemAddVesselDocument.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick_1);
-            // 
-            // barButtonItemGetVesselDocument
-            // 
-            this.barButtonItemGetVesselDocument.Caption = "GET VESSEL LICENCE";
-            this.barButtonItemGetVesselDocument.Id = 8;
-            this.barButtonItemGetVesselDocument.Name = "barButtonItemGetVesselDocument";
-            // 
             // barButtonItemAddCustomerFiles
             // 
             this.barButtonItemAddCustomerFiles.Caption = "ADD CUSTOMER FILE";
@@ -430,42 +409,14 @@
             // ribbonPageVesselDocument
             // 
             this.ribbonPageVesselDocument.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup3,
-            this.ribbonPageGroup1});
+            this.ribbonPageGroup3});
             this.ribbonPageVesselDocument.Name = "ribbonPageVesselDocument";
-            this.ribbonPageVesselDocument.Text = "  VESSEL DOCUMNETATION";
+            this.ribbonPageVesselDocument.Text = "ADDITIONAL FILES";
             // 
             // ribbonPageGroup3
             // 
-            this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItemAddVesselDocument);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "ribbonPageGroup3";
-            // 
-            // ribbonPageGroup1
-            // 
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItemGetVesselDocument);
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
-            // 
-            // ribbonPageCustomerFiles
-            // 
-            this.ribbonPageCustomerFiles.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup2,
-            this.ribbonPageGroup4});
-            this.ribbonPageCustomerFiles.Name = "ribbonPageCustomerFiles";
-            this.ribbonPageCustomerFiles.Text = "CUSTOMER ADDITIONAL FILES";
-            // 
-            // ribbonPageGroup2
-            // 
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItemAddCustomerFiles);
-            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
-            // 
-            // ribbonPageGroup4
-            // 
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonItemGetCustomerFile);
-            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
-            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
             // 
             // ribbonStatusBar1
             // 
@@ -489,6 +440,11 @@
             // 
             this.ribbonPage3.Name = "ribbonPage3";
             this.ribbonPage3.Text = "ribbonPage3";
+            // 
+            // ribbonPage4
+            // 
+            this.ribbonPage4.Name = "ribbonPage4";
+            this.ribbonPage4.Text = "ribbonPage4";
             // 
             // Form1
             // 
@@ -561,15 +517,10 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItemGetDocument;
         private DevExpress.XtraBars.BarButtonItem barButtonItemAddDocument;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
-        private DevExpress.XtraBars.BarButtonItem barButtonItemAddVesselDocument;
-        private DevExpress.XtraBars.BarButtonItem barButtonItemGetVesselDocument;
         private DevExpress.XtraBars.BarButtonItem barButtonItemAddCustomerFiles;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageCustomerFiles;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
         private DevExpress.XtraBars.BarButtonItem barButtonItemGetCustomerFile;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage4;
     }
 }
 

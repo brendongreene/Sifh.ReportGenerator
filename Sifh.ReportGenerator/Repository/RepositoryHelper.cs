@@ -30,5 +30,13 @@ namespace Sifh.ReportGenerator.Repository
                 return context.Customers.ToList();
             }
         }
+        public IEnumerable<IVesselView> GetVessels()
+        {
+            using (var context = new SifhContext())
+            {
+                var vessels = context.Vessels;
+                return context.Vessels.ToList().Select( x=> new VesselView(x)).ToList();
+            }
+        }
     }
 }

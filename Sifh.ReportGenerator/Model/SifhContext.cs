@@ -21,6 +21,8 @@ namespace Sifh.ReportGenerator.Model
         public virtual DbSet<ReceivingNoteItem> ReceivingNoteItems { get; set; }
         public virtual DbSet<StatusClass> StatusClasses { get; set; }
         public virtual DbSet<Vessel> Vessels { get; set; }
+        //public virtual DbSet<VesselCertificate> VesselCertificate { get; set; }
+        //public virtual DbSet<CustomerFiles> CustomerFiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

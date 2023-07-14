@@ -30,6 +30,8 @@ namespace Sifh.ReportGenerator.DTO
             this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
             this.InvoiceDate = receivingNote.InvoiceDate;
             this.ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString();
+            //this.VesselDocument = receivingNote.VesselCertificate.VesselDocument;
+            //this.CustomerDocument = receivingNote.CustomerFiles.CustomerDocument;
         }
 
 
@@ -61,7 +63,10 @@ namespace Sifh.ReportGenerator.DTO
         public string AirwayBillNumber { get; set; }
         public string ProductionDate { get; set; }
         public string ReceivingLotIdentifierMRC { get; set; }
-
         public int BoxNumber { get; set; }
+
+        //public byte[] VesselDocument { get; set; }
+        //public byte[] CustomerDocument { get; set; }
+        public int VesselIDForLicence { get; set; }
     }
 }

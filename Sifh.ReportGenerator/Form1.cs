@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Sifh.ReportGenerator
     {
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
+        public string fileName;
+        public byte[] fileContent;
         public Form1()
         {
             InitializeComponent();
@@ -42,13 +45,15 @@ namespace Sifh.ReportGenerator
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
+                var vesselID = row.VesselID;
                 var reportRNId = row.ReceivingNoteID;
                 var reportName = comboBoxCustomer.Text.Trim();
                 var fileNameDate = dateTimePicker.Value.ToString("MMMM_dd_yyy");
                 var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + reportRNId + ".xlsx");
+                var filePath = "C:/Users/guilherme/source/repos/brendongreene/Sifh.ReportGenerator/Sifh.ReportGenerator/bin/Debug";
 
 
-                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row);
+                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row, filePath);
             }
         }
 
@@ -68,11 +73,22 @@ namespace Sifh.ReportGenerator
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
+            Form2 form = new Form2();
+            form.Show();
         }
 
         private void ribbonControl1_Click(object sender, EventArgs e)
         {
-           
+
+            Form2 form = new Form2();
+            form.Show();
+        }
+
+        private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+            Form2 form = new Form2();
+            form.Show();
         }
     }
 }
