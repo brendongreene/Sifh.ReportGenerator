@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using OfficeOpenXml;
 using Sifh.ReportGenerator.DTO;
 
@@ -239,6 +240,7 @@ namespace Sifh.ReportGenerator.Core
                 }
                 package.Save();
             }
+            MessageBox.Show("Report(s) have been generated");
         }
 
        

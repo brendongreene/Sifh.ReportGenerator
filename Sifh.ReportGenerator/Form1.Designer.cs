@@ -54,16 +54,24 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemGetDocument = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemAddDocument = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemAddVesselDocument = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemGetVesselDocument = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemAddCustomerFiles = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemGetCustomerFile = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageVesselDocument = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageCustomerFiles = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
-            this.ribbonPageReportGenerator = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageVesselDocuments = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageCustomerFiles = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -80,7 +88,7 @@
             this.dateEditStartDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateEditStartDate.EditValue = new System.DateTime(2023, 7, 12, 0, 0, 0, 0);
             this.dateEditStartDate.Location = new System.Drawing.Point(107, 59);
-            this.dateEditStartDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateEditStartDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateEditStartDate.Name = "dateEditStartDate";
             this.dateEditStartDate.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateEditStartDate.Properties.Appearance.Options.UseFont = true;
@@ -96,7 +104,7 @@
             this.dateEditEndDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateEditEndDate.EditValue = new System.DateTime(2023, 7, 12, 0, 0, 0, 0);
             this.dateEditEndDate.Location = new System.Drawing.Point(107, 99);
-            this.dateEditEndDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateEditEndDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateEditEndDate.Name = "dateEditEndDate";
             this.dateEditEndDate.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateEditEndDate.Properties.Appearance.Options.UseFont = true;
@@ -135,7 +143,7 @@
             this.simpleButtonExecute.Appearance.Options.UseFont = true;
             this.simpleButtonExecute.Cursor = System.Windows.Forms.Cursors.Hand;
             this.simpleButtonExecute.Location = new System.Drawing.Point(303, 90);
-            this.simpleButtonExecute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButtonExecute.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonExecute.Name = "simpleButtonExecute";
             this.simpleButtonExecute.Size = new System.Drawing.Size(52, 27);
             this.simpleButtonExecute.TabIndex = 6;
@@ -144,10 +152,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2);
             this.gridControl1.Location = new System.Drawing.Point(9, 279);
             this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(2);
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(1112, 284);
             this.gridControl1.TabIndex = 7;
@@ -172,7 +180,7 @@
             this.simpleButtonGenerateMCCReports.Appearance.Options.UseFont = true;
             this.simpleButtonGenerateMCCReports.Cursor = System.Windows.Forms.Cursors.Hand;
             this.simpleButtonGenerateMCCReports.Location = new System.Drawing.Point(947, 538);
-            this.simpleButtonGenerateMCCReports.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButtonGenerateMCCReports.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonGenerateMCCReports.Name = "simpleButtonGenerateMCCReports";
             this.simpleButtonGenerateMCCReports.Size = new System.Drawing.Size(173, 37);
             this.simpleButtonGenerateMCCReports.TabIndex = 8;
@@ -350,25 +358,119 @@
             // 
             // ribbonControl1
             // 
+            this.ribbonControl1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
+            this.ribbonControl1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.ribbonControl1.ExpandCollapseItem});
+            this.ribbonControl1.ExpandCollapseItem,
+            this.barButtonItem1,
+            this.barButtonItemGetDocument,
+            this.barButtonItemAddDocument,
+            this.barButtonItemAddVesselDocument,
+            this.barButtonItemGetVesselDocument,
+            this.barButtonItemAddCustomerFiles,
+            this.barButtonItemGetCustomerFile});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.ribbonControl1.MaxItemId = 2;
+            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.ribbonControl1.MaxItemId = 11;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.ribbonPageReportGenerator,
-            this.ribbonPageVesselDocuments,
+            this.ribbonPageVesselDocument,
             this.ribbonPageCustomerFiles});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.TabletOffice;
             this.ribbonControl1.Size = new System.Drawing.Size(1135, 80);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
+            this.ribbonControl1.Click += new System.EventHandler(this.ribbonControl1_Click);
+            // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "barButtonItem1";
+            this.barButtonItem1.Id = 2;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
+            // barButtonItemGetDocument
+            // 
+            this.barButtonItemGetDocument.Caption = "GET VESSEL LICENCE";
+            this.barButtonItemGetDocument.Id = 5;
+            this.barButtonItemGetDocument.Name = "barButtonItemGetDocument";
+            this.barButtonItemGetDocument.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            // 
+            // barButtonItemAddDocument
+            // 
+            this.barButtonItemAddDocument.Caption = "ADD A LICENCE";
+            this.barButtonItemAddDocument.Id = 6;
+            this.barButtonItemAddDocument.Name = "barButtonItemAddDocument";
+            this.barButtonItemAddDocument.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            // 
+            // barButtonItemAddVesselDocument
+            // 
+            this.barButtonItemAddVesselDocument.Caption = "ADD A VESSEL LICENCE";
+            this.barButtonItemAddVesselDocument.Id = 7;
+            this.barButtonItemAddVesselDocument.Name = "barButtonItemAddVesselDocument";
+            this.barButtonItemAddVesselDocument.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick_1);
+            // 
+            // barButtonItemGetVesselDocument
+            // 
+            this.barButtonItemGetVesselDocument.Caption = "GET VESSEL LICENCE";
+            this.barButtonItemGetVesselDocument.Id = 8;
+            this.barButtonItemGetVesselDocument.Name = "barButtonItemGetVesselDocument";
+            // 
+            // barButtonItemAddCustomerFiles
+            // 
+            this.barButtonItemAddCustomerFiles.Caption = "ADD CUSTOMER FILE";
+            this.barButtonItemAddCustomerFiles.Id = 9;
+            this.barButtonItemAddCustomerFiles.Name = "barButtonItemAddCustomerFiles";
+            // 
+            // barButtonItemGetCustomerFile
+            // 
+            this.barButtonItemGetCustomerFile.Caption = "GET CUSTOMER ITEMS";
+            this.barButtonItemGetCustomerFile.Id = 10;
+            this.barButtonItemGetCustomerFile.Name = "barButtonItemGetCustomerFile";
+            // 
+            // ribbonPageVesselDocument
+            // 
+            this.ribbonPageVesselDocument.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup3,
+            this.ribbonPageGroup1});
+            this.ribbonPageVesselDocument.Name = "ribbonPageVesselDocument";
+            this.ribbonPageVesselDocument.Text = "  VESSEL DOCUMNETATION";
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItemAddVesselDocument);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItemGetVesselDocument);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
+            // 
+            // ribbonPageCustomerFiles
+            // 
+            this.ribbonPageCustomerFiles.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup2,
+            this.ribbonPageGroup4});
+            this.ribbonPageCustomerFiles.Name = "ribbonPageCustomerFiles";
+            this.ribbonPageCustomerFiles.Text = "CUSTOMER ADDITIONAL FILES";
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItemAddCustomerFiles);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
+            // 
+            // ribbonPageGroup4
+            // 
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonItemGetCustomerFile);
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
             // 
             // ribbonStatusBar1
             // 
             this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 607);
-            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(2);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
             this.ribbonStatusBar1.Size = new System.Drawing.Size(1135, 31);
@@ -378,46 +480,15 @@
             this.ribbonPage2.Name = "ribbonPage2";
             this.ribbonPage2.Text = "ribbonPage2";
             // 
-            // ribbonPageReportGenerator
-            // 
-            this.ribbonPageReportGenerator.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1});
-            this.ribbonPageReportGenerator.Name = "ribbonPageReportGenerator";
-            this.ribbonPageReportGenerator.Text = "Report Generator";
-            // 
             // ribbonPage6
             // 
             this.ribbonPage6.Name = "ribbonPage6";
             this.ribbonPage6.Text = "ribbonPage6";
             // 
-            // ribbonPageGroup1
+            // ribbonPage3
             // 
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
-            // 
-            // ribbonPageVesselDocuments
-            // 
-            this.ribbonPageVesselDocuments.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup2});
-            this.ribbonPageVesselDocuments.Name = "ribbonPageVesselDocuments";
-            this.ribbonPageVesselDocuments.Text = "Vessel Documents";
-            // 
-            // ribbonPageGroup2
-            // 
-            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
-            // 
-            // ribbonPageCustomerFiles
-            // 
-            this.ribbonPageCustomerFiles.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup3});
-            this.ribbonPageCustomerFiles.Name = "ribbonPageCustomerFiles";
-            this.ribbonPageCustomerFiles.Text = "Customer Files";
-            // 
-            // ribbonPageGroup3
-            // 
-            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            this.ribbonPage3.Name = "ribbonPage3";
+            this.ribbonPage3.Text = "ribbonPage3";
             // 
             // Form1
             // 
@@ -432,7 +503,7 @@
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -484,13 +555,21 @@
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageReportGenerator;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage6;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageVesselDocuments;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageCustomerFiles;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageVesselDocument;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemGetDocument;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemAddDocument;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemAddVesselDocument;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemGetVesselDocument;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemAddCustomerFiles;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageCustomerFiles;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemGetCustomerFile;
     }
 }
 

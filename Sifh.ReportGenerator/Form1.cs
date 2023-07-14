@@ -65,5 +65,14 @@ namespace Sifh.ReportGenerator
             this.comboBoxCustomer.ValueMember = "CustomerId";
         }
 
+        private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+        }
+
+        private void ribbonControl1_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
