@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using Sifh.ReportGenerator.DTO;
 using Sifh.ReportGenerator.Repository;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Sifh.ReportGenerator
 {
@@ -21,6 +23,7 @@ namespace Sifh.ReportGenerator
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
         public string fileName;
         public byte[] fileContent;
+        public string cn = "data source=mis.sifishhouse.com;initial catalog=sifhmis;user id=bgreene;password=@Kw5408bi;MultipleActiveResultSets=True;App=EntityFramework";
         public Form1()
         {
             InitializeComponent();
@@ -40,25 +43,72 @@ namespace Sifh.ReportGenerator
             gridControl1.DataSource = results.ToList();
         }
 
-        private void simpleButtonGenerateMCCReports_Click(object sender, EventArgs e)
+        private void simpleButtonGenerateReports_Click(object sender, EventArgs e)
         {
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
                 var vesselID = row.VesselID;
+                var vesselName = row.VesselName;
                 var reportRNId = row.ReceivingNoteID;
-                var reportName = comboBoxCustomer.Text.Trim();
+                var reportName = comboBoxCustomer.Text.ToString();
                 var fileNameDate = dateTimePicker.Value.ToString("MMMM_dd_yyy");
+
+                var productionDate = DateTime.Parse(row.ProductionDate);
+                var productionDateMonth = productionDate.ToString("MMMM");
+
+
+
+
+                var archivePath = $"{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{row.VesselName}"; 
                 var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + reportRNId + ".xlsx");
-                var filePath = "C:/Users/guilherme/source/repos/brendongreene/Sifh.ReportGenerator/Sifh.ReportGenerator/bin/Debug";
+
+
+
+                if (!Directory.Exists(archivePath))
+                {
+                    Directory.CreateDirectory(archivePath);
+                }
+                var filePath = Path.Combine(archivePath,newFile.Name);
 
 
                 _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row, filePath);
+
+                //_reportGenerator.TemplateFile = "";
+                if (reportName == "Great Ocean LLC")
+                {
+                    newFile = new FileInfo("Required_" + reportName + "_" + vesselName + "_" + reportRNId + ".xlsx");
+                    filePath = Path.Combine(archivePath, newFile.Name);
+                    _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, newFile, row, filePath);
+                }
+
+                byte[] fileContent;
+
+                using (SqlConnection connection = new SqlConnection(cn))
+                {
+                    connection.Open();
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = $"SELECT VesselDocument FROM VesselCertificate WHERE VesselID = {vesselID}";
+                        fileContent = (byte[])command.ExecuteScalar();
+                    }
+                }
+
+                if (fileContent != null)
+                {
+                   var licensePath = $"{archivePath}\\{vesselName}_licence.pdf";
+                    File.WriteAllBytes(licensePath, fileContent);
+                }
+                else
+                {
+                    MessageBox.Show($"{vesselName}'s licence NOT found");
+                }
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dateTimePicker.Value = DateTime.Now;
             var customers = _repositoryHelper.GetCustomers().Select(x => new CustomerView()
             {
                 CustomerID = x.CustomerID,

@@ -50,15 +50,19 @@ namespace Sifh.ReportGenerator.Core
 
 
         public FileInfo TemplateFile { get; set; }
+        public FileInfo Marumi { get; set; }
         private List<ExcelTemplateInfo> excelTemplateData = new List<ExcelTemplateInfo>();
         private ExcelTemplateInfo modelCatchData = new ExcelTemplateInfo();
         private ExcelTemplateInfo modelReprocessingData = new ExcelTemplateInfo();
         private ExcelTemplateInfo modelTransshippingData = new ExcelTemplateInfo();
+        private ExcelTemplateInfo SummaryVesselData = new ExcelTemplateInfo();
+        private ExcelTemplateInfo FirstReceiverData = new ExcelTemplateInfo();
 
 
         public ReportGenerator()
         {
             TemplateFile = new FileInfo(@"Excel Templates\Templates.xlsx");
+            Marumi = new FileInfo(@"Excel Templates\Marumi.xlsx");
             Setup();
         }
 
@@ -215,6 +219,52 @@ namespace Sifh.ReportGenerator.Core
                     CellAddress = "C35"
                 }
             });
+            FirstReceiverData.ExcelValues.AddRange(new[]
+          {
+                new ReportValue()
+                {
+                    MappingFieldName = "Quantity",
+                    CellAddress = "J22"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "RegistrationNumber",
+                    CellAddress = "L22"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "VesselName",
+                    CellAddress = "K21"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "ProductionDate",
+                    CellAddress = "C22"
+                }
+            });
+            SummaryVesselData.ExcelValues.AddRange(new[]
+          {
+                new ReportValue()
+                {
+                    MappingFieldName = "Quantity",
+                    CellAddress = "J19"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "ProductionDate",
+                    CellAddress = "L19"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "RegistrationNumber",
+                    CellAddress = "C11"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "VesselName",
+                    CellAddress = "C10"
+                }
+            });
 
         }
 
@@ -244,7 +294,28 @@ namespace Sifh.ReportGenerator.Core
             }
             MessageBox.Show("Report(s) have been generated");
         }
+        public void GenerateExcelReportCustomer(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath)
+        {
+            newFile = new FileInfo(filePath);
 
-       
+            using (var package = new ExcelPackage(newFile, Marumi))
+            {
+                var workbook = package.Workbook;
+                SummaryVesselData.ProcessRecord(receivingNoteView);
+                foreach (var excelInfo in SummaryVesselData.ExcelValues)
+                {
+                    workbook.Worksheets["SVR"].Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                }
+                FirstReceiverData.ProcessRecord(receivingNoteView);
+                foreach (var excelInfo in FirstReceiverData.ExcelValues)
+                {
+                    workbook.Worksheets["FRR"].Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                }
+                package.Save();
+            }
+            MessageBox.Show($"Additional files for {receivingNoteView.CustomerName}");
+        }
+
+
     }
 }

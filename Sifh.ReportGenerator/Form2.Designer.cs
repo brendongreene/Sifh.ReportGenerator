@@ -151,9 +151,9 @@
             this.label8.Location = new System.Drawing.Point(56, 26);
             this.label8.Name = "label8";
             this.label8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label8.Size = new System.Drawing.Size(235, 42);
+            this.label8.Size = new System.Drawing.Size(218, 42);
             this.label8.TabIndex = 3;
-            this.label8.Text = "VIEW A FILE";
+            this.label8.Text = "GET A FILE";
             // 
             // comboBoxCustomerName1
             // 
@@ -257,9 +257,9 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(14, 26);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(318, 42);
+            this.label4.Size = new System.Drawing.Size(301, 42);
             this.label4.TabIndex = 4;
-            this.label4.Text = "VIEW A LICENCE";
+            this.label4.Text = "GET A LICENCE";
             // 
             // comboBoxVesselName1
             // 

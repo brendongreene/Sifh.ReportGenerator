@@ -67,6 +67,8 @@
             this.ribbonPage6 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
+            this.entityCommand2 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -81,7 +83,7 @@
             // dateEditStartDate
             // 
             this.dateEditStartDate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dateEditStartDate.EditValue = new System.DateTime(2023, 7, 12, 0, 0, 0, 0);
+            this.dateEditStartDate.EditValue = null;
             this.dateEditStartDate.Location = new System.Drawing.Point(107, 59);
             this.dateEditStartDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateEditStartDate.Name = "dateEditStartDate";
@@ -91,13 +93,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditStartDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dateEditStartDate.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.dateEditStartDate.Size = new System.Drawing.Size(162, 26);
             this.dateEditStartDate.TabIndex = 4;
             // 
             // dateEditEndDate
             // 
             this.dateEditEndDate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dateEditEndDate.EditValue = new System.DateTime(2023, 7, 12, 0, 0, 0, 0);
+            this.dateEditEndDate.EditValue = null;
             this.dateEditEndDate.Location = new System.Drawing.Point(107, 99);
             this.dateEditEndDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateEditEndDate.Name = "dateEditEndDate";
@@ -107,6 +110,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditEndDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dateEditEndDate.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.dateEditEndDate.Size = new System.Drawing.Size(162, 26);
             this.dateEditEndDate.TabIndex = 5;
             // 
@@ -174,13 +178,13 @@
             this.simpleButtonGenerateMCCReports.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButtonGenerateMCCReports.Appearance.Options.UseFont = true;
             this.simpleButtonGenerateMCCReports.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButtonGenerateMCCReports.Location = new System.Drawing.Point(947, 538);
+            this.simpleButtonGenerateMCCReports.Location = new System.Drawing.Point(948, 566);
             this.simpleButtonGenerateMCCReports.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonGenerateMCCReports.Name = "simpleButtonGenerateMCCReports";
             this.simpleButtonGenerateMCCReports.Size = new System.Drawing.Size(173, 37);
             this.simpleButtonGenerateMCCReports.TabIndex = 8;
             this.simpleButtonGenerateMCCReports.Text = "GENERATE REPORTS";
-            this.simpleButtonGenerateMCCReports.Click += new System.EventHandler(this.simpleButtonGenerateMCCReports_Click);
+            this.simpleButtonGenerateMCCReports.Click += new System.EventHandler(this.simpleButtonGenerateReports_Click);
             // 
             // comboBoxCustomer
             // 
@@ -241,7 +245,7 @@
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(241, 22);
             this.dateTimePicker.TabIndex = 2;
-            this.dateTimePicker.Value = new System.DateTime(2023, 7, 12, 0, 0, 0, 0);
+            this.dateTimePicker.Value = new System.DateTime(2023, 7, 16, 0, 0, 0, 0);
             // 
             // label6
             // 
@@ -446,6 +450,22 @@
             this.ribbonPage4.Name = "ribbonPage4";
             this.ribbonPage4.Text = "ribbonPage4";
             // 
+            // entityCommand1
+            // 
+            this.entityCommand1.CommandTimeout = 0;
+            this.entityCommand1.CommandTree = null;
+            this.entityCommand1.Connection = null;
+            this.entityCommand1.EnablePlanCaching = true;
+            this.entityCommand1.Transaction = null;
+            // 
+            // entityCommand2
+            // 
+            this.entityCommand2.CommandTimeout = 0;
+            this.entityCommand2.CommandTree = null;
+            this.entityCommand2.Connection = null;
+            this.entityCommand2.EnablePlanCaching = true;
+            this.entityCommand2.Transaction = null;
+            // 
             // Form1
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -521,6 +541,8 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
         private DevExpress.XtraBars.BarButtonItem barButtonItemGetCustomerFile;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage4;
+        private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
+        private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand2;
     }
 }
 
