@@ -75,7 +75,7 @@ namespace Sifh.ReportGenerator
                 _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row, filePath);
 
                 //_reportGenerator.TemplateFile = "";
-                if (reportName == "Great Ocean LLC")
+                if (reportName == "Maruni")
                 {
                     newFile = new FileInfo("Required_" + reportName + "_" + vesselName + "_" + reportRNId + ".xlsx");
                     filePath = Path.Combine(archivePath, newFile.Name);
