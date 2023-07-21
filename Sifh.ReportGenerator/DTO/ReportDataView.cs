@@ -65,6 +65,11 @@ namespace Sifh.ReportGenerator.DTO
         public string ReceivingLotIdentifierMRC { get; set; }
         public int BoxNumber { get; set; }
 
+        public string ConductorName { get; set; }
+        public string ConductorLicense { get; set; }
+
+        public string TruckLicense { get; set; }
+
         //public byte[] VesselDocument { get; set; }
         //public byte[] CustomerDocument { get; set; }
         public int VesselIDForLicence { get; set; }

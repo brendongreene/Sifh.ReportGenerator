@@ -42,6 +42,7 @@ namespace Sifh.ReportGenerator.Model
         public virtual StatusClass StatusClass { get; set; }
 
         public virtual Vessel Vessel { get; set; }
+
         //public virtual VesselCertificate VesselCertificate { get; set; }
         //public virtual CustomerFiles CustomerFiles { get; set; }
 

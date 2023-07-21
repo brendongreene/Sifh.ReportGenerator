@@ -69,6 +69,7 @@
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             this.entityCommand2 = new System.Data.Entity.Core.EntityClient.EntityCommand();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -466,12 +467,23 @@
             this.entityCommand2.EnablePlanCaching = true;
             this.entityCommand2.Transaction = null;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(518, 197);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1135, 638);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.simpleButtonGenerateMCCReports);
@@ -543,6 +555,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage4;
         private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
         private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

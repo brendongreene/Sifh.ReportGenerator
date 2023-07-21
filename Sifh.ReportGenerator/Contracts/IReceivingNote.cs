@@ -15,7 +15,4 @@ namespace Sifh.ReportGenerator.Contracts
         string CheckNumber2 { get; set; }
         DateTime DateCreated { get; set; }
     }
-
-
-
 }

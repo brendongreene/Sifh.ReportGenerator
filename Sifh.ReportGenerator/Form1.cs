@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using Sifh.ReportGenerator.DTO;
 using Sifh.ReportGenerator.Repository;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+
 
 namespace Sifh.ReportGenerator
 {
     public partial class Form1 : DevExpress.XtraBars.Ribbon.RibbonForm
     {
+        private string conductorID;
+        private string truckID;
+        Form3 form = new Form3();
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
         public string fileName;
@@ -29,8 +25,21 @@ namespace Sifh.ReportGenerator
             InitializeComponent();
         }
 
-        private void simpleButtonExecute_Click(object sender, EventArgs e)
+        private async void simpleButtonExecute_Click(object sender, EventArgs e)
         {
+            
+            if (comboBoxCustomer.Text.ToString() == "Great Ocean LLC")
+            {
+                form.DataReady += Form3_DataReady;
+                form.TruckData += Form3_TruckData;
+                form.ShowDialog();
+            }
+
+            var conductorID = Convert.ToInt32(this.conductorID);
+            var truckID = Convert.ToInt32(this.truckID);
+
+            var conductor = await _repositoryHelper.GetConductorByIDAsync(conductorID);
+            var truck = await _repositoryHelper.GetTruckByIDAsync(truckID);
             var results = _repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime);
 
             foreach (var result in results)
@@ -39,19 +48,35 @@ namespace Sifh.ReportGenerator
                 result.CustomerName = comboBoxCustomer.Text.Trim();
                 result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
                 result.BoxNumber = Int32.Parse(textBoxNumberOfBoxes.Text);
+                result.ConductorName = conductor.Name;
+                result.ConductorLicense = conductor.LicenseNumber;
+                result.TruckLicense = truck.License;
+
+               
             }
             gridControl1.DataSource = results.ToList();
         }
 
+        private void Form3_DataReady(object sender, string ConductorID)
+        {
+            conductorID = ConductorID;
+        }
+
+        private void Form3_TruckData(object sender, string TruckID)
+        {
+            truckID = TruckID;
+        }
+
         private void simpleButtonGenerateReports_Click(object sender, EventArgs e)
         {
+            var reportName = comboBoxCustomer.Text.ToString();
+           
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
                 var vesselID = row.VesselID;
                 var vesselName = row.VesselName;
                 var reportRNId = row.ReceivingNoteID;
-                var reportName = comboBoxCustomer.Text.ToString();
                 var fileNameDate = dateTimePicker.Value.ToString("MMMM_dd_yyy");
 
                 var productionDate = DateTime.Parse(row.ProductionDate);
@@ -75,12 +100,13 @@ namespace Sifh.ReportGenerator
                 _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row, filePath);
 
                 //_reportGenerator.TemplateFile = "";
-                if (reportName == "Maruni")
+                if (reportName == "Great Ocean LLC")
                 {
                     newFile = new FileInfo("Required_" + reportName + "_" + vesselName + "_" + reportRNId + ".xlsx");
                     filePath = Path.Combine(archivePath, newFile.Name);
                     _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, newFile, row, filePath);
                 }
+
 
                 byte[] fileContent;
 
@@ -129,7 +155,6 @@ namespace Sifh.ReportGenerator
 
         private void ribbonControl1_Click(object sender, EventArgs e)
         {
-
             Form2 form = new Form2();
             form.Show();
         }
@@ -138,6 +163,12 @@ namespace Sifh.ReportGenerator
         {
 
             Form2 form = new Form2();
+            form.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form3 form = new Form3();
             form.Show();
         }
     }

@@ -57,6 +57,7 @@ namespace Sifh.ReportGenerator.Core
         private ExcelTemplateInfo modelTransshippingData = new ExcelTemplateInfo();
         private ExcelTemplateInfo SummaryVesselData = new ExcelTemplateInfo();
         private ExcelTemplateInfo FirstReceiverData = new ExcelTemplateInfo();
+        private ExcelTemplateInfo TransportReportData = new ExcelTemplateInfo();
 
 
         public ReportGenerator()
@@ -265,6 +266,29 @@ namespace Sifh.ReportGenerator.Core
                     CellAddress = "C10"
                 }
             });
+            TransportReportData.ExcelValues.AddRange(new[]
+    {
+                new ReportValue()
+                {
+                    MappingFieldName = "ConductorName",
+                    CellAddress = "E5"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "TruckLicense",
+                    CellAddress = "E6"
+                },
+                 new ReportValue()
+                {
+                    MappingFieldName = "ConductorLicense",
+                    CellAddress = "E7"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "BoxNumber",
+                    CellAddress = "D15"
+                }
+            });
 
         }
 
@@ -311,11 +335,14 @@ namespace Sifh.ReportGenerator.Core
                 {
                     workbook.Worksheets["FRR"].Cells[excelInfo.CellAddress].Value = excelInfo.Value;
                 }
+                TransportReportData.ProcessRecord(receivingNoteView);
+                foreach (var excelInfo in TransportReportData.ExcelValues)
+                {
+                    workbook.Worksheets["TR"].Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                }
                 package.Save();
             }
             MessageBox.Show($"Additional files for {receivingNoteView.CustomerName}");
         }
-
-
     }
 }
