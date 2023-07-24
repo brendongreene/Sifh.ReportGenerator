@@ -89,6 +89,11 @@ namespace Sifh.ReportGenerator
             this.comboBoxConductor.DataSource = conductors.ToList();
             this.comboBoxConductor.DisplayMember = "Name";
             this.comboBoxConductor.ValueMember = "ConductorID";
+
+            var trucks = _repositoryHelper.GetTrucks().OrderBy(x => x.License);
+            this.comboBoxTruck.DataSource = trucks.ToList();
+            this.comboBoxTruck.DisplayMember = "License";
+            this.comboBoxTruck.ValueMember = "TruckID";
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -109,6 +114,11 @@ namespace Sifh.ReportGenerator
                     command.ExecuteNonQuery();
                 }
             }
+            MessageBox.Show($"{truckLicense}'s added.");
+            var trucks = _repositoryHelper.GetTrucks().OrderBy(x => x.License);
+            this.comboBoxTruck.DataSource = trucks.ToList();
+            this.comboBoxTruck.DisplayMember = "License";
+            this.comboBoxTruck.ValueMember = "TruckID";
         }
 
         private void buttonAddConductor_Click(object sender, EventArgs e)
@@ -134,11 +144,10 @@ namespace Sifh.ReportGenerator
             this.comboBoxConductor.ValueMember = "ConductorID";
         }
 
-        private void buttonRemoveConductor_Click(object sender, EventArgs e)
+        private async void buttonRemoveConductor_Click(object sender, EventArgs e)
         {
             var conductorlID = Convert.ToInt32(comboBoxConductor.SelectedValue);
-            var conductorName = _repositoryHelper.GetConductorByIDAsync(conductorlID);
-
+            var conductorName = await _repositoryHelper.GetConductorByIDAsync(conductorlID);
 
             using (SqlConnection connection = new SqlConnection(cn))
             {
@@ -148,12 +157,34 @@ namespace Sifh.ReportGenerator
                     command.CommandText = $"DELETE FROM Conductor WHERE ConductorID = {conductorlID}";
                     command.ExecuteNonQuery();
                 }
-                MessageBox.Show($"{conductorName.Result.Name} removed.");
-                var conductors = _repositoryHelper.GetConductors().OrderBy(x => x.FirstName);
-                this.comboBoxConductor.DataSource = conductors.ToList();
-                this.comboBoxConductor.DisplayMember = "Name";
-                this.comboBoxConductor.ValueMember = "ConductorID";
             }
+            MessageBox.Show($"{conductorName.Name} removed.");
+            var conductors = _repositoryHelper.GetConductors().OrderBy(x => x.FirstName);
+            this.comboBoxConductor.DataSource = conductors.ToList();
+            this.comboBoxConductor.DisplayMember = "Name";
+            this.comboBoxConductor.ValueMember = "ConductorID";
+        }
+
+        private async void buttonRemoveTruck_ClickAsync(object sender, EventArgs e)
+        {
+            var truckID = Convert.ToInt32(comboBoxTruck.SelectedValue);
+            var truck =  await _repositoryHelper.GetTruckByIDAsync(truckID);
+
+
+            using (SqlConnection connection = new SqlConnection(cn))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = $"DELETE FROM Truck WHERE TruckID = {truckID}";
+                    command.ExecuteNonQuery();
+                }
+            }
+            MessageBox.Show($"{truck.License} removed.");
+            var trucks = _repositoryHelper.GetTrucks().OrderBy(x => x.License);
+            this.comboBoxTruck.DataSource = trucks.ToList();
+            this.comboBoxTruck.DisplayMember = "License";
+            this.comboBoxTruck.ValueMember = "TruckID";
         }
     }
 }

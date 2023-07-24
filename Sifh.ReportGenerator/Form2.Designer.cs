@@ -36,6 +36,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.buttonRemoveConductor = new System.Windows.Forms.Button();
+            this.comboBoxConductor = new System.Windows.Forms.ComboBox();
             this.textBoxConductorLicense = new System.Windows.Forms.TextBox();
             this.textBoxLastName = new System.Windows.Forms.TextBox();
             this.textBoxFirstName = new System.Windows.Forms.TextBox();
@@ -57,9 +60,9 @@
             this.comboBoxVesselName = new System.Windows.Forms.ComboBox();
             this.buttonAddLicence = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxConductor = new System.Windows.Forms.ComboBox();
-            this.buttonRemoveConductor = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBoxTruck = new System.Windows.Forms.ComboBox();
+            this.buttonRemoveTruck = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -155,6 +158,38 @@
             this.panel6.Size = new System.Drawing.Size(468, 259);
             this.panel6.TabIndex = 9;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(199, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "CONDUCTOR";
+            // 
+            // buttonRemoveConductor
+            // 
+            this.buttonRemoveConductor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonRemoveConductor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveConductor.Location = new System.Drawing.Point(201, 117);
+            this.buttonRemoveConductor.Name = "buttonRemoveConductor";
+            this.buttonRemoveConductor.Size = new System.Drawing.Size(99, 24);
+            this.buttonRemoveConductor.TabIndex = 10;
+            this.buttonRemoveConductor.Text = "REMOVE";
+            this.buttonRemoveConductor.UseVisualStyleBackColor = true;
+            this.buttonRemoveConductor.Click += new System.EventHandler(this.buttonRemoveConductor_Click);
+            // 
+            // comboBoxConductor
+            // 
+            this.comboBoxConductor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxConductor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxConductor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxConductor.FormattingEnabled = true;
+            this.comboBoxConductor.Location = new System.Drawing.Point(202, 83);
+            this.comboBoxConductor.Name = "comboBoxConductor";
+            this.comboBoxConductor.Size = new System.Drawing.Size(176, 26);
+            this.comboBoxConductor.TabIndex = 8;
+            // 
             // textBoxConductorLicense
             // 
             this.textBoxConductorLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -232,6 +267,9 @@
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.buttonRemoveTruck);
+            this.panel5.Controls.Add(this.comboBoxTruck);
+            this.panel5.Controls.Add(this.label14);
             this.panel5.Controls.Add(this.textBoxTruckLicense);
             this.panel5.Controls.Add(this.label6);
             this.panel5.Controls.Add(this.buttonAddTruck);
@@ -369,38 +407,37 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "CHOOSE VESSEL:";
             // 
-            // comboBoxConductor
+            // label14
             // 
-            this.comboBoxConductor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.comboBoxConductor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxConductor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxConductor.FormattingEnabled = true;
-            this.comboBoxConductor.Location = new System.Drawing.Point(202, 83);
-            this.comboBoxConductor.Name = "comboBoxConductor";
-            this.comboBoxConductor.Size = new System.Drawing.Size(176, 26);
-            this.comboBoxConductor.TabIndex = 8;
-            this.comboBoxConductor.SelectedIndexChanged += new System.EventHandler(this.comboBoxConductor_SelectedIndexChanged);
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(55, 104);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(95, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "CHOOSE TRUCK:";
             // 
-            // buttonRemoveConductor
+            // comboBoxTruck
             // 
-            this.buttonRemoveConductor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonRemoveConductor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveConductor.Location = new System.Drawing.Point(201, 117);
-            this.buttonRemoveConductor.Name = "buttonRemoveConductor";
-            this.buttonRemoveConductor.Size = new System.Drawing.Size(99, 24);
-            this.buttonRemoveConductor.TabIndex = 10;
-            this.buttonRemoveConductor.Text = "REMOVE";
-            this.buttonRemoveConductor.UseVisualStyleBackColor = true;
-            this.buttonRemoveConductor.Click += new System.EventHandler(this.buttonRemoveConductor_Click);
+            this.comboBoxTruck.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxTruck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTruck.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxTruck.FormattingEnabled = true;
+            this.comboBoxTruck.Location = new System.Drawing.Point(58, 120);
+            this.comboBoxTruck.Name = "comboBoxTruck";
+            this.comboBoxTruck.Size = new System.Drawing.Size(171, 26);
+            this.comboBoxTruck.TabIndex = 12;
             // 
-            // label4
+            // buttonRemoveTruck
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(199, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "CONDUCTOR";
+            this.buttonRemoveTruck.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonRemoveTruck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveTruck.Location = new System.Drawing.Point(265, 121);
+            this.buttonRemoveTruck.Name = "buttonRemoveTruck";
+            this.buttonRemoveTruck.Size = new System.Drawing.Size(99, 24);
+            this.buttonRemoveTruck.TabIndex = 12;
+            this.buttonRemoveTruck.Text = "REMOVE";
+            this.buttonRemoveTruck.UseVisualStyleBackColor = true;
+            this.buttonRemoveTruck.Click += new System.EventHandler(this.buttonRemoveTruck_ClickAsync);
             // 
             // Form2
             // 
@@ -461,5 +498,8 @@
         private System.Windows.Forms.ComboBox comboBoxConductor;
         private System.Windows.Forms.Button buttonRemoveConductor;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonRemoveTruck;
+        private System.Windows.Forms.ComboBox comboBoxTruck;
+        private System.Windows.Forms.Label label14;
     }
 }
