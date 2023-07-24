@@ -25,6 +25,7 @@ namespace Sifh.ReportGenerator.DTO
             this.ReferenceNumber = receivingNote.ReferenceNumber;
             this.VesselName = receivingNote.Vessel.VesselName;
             this.Quantity = receivingNote.ReceivingNoteItems.Sum(x => x.Quantity);
+            this.NetQuantity = this.Quantity*conversionToKg;
             this.LineItems = receivingNote.ReceivingNoteItems.Count();
             this.RegistrationNumber = receivingNote.Vessel.RegistrationNumber;
             this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
@@ -42,6 +43,7 @@ namespace Sifh.ReportGenerator.DTO
                 return DateCreated.ToString("MMMM dd yyyy", CultureInfo.InvariantCulture);
             }
         }
+        public decimal conversionToKg = 0.45m;
         public int ReceivingNoteID { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public string ReferenceNumber { get; set; }
@@ -56,6 +58,7 @@ namespace Sifh.ReportGenerator.DTO
         public string RegistrationNumber { get; set; }
 
         public decimal Quantity { get; set; }
+        public decimal NetQuantity { get; set; }
         public int LineItems { get; set; }
         public string ProductName { get; set; }
 

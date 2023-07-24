@@ -56,55 +56,20 @@ namespace Sifh.ReportGenerator
             }
         }
 
-        private void buttonGetLicence_Click(object sender, EventArgs e)
+        private void buttonRemoveLicence_Click(object sender, EventArgs e)
         {
-            byte[] fileContent;
             var vesselID = Convert.ToInt32(comboBoxVesselName1.SelectedValue);
-            var vesselName = Convert.ToString(comboBoxVesselName1.Text);
+            var vesselName = comboBoxVesselName.Text;
 
             using (SqlConnection connection = new SqlConnection(cn))
             {
                 connection.Open();
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = $"SELECT VesselDocument FROM VesselCertificate WHERE VesselID = {vesselID}";
-                    fileContent = (byte[])command.ExecuteScalar();
+                    command.CommandText = $"DELETE FROM VesselCertificate WHERE VesselID = {vesselID}";
+                    command.ExecuteNonQuery();
                 }
-            }
-
-            if (fileContent != null)
-            {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "PDF Files (*.pdf)|*.pdf";
-                DialogResult result = saveFileDialog1.ShowDialog();
-
-                if (result == DialogResult.OK)
-                {
-                    string filePath = saveFileDialog1.FileName;
-
-                    using (MemoryStream ms = new MemoryStream(fileContent))
-                    {
-                        Document document = new Document();
-                        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
-                        document.Open();
-                        PdfContentByte cb = writer.DirectContent;
-                        PdfReader reader = new PdfReader(ms);
-                        for (int pageNum = 1; pageNum <= reader.NumberOfPages; pageNum++)
-                        {
-                            document.NewPage();
-                            PdfImportedPage page = writer.GetImportedPage(reader, pageNum);
-                            cb.AddTemplate(page, 0, 0);
-                        }
-                        document.Close();
-                        reader.Close();
-                    }
-
-                    MessageBox.Show($"{vesselName}'s licence was retrieved");
-                }
-            }
-            else
-            {
-                MessageBox.Show($"{vesselName}'s licence NOT found");
+                MessageBox.Show($"{vesselName}'s licence removed.");
             }
         }
 
@@ -119,11 +84,76 @@ namespace Sifh.ReportGenerator
             this.comboBoxVesselName1.DataSource = vessels.ToList();
             this.comboBoxVesselName1.DisplayMember = "VesselName";
             this.comboBoxVesselName1.ValueMember = "VesselID";
+
+            var conductors = _repositoryHelper.GetConductors().OrderBy(x => x.FirstName);
+            this.comboBoxConductor.DataSource = conductors.ToList();
+            this.comboBoxConductor.DisplayMember = "Name";
+            this.comboBoxConductor.ValueMember = "ConductorID";
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonAddTruck_Click(object sender, EventArgs e)
+        {
+            var truckLicense = textBoxTruckLicense.Text;
+
+            using (SqlConnection connection = new SqlConnection(cn))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = $"INSERT INTO Truck (License) VALUES ('{truckLicense}')";
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void buttonAddConductor_Click(object sender, EventArgs e)
+        {
+            var FirstName = textBoxFirstName.Text;
+            var LastNAme = textBoxLastName.Text;
+            var name = FirstName + " " + LastNAme;
+            var ConductorLicense = textBoxConductorLicense.Text;
+
+            using (SqlConnection connection = new SqlConnection(cn))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = $"INSERT INTO Conductor (FirstName, LastName, LicenseNumber) VALUES ('{FirstName}', '{LastNAme}', '{ConductorLicense}')";
+                    command.ExecuteNonQuery();
+                }
+            }
+            MessageBox.Show($"{name}'s added.");
+            var conductors = _repositoryHelper.GetConductors().OrderBy(x => x.FirstName);
+            this.comboBoxConductor.DataSource = conductors.ToList();
+            this.comboBoxConductor.DisplayMember = "Name";
+            this.comboBoxConductor.ValueMember = "ConductorID";
+        }
+
+        private void buttonRemoveConductor_Click(object sender, EventArgs e)
+        {
+            var conductorlID = Convert.ToInt32(comboBoxConductor.SelectedValue);
+            var conductorName = _repositoryHelper.GetConductorByIDAsync(conductorlID);
+
+
+            using (SqlConnection connection = new SqlConnection(cn))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = $"DELETE FROM Conductor WHERE ConductorID = {conductorlID}";
+                    command.ExecuteNonQuery();
+                }
+                MessageBox.Show($"{conductorName.Result.Name} removed.");
+                var conductors = _repositoryHelper.GetConductors().OrderBy(x => x.FirstName);
+                this.comboBoxConductor.DataSource = conductors.ToList();
+                this.comboBoxConductor.DisplayMember = "Name";
+                this.comboBoxConductor.ValueMember = "ConductorID";
+            }
         }
     }
 }

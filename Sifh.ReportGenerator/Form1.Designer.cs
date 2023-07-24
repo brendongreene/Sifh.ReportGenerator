@@ -418,7 +418,7 @@
             this.ribbonPageVesselDocument.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup3});
             this.ribbonPageVesselDocument.Name = "ribbonPageVesselDocument";
-            this.ribbonPageVesselDocument.Text = "ADDITIONAL FILES";
+            this.ribbonPageVesselDocument.Text = "ADIMIN ";
             // 
             // ribbonPageGroup3
             // 

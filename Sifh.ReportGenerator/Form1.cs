@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Sifh.ReportGenerator.DTO;
 using Sifh.ReportGenerator.Repository;
 using System.Diagnostics;
-
+using System.Configuration;
 
 namespace Sifh.ReportGenerator
 {
@@ -138,6 +138,9 @@ namespace Sifh.ReportGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+          this.textBoxArchiveFolder.Text =  ConfigurationManager.AppSettings["ArchivePath"].ToString();
+
             dateTimePicker.Value = DateTime.Now;
             var customers = _repositoryHelper.GetCustomers().Select(x => new CustomerView()
             {

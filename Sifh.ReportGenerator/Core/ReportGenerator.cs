@@ -287,6 +287,11 @@ namespace Sifh.ReportGenerator.Core
                 {
                     MappingFieldName = "BoxNumber",
                     CellAddress = "D15"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "NetQuantity",
+                    CellAddress = "G15"
                 }
             });
 
