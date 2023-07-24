@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Sifh.ReportGenerator.DTO;
 using Sifh.ReportGenerator.Repository;
+using System.Diagnostics;
 
 
 namespace Sifh.ReportGenerator
@@ -14,6 +15,7 @@ namespace Sifh.ReportGenerator
     {
         private string conductorID;
         private string truckID;
+        private string textBoxPath;
         Form3 form = new Form3();
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
@@ -85,7 +87,9 @@ namespace Sifh.ReportGenerator
 
 
 
-                var archivePath = $"{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{row.VesselName}"; 
+                var archivePath = $"{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{row.VesselName}";
+                var textBoxPath = $"{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}";
+                textBoxArchiveFolder.Text = textBoxPath;
                 var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + reportRNId + ".xlsx");
 
 
@@ -170,6 +174,20 @@ namespace Sifh.ReportGenerator
         {
             Form3 form = new Form3();
             form.Show();
+        }
+
+        private void buttonShow_Click(object sender, EventArgs e)
+        {
+            string folderPath = textBoxArchiveFolder.Text;
+
+            if (Directory.Exists(folderPath))
+            {
+                Process.Start("explorer.exe", folderPath);
+            }
+            else
+            {
+                MessageBox.Show("The specified folder path does not exist.");
+            }
         }
     }
 }
