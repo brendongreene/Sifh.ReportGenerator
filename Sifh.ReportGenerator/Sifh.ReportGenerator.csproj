@@ -106,6 +106,7 @@
     <Compile Include="Contracts\ICustomer.cs" />
     <Compile Include="Contracts\ITruck.cs" />
     <Compile Include="Contracts\IVesselView.cs" />
+    <Compile Include="Core\ExelToPDF.cs" />
     <Compile Include="Core\GenericImporter.cs" />
     <Compile Include="Core\ReportGenerator.cs" />
     <Compile Include="DTO\CustomerView.cs" />
