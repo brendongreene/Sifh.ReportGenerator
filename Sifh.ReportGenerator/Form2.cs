@@ -103,6 +103,11 @@ namespace Sifh.ReportGenerator
 
         private void buttonAddTruck_Click(object sender, EventArgs e)
         {
+            if (textBoxTruckLicense.Text == string.Empty)
+            {
+                MessageBox.Show("Enter license");
+                return;
+            }
             var truckLicense = textBoxTruckLicense.Text;
 
             using (SqlConnection connection = new SqlConnection(cn))
@@ -123,6 +128,24 @@ namespace Sifh.ReportGenerator
 
         private void buttonAddConductor_Click(object sender, EventArgs e)
         {
+            if(textBoxFirstName.Text == string.Empty && textBoxLastName.Text == string.Empty && textBoxConductorLicense.Text == string.Empty)
+            {
+                MessageBox.Show("Enter first name, last name and conductor's license number");
+                return;
+            } else if (textBoxFirstName.Text == string.Empty)
+            {
+                MessageBox.Show("Enter first name");
+                return;
+            } else if(textBoxLastName.Text == string.Empty)
+            {
+                MessageBox.Show("Enterlast name");
+                return;
+            } else if(textBoxConductorLicense.Text == string.Empty)
+            {
+                MessageBox.Show("Enter conductor's license");
+                return;
+            }
+
             var FirstName = textBoxFirstName.Text;
             var LastNAme = textBoxLastName.Text;
             var name = FirstName + " " + LastNAme;

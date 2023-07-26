@@ -32,7 +32,37 @@ namespace Sifh.ReportGenerator
 
         private async void simpleButtonExecute_Click(object sender, EventArgs e)
         {
-            
+            if (textBoxAirwayBillNumber.Text == string.Empty && textBoxNumberOfBoxes.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter Airway Bill Number snf number of boxes");
+                return;
+            }
+            else if (textBoxAirwayBillNumber.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter Airway Bill Number");
+                return;
+            }
+            else if (textBoxNumberOfBoxes.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter number of boxes");
+                return;
+            }
+
+            if(dateEditStartDate.Text == string.Empty && dateEditEndDate.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter start date and end date");
+                return;
+            } else if (dateEditStartDate.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter start date");
+                return;
+            } else if (dateEditEndDate.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter end date");
+                return;
+            }
+
+
             if (comboBoxCustomer.Text.ToString() == "Great Ocean LLC")
             {
                 form.DataReady += Form3_DataReady;
