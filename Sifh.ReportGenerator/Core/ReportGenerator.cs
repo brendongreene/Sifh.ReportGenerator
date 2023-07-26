@@ -297,7 +297,7 @@ namespace Sifh.ReportGenerator.Core
 
         }
 
-        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath)
+        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath, int fileType)
         {
             newFile = new FileInfo(filePath);
 
@@ -321,7 +321,6 @@ namespace Sifh.ReportGenerator.Core
                 }
                 package.Save();
             }
-            MessageBox.Show("Report(s) have been generated");
         }
         public void GenerateExcelReportCustomer(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath)
         {
@@ -347,7 +346,6 @@ namespace Sifh.ReportGenerator.Core
                 }
                 package.Save();
             }
-            MessageBox.Show($"Additional files for {receivingNoteView.CustomerName}");
         }
     }
 }

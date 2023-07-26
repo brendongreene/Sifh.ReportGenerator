@@ -1,38 +1,21 @@
-﻿using OfficeOpenXml;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.IO;
-
-
+﻿using Aspose.Cells;
+using Aspose.Cells.Rendering;
 
 namespace Sifh.ReportGenerator.Core
 {
-    internal class ExelToPDF
+    internal class ExcelToPDF
     {
-        public void ConvertExcelToPdfUsingEPPlus(string excelFilePath, string pdfFilePath)
+        public void ConvertExcelToPdfUsingAspose(string excelFilePath, string pdfFilePath)
         {
-            using (ExcelPackage package = new ExcelPackage(new FileInfo(excelFilePath)))
+            Workbook workbook = new Workbook(excelFilePath);
+
+            PdfSaveOptions saveOptions = new PdfSaveOptions
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                AllColumnsInOnePagePerSheet = true,
+                Compliance = PdfCompliance.PdfA1b
+            };
 
-                using (FileStream pdfStream = new FileStream(pdfFilePath, FileMode.Create))
-                {
-                    Document pdfDocument = new Document(PageSize.A4);
-                    PdfWriter.GetInstance(pdfDocument, pdfStream);
-                    pdfDocument.Open();
-
-                    for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
-                    {
-                        for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
-                        {
-                            string cellValue = worksheet.Cells[row, col].Value?.ToString() ?? "";
-                            pdfDocument.Add(new Paragraph(cellValue));
-                        }
-                    }
-
-                    pdfDocument.Close();
-                }
-            }
+            workbook.Save(pdfFilePath, saveOptions);
         }
     }
 }

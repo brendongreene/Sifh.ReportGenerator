@@ -72,6 +72,7 @@
             this.textBoxArchiveFolder = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonShow = new System.Windows.Forms.Button();
+            this.comboBoxFileType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -181,12 +182,12 @@
             this.simpleButtonGenerateMCCReports.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButtonGenerateMCCReports.Appearance.Options.UseFont = true;
             this.simpleButtonGenerateMCCReports.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButtonGenerateMCCReports.Location = new System.Drawing.Point(948, 566);
+            this.simpleButtonGenerateMCCReports.Location = new System.Drawing.Point(1026, 566);
             this.simpleButtonGenerateMCCReports.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonGenerateMCCReports.Name = "simpleButtonGenerateMCCReports";
-            this.simpleButtonGenerateMCCReports.Size = new System.Drawing.Size(173, 37);
+            this.simpleButtonGenerateMCCReports.Size = new System.Drawing.Size(95, 37);
             this.simpleButtonGenerateMCCReports.TabIndex = 8;
-            this.simpleButtonGenerateMCCReports.Text = "GENERATE REPORTS";
+            this.simpleButtonGenerateMCCReports.Text = "GENETARE";
             this.simpleButtonGenerateMCCReports.Click += new System.EventHandler(this.simpleButtonGenerateReports_Click);
             // 
             // comboBoxCustomer
@@ -500,12 +501,24 @@
             this.buttonShow.UseVisualStyleBackColor = true;
             this.buttonShow.Click += new System.EventHandler(this.buttonShow_Click);
             // 
+            // comboBoxFileType
+            // 
+            this.comboBoxFileType.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFileType.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxFileType.FormattingEnabled = true;
+            this.comboBoxFileType.Location = new System.Drawing.Point(952, 572);
+            this.comboBoxFileType.Name = "comboBoxFileType";
+            this.comboBoxFileType.Size = new System.Drawing.Size(72, 27);
+            this.comboBoxFileType.TabIndex = 32;
+            // 
             // Form1
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1135, 638);
+            this.Controls.Add(this.comboBoxFileType);
             this.Controls.Add(this.buttonShow);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBoxArchiveFolder);
@@ -583,6 +596,7 @@
         private System.Windows.Forms.TextBox textBoxArchiveFolder;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button buttonShow;
+        private System.Windows.Forms.ComboBox comboBoxFileType;
     }
 }
 

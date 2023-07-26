@@ -8,6 +8,9 @@ using Sifh.ReportGenerator.DTO;
 using Sifh.ReportGenerator.Repository;
 using System.Diagnostics;
 using System.Configuration;
+using Sifh.ReportGenerator.Model;
+using Sifh.ReportGenerator.Core;
+using System.Collections.Generic;
 
 namespace Sifh.ReportGenerator
 {
@@ -15,10 +18,10 @@ namespace Sifh.ReportGenerator
     {
         private string conductorID;
         private string truckID;
-        private string textBoxPath;
         Form3 form = new Form3();
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
+        private Core.ExcelToPDF _exelToPDF = new Core.ExcelToPDF();
         public string fileName;
         public byte[] fileContent;
         public string cn = "data source=mis.sifishhouse.com;initial catalog=sifhmis;user id=bgreene;password=@Kw5408bi;MultipleActiveResultSets=True;App=EntityFramework";
@@ -50,11 +53,12 @@ namespace Sifh.ReportGenerator
                 result.CustomerName = comboBoxCustomer.Text.Trim();
                 result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
                 result.BoxNumber = Int32.Parse(textBoxNumberOfBoxes.Text);
-                result.ConductorName = conductor.Name;
-                result.ConductorLicense = conductor.LicenseNumber;
-                result.TruckLicense = truck.License;
-
-               
+                if (comboBoxCustomer.Text.ToString() == "Great Ocean LLC")
+                {
+                    result.ConductorName = conductor.Name;
+                    result.ConductorLicense = conductor.LicenseNumber;
+                    result.TruckLicense = truck.License;
+                }
             }
             gridControl1.DataSource = results.ToList();
         }
@@ -100,8 +104,20 @@ namespace Sifh.ReportGenerator
                 }
                 var filePath = Path.Combine(archivePath,newFile.Name);
 
+                var fileType = Int32.Parse(comboBoxFileType.SelectedValue.ToString());
 
-                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row, filePath);
+                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row, filePath, fileType);
+
+                if (fileType == 2)
+                {
+                    string pdfFilePath = Path.ChangeExtension(filePath, ".pdf");
+                    _exelToPDF.ConvertExcelToPdfUsingAspose(filePath, pdfFilePath);
+                    MessageBox.Show("PDF report have been generated");
+                }
+                else
+                {
+                    MessageBox.Show("Report(s) have been generated");
+                }
 
                 //_reportGenerator.TemplateFile = "";
                 if (reportName == "Great Ocean LLC")
@@ -109,6 +125,18 @@ namespace Sifh.ReportGenerator
                     newFile = new FileInfo("Required_" + reportName + "_" + vesselName + "_" + reportRNId + ".xlsx");
                     filePath = Path.Combine(archivePath, newFile.Name);
                     _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, newFile, row, filePath);
+
+                    if (fileType == 2)
+                    {
+                        string pdfFilePath = Path.ChangeExtension(filePath, ".pdf");
+                        _exelToPDF.ConvertExcelToPdfUsingAspose(filePath, pdfFilePath);
+
+                        MessageBox.Show("PDF for additional files have been generated");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Additional files for {reportName}");
+                    }
                 }
 
 
@@ -151,6 +179,14 @@ namespace Sifh.ReportGenerator
             this.comboBoxCustomer.DataSource = customers.ToList();
             this.comboBoxCustomer.DisplayMember = "CustomerName";
             this.comboBoxCustomer.ValueMember = "CustomerId";
+
+            List<FileType> fileType = new List<FileType>();
+            fileType.Add(new FileType { Type = ".xlsx", ID = 1 });
+            fileType.Add(new FileType { Type = ".pdf", ID = 2 });
+
+            comboBoxFileType.DataSource = fileType;
+            comboBoxFileType.DisplayMember = "Type";
+            comboBoxFileType.ValueMember = "ID";
         }
 
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
