@@ -105,6 +105,11 @@ namespace Sifh.ReportGenerator
 
         private void simpleButtonGenerateReports_Click(object sender, EventArgs e)
         {
+            if(gridView1.SelectedRowsCount == 0)
+            {
+                MessageBox.Show("Make sure the grid was generated and at least 1 row was selected");
+                return;
+            }
             var reportName = comboBoxCustomer.Text.ToString();
            
             foreach (var rowHandle in gridView1.GetSelectedRows())
