@@ -14,7 +14,7 @@ namespace Sifh.ReportGenerator.DTO
 
         public ReportDataView()
         {
-
+            ReceivingNoteDetails = new List<ReceivingNoteItemView>();
         }
 
         public ReportDataView(ReceivingNote receivingNote)
@@ -31,6 +31,8 @@ namespace Sifh.ReportGenerator.DTO
             this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
             this.InvoiceDate = receivingNote.InvoiceDate;
             this.ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString();
+
+            this.ReceivingNoteDetails = receivingNote.ReceivingNoteItems.Select(x => new ReceivingNoteItemView(x)).ToList();
             //this.VesselDocument = receivingNote.VesselCertificate.VesselDocument;
             //this.CustomerDocument = receivingNote.CustomerFiles.CustomerDocument;
         }
@@ -76,5 +78,8 @@ namespace Sifh.ReportGenerator.DTO
         //public byte[] VesselDocument { get; set; }
         //public byte[] CustomerDocument { get; set; }
         public int VesselIDForLicence { get; set; }
+
+
+        public List<ReceivingNoteItemView> ReceivingNoteDetails { get; set; }
     }
 }

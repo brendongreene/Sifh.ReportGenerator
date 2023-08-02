@@ -39,6 +39,9 @@
     <Reference Include="Aspose.Cells, Version=23.7.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <HintPath>..\packages\Aspose.Cells.23.7.0\lib\net40\Aspose.Cells.dll</HintPath>
     </Reference>
+    <Reference Include="Aspose.PDF, Version=23.7.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.PDF.23.7.0\lib\net4.0\Aspose.PDF.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -113,6 +116,7 @@
     <Compile Include="Core\GenericImporter.cs" />
     <Compile Include="Core\ReportGenerator.cs" />
     <Compile Include="DTO\CustomerView.cs" />
+    <Compile Include="DTO\ReceivingNoteItemView.cs" />
     <Compile Include="DTO\ReportDataView.cs" />
     <Compile Include="DTO\ConductorView.cs" />
     <Compile Include="DTO\TruckView.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="Model\FileType.cs" />
     <Compile Include="Model\GradeClass.cs" />
     <Compile Include="Contracts\IReceivingNote.cs" />
+    <Compile Include="Contracts\IReceivingNoteItem.cs" />
     <Compile Include="Model\NextOrderNumber.cs" />
     <Compile Include="Model\PackingList.cs" />
     <Compile Include="Model\Product.cs" />

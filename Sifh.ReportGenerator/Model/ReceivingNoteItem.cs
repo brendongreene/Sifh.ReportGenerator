@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Sifh.ReportGenerator.Model
 {
     [Table("ReceivingNoteItem")]
-    public partial class ReceivingNoteItem
+    public partial class ReceivingNoteItem : IReceivingNoteItem
     {
         public int ReceivingNoteItemID { get; set; }
 

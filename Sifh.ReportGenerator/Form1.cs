@@ -32,6 +32,8 @@ namespace Sifh.ReportGenerator
 
         private async void simpleButtonExecute_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             if (textBoxAirwayBillNumber.Text == string.Empty && textBoxNumberOfBoxes.Text == string.Empty)
             {
                 MessageBox.Show("Please enter Airway Bill Number snf number of boxes");
@@ -91,6 +93,8 @@ namespace Sifh.ReportGenerator
                 }
             }
             gridControl1.DataSource = results.ToList();
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void Form3_DataReady(object sender, string ConductorID)
@@ -126,8 +130,8 @@ namespace Sifh.ReportGenerator
 
 
 
-                var archivePath = $"{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{row.VesselName}";
-                var textBoxPath = $"{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}";
+                var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{row.VesselName}";
+                var textBoxPath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}";
                 textBoxArchiveFolder.Text = textBoxPath;
                 var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + reportRNId + ".xlsx");
 
@@ -172,29 +176,30 @@ namespace Sifh.ReportGenerator
                     {
                         MessageBox.Show($"Additional files for {reportName}");
                     }
-                }
 
 
-                byte[] fileContent;
 
-                using (SqlConnection connection = new SqlConnection(cn))
-                {
-                    connection.Open();
-                    using (SqlCommand command = connection.CreateCommand())
+                    byte[] fileContent;
+
+                    using (SqlConnection connection = new SqlConnection(cn))
                     {
-                        command.CommandText = $"SELECT VesselDocument FROM VesselCertificate WHERE VesselID = {vesselID}";
-                        fileContent = (byte[])command.ExecuteScalar();
+                        connection.Open();
+                        using (SqlCommand command = connection.CreateCommand())
+                        {
+                            command.CommandText = $"SELECT VesselDocument FROM VesselCertificate WHERE VesselID = {vesselID}";
+                            fileContent = (byte[])command.ExecuteScalar();
+                        }
                     }
-                }
 
-                if (fileContent != null)
-                {
-                   var licensePath = $"{archivePath}\\{vesselName}_licence.pdf";
-                    File.WriteAllBytes(licensePath, fileContent);
-                }
-                else
-                {
-                    MessageBox.Show($"{vesselName}'s licence NOT found");
+                    if (fileContent != null)
+                    {
+                        var licensePath = $"{archivePath}\\{vesselName}_licence.pdf";
+                        File.WriteAllBytes(licensePath, fileContent);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"{vesselName}'s licence NOT found");
+                    }
                 }
             }
         }
@@ -262,6 +267,12 @@ namespace Sifh.ReportGenerator
             {
                 MessageBox.Show("The specified folder path does not exist.");
             }
+        }
+
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            this.dateEditStartDate.EditValue = dateTimePicker.Value;
+            this.dateEditEndDate.EditValue = dateTimePicker.Value;
         }
     }
 }
