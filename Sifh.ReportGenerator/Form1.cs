@@ -32,11 +32,13 @@ namespace Sifh.ReportGenerator
 
         private async void simpleButtonExecute_Click(object sender, EventArgs e)
         {
+            this.simpleButtonGenerateReports.Enabled = true;
+
             Cursor.Current = Cursors.WaitCursor;
 
             if (textBoxAirwayBillNumber.Text == string.Empty && textBoxNumberOfBoxes.Text == string.Empty)
             {
-                MessageBox.Show("Please enter Airway Bill Number snf number of boxes");
+                MessageBox.Show("Please enter Airway Bill Number and number of boxes");
                 return;
             }
             else if (textBoxAirwayBillNumber.Text == string.Empty)
@@ -92,9 +94,8 @@ namespace Sifh.ReportGenerator
                     result.TruckLicense = truck.License;
                 }
             }
-            gridControl1.DataSource = results.ToList();
-
             Cursor.Current = Cursors.Default;
+            gridControl1.DataSource = results.ToList();
         }
 
         private void Form3_DataReady(object sender, string ConductorID)
@@ -109,11 +110,13 @@ namespace Sifh.ReportGenerator
 
         private void simpleButtonGenerateReports_Click(object sender, EventArgs e)
         {
-            if(gridView1.SelectedRowsCount == 0)
+            Cursor.Current = Cursors.WaitCursor;
+            if (gridView1.SelectedRowsCount == 0)
             {
                 MessageBox.Show("Make sure the grid was generated and at least 1 row was selected");
                 return;
             }
+
             var reportName = comboBoxCustomer.Text.ToString();
            
             foreach (var rowHandle in gridView1.GetSelectedRows())
@@ -202,11 +205,12 @@ namespace Sifh.ReportGenerator
                     }
                 }
             }
+            Cursor.Current = Cursors.Default;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+          this.simpleButtonGenerateReports.Enabled = false;
           this.textBoxArchiveFolder.Text =  ConfigurationManager.AppSettings["ArchivePath"].ToString();
 
             dateTimePicker.Value = DateTime.Now;
@@ -273,6 +277,26 @@ namespace Sifh.ReportGenerator
         {
             this.dateEditStartDate.EditValue = dateTimePicker.Value;
             this.dateEditEndDate.EditValue = dateTimePicker.Value;
+            gridView1.GridControl.DataSource = new List<ReportDataView>();
+        }
+
+        private void addCustomer_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            Form5 form = new Form5();
+            form.FormClosed += Form5_FormClosed;
+            form.Show();
+        }
+
+        private void Form5_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Enabled = true;
+        }
+
+        private void comboBoxCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.simpleButtonGenerateReports.Enabled = false;
+            gridView1.GridControl.DataSource = new List<ReportDataView>();
         }
     }
 }

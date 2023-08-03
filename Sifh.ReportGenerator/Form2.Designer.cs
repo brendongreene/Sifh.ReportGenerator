@@ -48,6 +48,9 @@
             this.buttonAddConductor = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.buttonRemoveTruck = new System.Windows.Forms.Button();
+            this.comboBoxTruck = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.textBoxTruckLicense = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonAddTruck = new System.Windows.Forms.Button();
@@ -60,9 +63,6 @@
             this.comboBoxVesselName = new System.Windows.Forms.ComboBox();
             this.buttonAddLicence = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.comboBoxTruck = new System.Windows.Forms.ComboBox();
-            this.buttonRemoveTruck = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -97,6 +97,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.buttonBack);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.label10);
@@ -133,7 +134,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(120, 3);
+            this.label10.Location = new System.Drawing.Point(25, 3);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(202, 51);
             this.label10.TabIndex = 4;
@@ -279,6 +280,38 @@
             this.panel5.Size = new System.Drawing.Size(468, 161);
             this.panel5.TabIndex = 9;
             // 
+            // buttonRemoveTruck
+            // 
+            this.buttonRemoveTruck.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonRemoveTruck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveTruck.Location = new System.Drawing.Point(265, 121);
+            this.buttonRemoveTruck.Name = "buttonRemoveTruck";
+            this.buttonRemoveTruck.Size = new System.Drawing.Size(99, 24);
+            this.buttonRemoveTruck.TabIndex = 12;
+            this.buttonRemoveTruck.Text = "REMOVE";
+            this.buttonRemoveTruck.UseVisualStyleBackColor = true;
+            this.buttonRemoveTruck.Click += new System.EventHandler(this.buttonRemoveTruck_ClickAsync);
+            // 
+            // comboBoxTruck
+            // 
+            this.comboBoxTruck.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxTruck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTruck.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxTruck.FormattingEnabled = true;
+            this.comboBoxTruck.Location = new System.Drawing.Point(58, 120);
+            this.comboBoxTruck.Name = "comboBoxTruck";
+            this.comboBoxTruck.Size = new System.Drawing.Size(171, 26);
+            this.comboBoxTruck.TabIndex = 12;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(55, 104);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(95, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "CHOOSE TRUCK:";
+            // 
             // textBoxTruckLicense
             // 
             this.textBoxTruckLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -321,14 +354,13 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.buttonRemoveLicence);
             this.panel3.Controls.Add(this.comboBoxVesselName1);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.comboBoxVesselName);
             this.panel3.Controls.Add(this.buttonAddLicence);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(28, 57);
+            this.panel3.Location = new System.Drawing.Point(34, 58);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(380, 175);
             this.panel3.TabIndex = 8;
@@ -336,10 +368,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(93, 8);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(205, 3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(179, 42);
+            this.label3.Size = new System.Drawing.Size(209, 51);
             this.label3.TabIndex = 3;
             this.label3.Text = "LICENCE";
             // 
@@ -347,7 +379,7 @@
             // 
             this.buttonRemoveLicence.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonRemoveLicence.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveLicence.Location = new System.Drawing.Point(217, 120);
+            this.buttonRemoveLicence.Location = new System.Drawing.Point(220, 103);
             this.buttonRemoveLicence.Name = "buttonRemoveLicence";
             this.buttonRemoveLicence.Size = new System.Drawing.Size(99, 26);
             this.buttonRemoveLicence.TabIndex = 7;
@@ -361,7 +393,7 @@
             this.comboBoxVesselName1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxVesselName1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxVesselName1.FormattingEnabled = true;
-            this.comboBoxVesselName1.Location = new System.Drawing.Point(35, 120);
+            this.comboBoxVesselName1.Location = new System.Drawing.Point(38, 103);
             this.comboBoxVesselName1.Name = "comboBoxVesselName1";
             this.comboBoxVesselName1.Size = new System.Drawing.Size(175, 26);
             this.comboBoxVesselName1.TabIndex = 5;
@@ -369,7 +401,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 104);
+            this.label5.Location = new System.Drawing.Point(35, 87);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 13);
             this.label5.TabIndex = 6;
@@ -381,7 +413,7 @@
             this.comboBoxVesselName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxVesselName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxVesselName.FormattingEnabled = true;
-            this.comboBoxVesselName.Location = new System.Drawing.Point(35, 67);
+            this.comboBoxVesselName.Location = new System.Drawing.Point(38, 50);
             this.comboBoxVesselName.Name = "comboBoxVesselName";
             this.comboBoxVesselName.Size = new System.Drawing.Size(176, 26);
             this.comboBoxVesselName.TabIndex = 0;
@@ -390,7 +422,7 @@
             // 
             this.buttonAddLicence.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAddLicence.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddLicence.Location = new System.Drawing.Point(217, 66);
+            this.buttonAddLicence.Location = new System.Drawing.Point(220, 49);
             this.buttonAddLicence.Name = "buttonAddLicence";
             this.buttonAddLicence.Size = new System.Drawing.Size(99, 26);
             this.buttonAddLicence.TabIndex = 1;
@@ -401,43 +433,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 50);
+            this.label2.Location = new System.Drawing.Point(35, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "CHOOSE VESSEL:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(55, 104);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(95, 13);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "CHOOSE TRUCK:";
-            // 
-            // comboBoxTruck
-            // 
-            this.comboBoxTruck.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.comboBoxTruck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTruck.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxTruck.FormattingEnabled = true;
-            this.comboBoxTruck.Location = new System.Drawing.Point(58, 120);
-            this.comboBoxTruck.Name = "comboBoxTruck";
-            this.comboBoxTruck.Size = new System.Drawing.Size(171, 26);
-            this.comboBoxTruck.TabIndex = 12;
-            // 
-            // buttonRemoveTruck
-            // 
-            this.buttonRemoveTruck.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonRemoveTruck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveTruck.Location = new System.Drawing.Point(265, 121);
-            this.buttonRemoveTruck.Name = "buttonRemoveTruck";
-            this.buttonRemoveTruck.Size = new System.Drawing.Size(99, 24);
-            this.buttonRemoveTruck.TabIndex = 12;
-            this.buttonRemoveTruck.Text = "REMOVE";
-            this.buttonRemoveTruck.UseVisualStyleBackColor = true;
-            this.buttonRemoveTruck.Click += new System.EventHandler(this.buttonRemoveTruck_ClickAsync);
             // 
             // Form2
             // 
