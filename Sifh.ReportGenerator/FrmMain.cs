@@ -11,10 +11,13 @@ using System.Configuration;
 using Sifh.ReportGenerator.Model;
 using Sifh.ReportGenerator.Core;
 using System.Collections.Generic;
+using DevExpress.Utils.Menu;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraEditors;
 
 namespace Sifh.ReportGenerator
 {
-    public partial class Form1 : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class FrmMain : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         private string conductorID;
         private string truckID;
@@ -25,13 +28,27 @@ namespace Sifh.ReportGenerator
         public string fileName;
         public byte[] fileContent;
         public string cn = "data source=mis.sifishhouse.com;initial catalog=sifhmis;user id=bgreene;password=@Kw5408bi;MultipleActiveResultSets=True;App=EntityFramework";
-        public Form1()
+
+        private RepositoryItemComboBox riEditComboBox = new RepositoryItemComboBox();
+        private Dictionary<string, int> _boxAssignmentTracker = new Dictionary<string, int>();
+
+        public FrmMain()
         {
             InitializeComponent();
         }
 
         private async void simpleButtonExecute_Click(object sender, EventArgs e)
         {
+            riEditComboBox.Items.Clear();
+            _boxAssignmentTracker.Clear();
+
+            for (int boxCount = 1; boxCount <= Convert.ToInt32(textBoxNumberOfBoxes.Text); boxCount++)
+            {
+                var key = "Box-" + boxCount.ToString();
+                riEditComboBox.Items.Add(key);
+                _boxAssignmentTracker.Add(key, 0);
+            }
+
             this.simpleButtonGenerateReports.Enabled = true;
 
             Cursor.Current = Cursors.WaitCursor;
@@ -52,15 +69,17 @@ namespace Sifh.ReportGenerator
                 return;
             }
 
-            if(dateEditStartDate.Text == string.Empty && dateEditEndDate.Text == string.Empty)
+            if (dateEditStartDate.Text == string.Empty && dateEditEndDate.Text == string.Empty)
             {
                 MessageBox.Show("Please enter start date and end date");
                 return;
-            } else if (dateEditStartDate.Text == string.Empty)
+            }
+            else if (dateEditStartDate.Text == string.Empty)
             {
                 MessageBox.Show("Please enter start date");
                 return;
-            } else if (dateEditEndDate.Text == string.Empty)
+            }
+            else if (dateEditEndDate.Text == string.Empty)
             {
                 MessageBox.Show("Please enter end date");
                 return;
@@ -86,7 +105,7 @@ namespace Sifh.ReportGenerator
                 result.AirwayBillNumber = textBoxAirwayBillNumber.Text;
                 result.CustomerName = comboBoxCustomer.Text.Trim();
                 result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
-                result.BoxNumber = Int32.Parse(textBoxNumberOfBoxes.Text);
+                result.TotalBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
                 if (comboBoxCustomer.Text.ToString() == "Great Ocean LLC")
                 {
                     result.ConductorName = conductor.Name;
@@ -118,7 +137,7 @@ namespace Sifh.ReportGenerator
             }
 
             var reportName = comboBoxCustomer.Text.ToString();
-           
+
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
@@ -144,11 +163,11 @@ namespace Sifh.ReportGenerator
                 {
                     Directory.CreateDirectory(archivePath);
                 }
-                var filePath = Path.Combine(archivePath,newFile.Name);
+                var filePath = Path.Combine(archivePath, newFile.Name);
 
                 var fileType = Int32.Parse(comboBoxFileType.SelectedValue.ToString());
 
-                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile,row, filePath, fileType);
+                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile, row, filePath, fileType);
 
                 if (fileType == 2)
                 {
@@ -210,8 +229,8 @@ namespace Sifh.ReportGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          this.simpleButtonGenerateReports.Enabled = false;
-            this.textBoxArchiveFolder.Text =  ConfigurationManager.AppSettings["ArchivePath"].ToString();
+            this.simpleButtonGenerateReports.Enabled = false;
+            this.textBoxArchiveFolder.Text = ConfigurationManager.AppSettings["ArchivePath"].ToString();
 
             dateTimePicker.Value = DateTime.Now;
             var customers = _repositoryHelper.GetCustomers().Select(x => new CustomerView()
@@ -231,6 +250,10 @@ namespace Sifh.ReportGenerator
             comboBoxFileType.DataSource = fileType;
             comboBoxFileType.DisplayMember = "Type";
             comboBoxFileType.ValueMember = "ID";
+
+            riEditComboBox.EditValueChanged -= RiEditComboBox_EditValueChanged;
+            riEditComboBox.EditValueChanged += RiEditComboBox_EditValueChanged;
+
         }
 
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -313,10 +336,10 @@ namespace Sifh.ReportGenerator
             var packingList = new List<PackingListReportView>();
             var receivingNoteItemsList = new List<ReceivingNoteItemView>();
 
-            foreach(var rowHandle in gridView1.GetSelectedRows())
+            foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
-                foreach(var item in row.ReceivingNoteDetails)
+                foreach (var item in row.ReceivingNoteDetails)
                 {
                     receivingNoteItemsList.Add(new ReceivingNoteItemView(item));
                 }
@@ -352,6 +375,49 @@ namespace Sifh.ReportGenerator
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
         {
+
+
+            var menu = new DXPopupMenu();
+            menu.Caption = ((ReportDataView)gridView1.GetFocusedRow()).VesselName + " Assign BoxNumber";
+
+
+
+            menu.Items.Add(new DXEditMenuItem("Box Number", riEditComboBox, null, null, null, 100, -1));
+
+
+            var clearBoxAssignment = new DXMenuItem("Clear Box Assignment");
+
+            clearBoxAssignment.Click += (object s, EventArgs args) =>
+            {
+
+            };
+            menu.Items.Add(clearBoxAssignment);
+            e.Menu.Items.Add(menu);
+        }
+
+        private void RiEditComboBox_EditValueChanged(object sender, EventArgs e)
+        {
+            var comboBoxEdit = sender as ComboBoxEdit;
+
+            var row = ((ReportDataView)gridView1.GetFocusedRow());
+
+            var key = comboBoxEdit.EditValue.ToString();
+
+            row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
+
+
+            _boxAssignmentTracker[key]++;
+
+            if (_boxAssignmentTracker[key] >= 2)
+            {
+                riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
+
+            }
+        }
+
+        private void AddToBoxMenu_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

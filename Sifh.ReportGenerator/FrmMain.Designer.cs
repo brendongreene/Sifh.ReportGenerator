@@ -1,6 +1,6 @@
 ﻿namespace Sifh.ReportGenerator
 {
-    partial class Form1
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.dateEditStartDate = new DevExpress.XtraEditors.DateEdit();
             this.dateEditEndDate = new DevExpress.XtraEditors.DateEdit();
             this.label1 = new System.Windows.Forms.Label();

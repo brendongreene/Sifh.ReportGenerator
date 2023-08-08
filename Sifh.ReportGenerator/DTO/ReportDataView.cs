@@ -69,6 +69,7 @@ namespace Sifh.ReportGenerator.DTO
         public string ProductionDate { get; set; }
         public string ReceivingLotIdentifierMRC { get; set; }
         public int BoxNumber { get; set; }
+        public int TotalBoxes { get; set; }
 
         public string ConductorName { get; set; }
         public string ConductorLicense { get; set; }
