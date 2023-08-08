@@ -389,7 +389,30 @@ namespace Sifh.ReportGenerator
 
             clearBoxAssignment.Click += (object s, EventArgs args) =>
             {
+                var row = ((ReportDataView)gridView1.GetFocusedRow());
 
+                var key = "Box-" + row.BoxNumber.ToString();
+
+                if (row.BoxNumber == 0)
+                {
+                    MessageBox.Show("No box number is assigned");
+                }
+                else
+                {
+                    if (_boxAssignmentTracker[key] == 2)
+                    {
+                        riEditComboBox.Items.Add("Box-"+row.BoxNumber);
+
+                        List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
+                        riEditComboBox.Items.Clear();
+                        riEditComboBox.Items.AddRange(sortedItems);
+                    }
+                    else if(_boxAssignmentTracker[key] < 2)
+                    {
+                        _boxAssignmentTracker[key]--;
+                    }
+                    row.BoxNumber = 0;
+                }                
             };
             menu.Items.Add(clearBoxAssignment);
             e.Menu.Items.Add(menu);
@@ -403,15 +426,28 @@ namespace Sifh.ReportGenerator
 
             var key = comboBoxEdit.EditValue.ToString();
 
-            row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
+            var oldKey = "Box-" + row.BoxNumber.ToString();
 
-
-            _boxAssignmentTracker[key]++;
-
-            if (_boxAssignmentTracker[key] >= 2)
+            if (row.BoxNumber == Convert.ToInt32(key.Replace("Box-", string.Empty)))
             {
-                riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
+                MessageBox.Show("Choose a different box to replace." );
+            }
+            else
+            {
+                row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
 
+                if (_boxAssignmentTracker.ContainsKey(oldKey) && _boxAssignmentTracker[oldKey] > 0)
+                {
+                    _boxAssignmentTracker[oldKey]--;
+                }
+
+                _boxAssignmentTracker[key]++;
+
+                if (_boxAssignmentTracker[key] >= 2)
+                {
+                    riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
+
+                }
             }
         }
 
