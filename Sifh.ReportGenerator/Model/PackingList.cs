@@ -27,6 +27,13 @@ namespace Sifh.ReportGenerator.Model
 
         public int AirlineID { get; set; }
 
+        public int BoxNumber { get; set; }
+
+        public decimal Weight { get; set; }
+
+        [StringLength(50)]
+        public string BoatName { get; set; }
+
         public virtual Airline Airline { get; set; }
 
         public virtual Customer Customer { get; set; }

@@ -211,7 +211,7 @@ namespace Sifh.ReportGenerator
         private void Form1_Load(object sender, EventArgs e)
         {
           this.simpleButtonGenerateReports.Enabled = false;
-          this.textBoxArchiveFolder.Text =  ConfigurationManager.AppSettings["ArchivePath"].ToString();
+            this.textBoxArchiveFolder.Text =  ConfigurationManager.AppSettings["ArchivePath"].ToString();
 
             dateTimePicker.Value = DateTime.Now;
             var customers = _repositoryHelper.GetCustomers().Select(x => new CustomerView()
@@ -297,6 +297,61 @@ namespace Sifh.ReportGenerator
         {
             this.simpleButtonGenerateReports.Enabled = false;
             gridView1.GridControl.DataSource = new List<ReportDataView>();
+        }
+
+        private void simpleButtonSave_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount == 0)
+            {
+                MessageBox.Show("Select recieving notes from grid!");
+                return;
+            }
+            var airwayBillNumber = textBoxAirwayBillNumber.Text;
+            var customerId = Int32.Parse(comboBoxCustomer.SelectedValue.ToString());
+            var dateCreated = DateTime.Now;
+            var totalBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
+            var packingList = new List<PackingListReportView>();
+            var receivingNoteItemsList = new List<ReceivingNoteItemView>();
+
+            foreach(var rowHandle in gridView1.GetSelectedRows())
+            {
+                var row = gridView1.GetRow(rowHandle) as ReportDataView;
+                foreach(var item in row.ReceivingNoteDetails)
+                {
+                    receivingNoteItemsList.Add(new ReceivingNoteItemView(item));
+                }
+            }
+
+            var boxNumber = 1;
+            int receivingNoteCounter = 0;
+
+            foreach (var receivingNote in receivingNoteItemsList)
+            {
+                var box = new PackingListReportView();
+                box.DateCreated = dateCreated;
+                box.CustomerId = customerId;
+                box.StatusClassId = receivingNote.GradeClassID;
+                box.Weight = receivingNote.Quantity;
+                box.BoatName = _repositoryHelper.GetVesselName(receivingNote.ReceivingNoteID);
+                box.BoxNumber = boxNumber;
+
+                packingList.Add(box);
+
+                receivingNoteCounter++;
+                if (receivingNoteCounter % 2 == 0)
+                {
+                    boxNumber++;
+                }
+            }
+
+            Form6 form6 = new Form6();
+            form6.PackingList = packingList;
+            form6.ShowDialog();
+
+        }
+
+        private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
+        {
         }
     }
 }

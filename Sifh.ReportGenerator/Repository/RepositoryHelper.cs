@@ -26,6 +26,24 @@ namespace Sifh.ReportGenerator.Repository
             }
         }
 
+        public void AddPacingList(PackingListReportView packingListItem)
+        {
+            using (var context = new SifhContext())
+            {
+                var pacingListItemAdd = new PackingList
+                {
+                    AirlineID = 1,
+                    CustomerID = packingListItem.CustomerId,
+                    DateCreated = packingListItem.DateCreated,
+                    Weight = packingListItem.Weight,
+                    BoatName = packingListItem.BoatName,
+                    BoxNumber = packingListItem.BoxNumber
+                };
+                context.PackingLists.Add(pacingListItemAdd);
+                context.SaveChanges();
+            }
+        }
+
         public IEnumerable<IConductor> GetConductors()
         {
             List<IConductor> conductorsList = new List<IConductor>();
@@ -138,6 +156,19 @@ namespace Sifh.ReportGenerator.Repository
             }
 
             return truck;
+        }
+
+        public string GetVesselName(int receivingNoteId)
+        {
+            using (var context = new SifhContext())
+            {
+                var vesselName =
+                    context.ReceivingNotes.Where(x => x.ReceivingNoteID == receivingNoteId).FirstOrDefault();
+
+                var boatName = vesselName.Vessel.VesselName;
+
+                return boatName;
+            }
         }
 
 
