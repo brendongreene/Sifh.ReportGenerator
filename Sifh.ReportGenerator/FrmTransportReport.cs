@@ -17,10 +17,10 @@ using iTextSharp.text;
 
 namespace Sifh.ReportGenerator
 {
-    public partial class Form3 : Form
+    public partial class FrmTransportReport : Form
     {
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
-        public Form3()
+        public FrmTransportReport()
         {
             InitializeComponent();
         }

@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Sifh.ReportGenerator
 {
-    public partial class Form5 : Form
+    public partial class FrmAddCustomer : Form
     {
-        public Form5()
+        public FrmAddCustomer()
         {
             InitializeComponent();
         }

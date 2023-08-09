@@ -21,7 +21,7 @@ namespace Sifh.ReportGenerator
     {
         private string conductorID;
         private string truckID;
-        Form3 form = new Form3();
+        FrmTransportReport form = new FrmTransportReport();
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
         private Core.ExcelToPDF _exelToPDF = new Core.ExcelToPDF();
@@ -259,26 +259,26 @@ namespace Sifh.ReportGenerator
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
-            Form2 form = new Form2();
+            FrmAdmin form = new FrmAdmin();
             form.Show();
         }
 
         private void ribbonControl1_Click(object sender, EventArgs e)
         {
-            Form2 form = new Form2();
+            FrmAdmin form = new FrmAdmin();
             form.Show();
         }
 
         private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
-            Form2 form = new Form2();
+            FrmAdmin form = new FrmAdmin();
             form.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form3 form = new Form3();
+            FrmTransportReport form = new FrmTransportReport();
             form.Show();
         }
 
@@ -306,7 +306,7 @@ namespace Sifh.ReportGenerator
         private void addCustomer_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            Form5 form = new Form5();
+            FrmAddCustomer form = new FrmAddCustomer();
             form.FormClosed += Form5_FormClosed;
             form.Show();
         }
@@ -326,13 +326,10 @@ namespace Sifh.ReportGenerator
         {
             if (gridView1.SelectedRowsCount == 0)
             {
-                MessageBox.Show("Select recieving notes from grid!");
+                MessageBox.Show("Select recieving notes from grid");
                 return;
             }
-            var airwayBillNumber = textBoxAirwayBillNumber.Text;
             var customerId = Int32.Parse(comboBoxCustomer.SelectedValue.ToString());
-            var dateCreated = DateTime.Now;
-            var totalBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
             var packingList = new List<PackingListReportView>();
             var receivingNoteItemsList = new List<ReceivingNoteItemView>();
 
@@ -345,30 +342,27 @@ namespace Sifh.ReportGenerator
                 }
             }
 
-            var boxNumber = 1;
             int receivingNoteCounter = 0;
 
             foreach (var receivingNote in receivingNoteItemsList)
             {
                 var box = new PackingListReportView();
-                box.DateCreated = dateCreated;
+                box.DateCreated = DateTime.Now;
                 box.CustomerId = customerId;
                 box.StatusClassId = receivingNote.GradeClassID;
                 box.Weight = receivingNote.Quantity;
                 box.BoatName = _repositoryHelper.GetVesselName(receivingNote.ReceivingNoteID);
-                box.BoxNumber = boxNumber;
+                
 
                 packingList.Add(box);
 
                 receivingNoteCounter++;
-                if (receivingNoteCounter % 2 == 0)
-                {
-                    boxNumber++;
-                }
             }
 
-            Form6 form6 = new Form6();
+            FrmPackingList form6 = new FrmPackingList();
             form6.PackingList = packingList;
+            form6.BoxAssignmentTracker = _boxAssignmentTracker;
+            form6.RiEditComboBox = riEditComboBox;
             form6.ShowDialog();
 
         }
@@ -401,28 +395,31 @@ namespace Sifh.ReportGenerator
                     foreach (var selectedRow in selectedRows)
                     {
                         var row = gridView1.GetRow(selectedRow) as ReportDataView;
-                        var key = "Box-" + row.BoxNumber.ToString();
 
-                        if (row.BoxNumber == 0)
-                        {
-                            MessageBox.Show("No box number is assigned");
-                        }
-                        else
-                        {
-                            if (_boxAssignmentTracker[key] == 2)
-                            {
-                                riEditComboBox.Items.Add("Box-" + row.BoxNumber);
+                            var key = "Box-" + row.BoxNumber.ToString();
 
-                                List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
-                                riEditComboBox.Items.Clear();
-                                riEditComboBox.Items.AddRange(sortedItems);
-                            }
-                            else if (_boxAssignmentTracker[key] < 2)
+                            if (row.BoxNumber == 0)
                             {
-                                _boxAssignmentTracker[key]--;
+                                MessageBox.Show("No box number is assigned");
                             }
-                            row.BoxNumber = 0;
-                        }
+                            else
+                            {
+                                if (_boxAssignmentTracker[key] == 2)
+                                {
+                                    riEditComboBox.Items.Add("Box-" + row.BoxNumber);
+
+                                    List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
+                                    riEditComboBox.Items.Clear();
+                                    riEditComboBox.Items.AddRange(sortedItems);
+                                }
+                                else if (_boxAssignmentTracker[key] < 2)
+                                {
+                                    _boxAssignmentTracker[key]--;
+                                }
+                                row.BoxNumber = 0;
+                            }
+                        
+                        
                     }
                 }         
             };
@@ -441,35 +438,46 @@ namespace Sifh.ReportGenerator
             if(gridView1.SelectedRowsCount == 0)
             {
                 MessageBox.Show("No row(s) selected");
+                return; 
             } else
             {
                 foreach (var selectedRow in gridView1.GetSelectedRows())
                 {
                     var row = gridView1.GetRow(selectedRow) as ReportDataView;
+                    
+                        var oldKey = "Box-" + row.BoxNumber.ToString();
 
-                    var oldKey = "Box-" + row.BoxNumber.ToString();
-
-                    if (row.BoxNumber == Convert.ToInt32(key.Replace("Box-", string.Empty)))
-                    {
-                        MessageBox.Show("Choose a different box to replace.");
-                    }
-                    else
-                    {
-                        row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
-
-                        if (_boxAssignmentTracker.ContainsKey(oldKey) && _boxAssignmentTracker[oldKey] > 0)
+                        if (row.BoxNumber == Convert.ToInt32(key.Replace("Box-", string.Empty)))
                         {
-                            _boxAssignmentTracker[oldKey]--;
+                            MessageBox.Show("Choose a different box to replace.");
+                            return;
                         }
-
-                        _boxAssignmentTracker[key]++;
-
-                        if (_boxAssignmentTracker[key] >= 2)
+                        else
                         {
-                            riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
+                            row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
 
-                        }
-                    }
+                            if (_boxAssignmentTracker.ContainsKey(oldKey) && _boxAssignmentTracker[oldKey] > 0)
+                            {
+                                _boxAssignmentTracker[oldKey]--;
+                                
+                                if (_boxAssignmentTracker[oldKey] <= 0)
+                                {
+                                    riEditComboBox.Items.Add(oldKey);
+
+                                    List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
+                                    riEditComboBox.Items.Clear();
+                                    riEditComboBox.Items.AddRange(sortedItems);
+                                }
+                            }
+
+                            _boxAssignmentTracker[key]++;
+
+                            if (_boxAssignmentTracker[key] >= 2)
+                            {
+                                riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
+
+                            }
+                        } 
                 }
             }
         }

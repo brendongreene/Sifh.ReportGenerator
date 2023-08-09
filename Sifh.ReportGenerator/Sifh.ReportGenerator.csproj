@@ -123,29 +123,29 @@
     <Compile Include="DTO\ConductorView.cs" />
     <Compile Include="DTO\TruckView.cs" />
     <Compile Include="DTO\VesselView.cs" />
-    <Compile Include="Form2.cs">
+    <Compile Include="FrmAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="FrmAdmin.Designer.cs">
+      <DependentUpon>FrmAdmin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form3.cs">
+    <Compile Include="FrmTransportReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form3.Designer.cs">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <Compile Include="FrmTransportReport.Designer.cs">
+      <DependentUpon>FrmTransportReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form5.cs">
+    <Compile Include="FrmAddCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form5.Designer.cs">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <Compile Include="FrmAddCustomer.Designer.cs">
+      <DependentUpon>FrmAddCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form6.cs">
+    <Compile Include="FrmPackingList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form6.Designer.cs">
-      <DependentUpon>Form6.cs</DependentUpon>
+    <Compile Include="FrmPackingList.Designer.cs">
+      <DependentUpon>FrmPackingList.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmBoxPicker.cs">
       <SubType>Form</SubType>
@@ -181,17 +181,17 @@
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="FrmAdmin.resx">
+      <DependentUpon>FrmAdmin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form3.resx">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <EmbeddedResource Include="FrmTransportReport.resx">
+      <DependentUpon>FrmTransportReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form5.resx">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <EmbeddedResource Include="FrmAddCustomer.resx">
+      <DependentUpon>FrmAddCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form6.resx">
-      <DependentUpon>Form6.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPackingList.resx">
+      <DependentUpon>FrmPackingList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBoxPicker.resx">
       <DependentUpon>FrmBoxPicker.cs</DependentUpon>

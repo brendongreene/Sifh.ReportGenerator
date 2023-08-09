@@ -1,6 +1,6 @@
 ﻿namespace Sifh.ReportGenerator
 {
-    partial class Form3
+    partial class FrmTransportReport
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTransportReport));
             this.comboBoxConductor = new System.Windows.Forms.ComboBox();
             this.comboBoxTruck = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();

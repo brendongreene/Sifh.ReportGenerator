@@ -18,11 +18,11 @@ using iTextSharp.text;
 
 namespace Sifh.ReportGenerator
 {
-    public partial class Form2 : Form
+    public partial class FrmAdmin : Form
     {
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
-        public Form2()
+        public FrmAdmin()
         {
             InitializeComponent();
         }
