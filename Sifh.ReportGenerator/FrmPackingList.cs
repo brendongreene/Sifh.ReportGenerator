@@ -16,8 +16,8 @@ namespace Sifh.ReportGenerator
         public List<PackingListReportView> PackingList { get; set; }
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
 
-        public RepositoryItemComboBox RiEditComboBox { get; set; }
-        public Dictionary<string, int> BoxAssignmentTracker { get; set; }
+        private RepositoryItemComboBox riEditComboBox = new RepositoryItemComboBox();
+        private Dictionary<string, int> _boxAssignmentTracker = new Dictionary<string, int>();
         public FrmPackingList()
         {
             InitializeComponent();
@@ -35,25 +35,39 @@ namespace Sifh.ReportGenerator
         private void Form6_Load(object sender, EventArgs e)
         {
 
+            riEditComboBox.EditValueChanged -= RiEditComboBox_EditValueChanged;
+            riEditComboBox.EditValueChanged += RiEditComboBox_EditValueChanged;
+
             gridControl1.DataSource = PackingList;
+
+            riEditComboBox.Items.Clear();
+            _boxAssignmentTracker.Clear();
+
+            for (int boxCount = 1; boxCount <= PackingList.Count; boxCount++)
+            {
+                var key = "Box-" + boxCount.ToString();
+                riEditComboBox.Items.Add(key);
+                _boxAssignmentTracker.Add(key, 0);
+            }
         }
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
         {
 
+
             var menu = new DXPopupMenu();
-            menu.Caption = ((PackingListReportView)gridView1.GetFocusedRow()).BoatName + " Assign Box Number";
+            menu.Caption = ((PackingListReportView)gridView1.GetFocusedRow()).BoatName + " Assign BoxNumber";
 
 
 
-            menu.Items.Add(new DXEditMenuItem("Box Number", RiEditComboBox, null, null, null, 100, -1));
+            menu.Items.Add(new DXEditMenuItem("Box Number", riEditComboBox, null, null, null, 100, -1));
 
 
             var clearBoxAssignment = new DXMenuItem("Clear Box Assignment");
 
             clearBoxAssignment.Click += (object s, EventArgs args) =>
             {
-                //var row = ((ReportDataView)gridView1.GetFocusedRow());
+                //var row = ((PackingListReportView)gridView1.GetFocusedRow());
                 var selectedRows = gridView1.GetSelectedRows();
 
                 if (gridView1.SelectedRowsCount == 0)
@@ -74,17 +88,17 @@ namespace Sifh.ReportGenerator
                         }
                         else
                         {
-                            if (BoxAssignmentTracker[key] == 2)
+                            if (_boxAssignmentTracker[key] == 2)
                             {
-                                RiEditComboBox.Items.Add("Box-" + row.BoxNumber);
+                                riEditComboBox.Items.Add("Box-" + row.BoxNumber);
 
-                                List<string> sortedItems = RiEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
-                                RiEditComboBox.Items.Clear();
-                                RiEditComboBox.Items.AddRange(sortedItems);
+                                List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
+                                riEditComboBox.Items.Clear();
+                                riEditComboBox.Items.AddRange(sortedItems);
                             }
-                            else if (BoxAssignmentTracker[key] < 2)
+                            else if (_boxAssignmentTracker[key] < 2)
                             {
-                                BoxAssignmentTracker[key]--;
+                                _boxAssignmentTracker[key]--;
                             }
                             row.BoxNumber = 0;
                         }
@@ -122,30 +136,30 @@ namespace Sifh.ReportGenerator
                     {
                         MessageBox.Show("Choose a different box to replace.");
                         return;
-                    }                        
+                    }
                     else
                     {
                         row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
 
-                        if (BoxAssignmentTracker.ContainsKey(oldKey) && BoxAssignmentTracker[oldKey] > 0)
+                        if (_boxAssignmentTracker.ContainsKey(oldKey) && _boxAssignmentTracker[oldKey] > 0)
                         {
-                            BoxAssignmentTracker[oldKey]--;
+                            _boxAssignmentTracker[oldKey]--;
 
-                            if (BoxAssignmentTracker[oldKey] <= 0)
+                            if (_boxAssignmentTracker[oldKey] <= 0)
                             {
-                                RiEditComboBox.Items.Add(oldKey);
+                                riEditComboBox.Items.Add(oldKey);
 
-                                List<string> sortedItems = RiEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
-                                RiEditComboBox.Items.Clear();
-                                RiEditComboBox.Items.AddRange(sortedItems);
+                                List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
+                                riEditComboBox.Items.Clear();
+                                riEditComboBox.Items.AddRange(sortedItems);
                             }
                         }
 
-                        BoxAssignmentTracker[key]++;
+                        _boxAssignmentTracker[key]++;
 
-                        if (BoxAssignmentTracker[key] >= 2)
+                        if (_boxAssignmentTracker[key] >= 2)
                         {
-                            RiEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
+                            riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
 
                         }
                     }

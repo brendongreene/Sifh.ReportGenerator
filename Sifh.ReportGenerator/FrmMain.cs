@@ -361,8 +361,6 @@ namespace Sifh.ReportGenerator
 
             FrmPackingList form6 = new FrmPackingList();
             form6.PackingList = packingList;
-            form6.BoxAssignmentTracker = _boxAssignmentTracker;
-            form6.RiEditComboBox = riEditComboBox;
             form6.ShowDialog();
 
         }
