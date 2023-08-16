@@ -32,7 +32,7 @@ namespace Sifh.ReportGenerator.DTO
             this.InvoiceDate = receivingNote.InvoiceDate;
             this.ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString();
 
-            this.ReceivingNoteDetails = receivingNote.ReceivingNoteItems.Select(x => new ReceivingNoteItemView(x)).ToList();
+            this.ReceivingNoteDetails = receivingNote.ReceivingNoteItems.Where(x => x.PackingListID == null).Select(x => new ReceivingNoteItemView(x)).ToList();
             //this.VesselDocument = receivingNote.VesselCertificate.VesselDocument;
             //this.CustomerDocument = receivingNote.CustomerFiles.CustomerDocument;
         }

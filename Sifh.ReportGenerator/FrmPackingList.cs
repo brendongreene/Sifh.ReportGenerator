@@ -16,6 +16,8 @@ namespace Sifh.ReportGenerator
         public List<PackingListReportView> PackingList { get; set; }
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
 
+        public bool ExecuteButtonClicked { get; private set; }
+
         private RepositoryItemComboBox riEditComboBox = new RepositoryItemComboBox();
         private Dictionary<string, int> _boxAssignmentTracker = new Dictionary<string, int>();
         public FrmPackingList()
@@ -25,11 +27,23 @@ namespace Sifh.ReportGenerator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach(var item in PackingList)
+            var selectedRows = gridView1.GetSelectedRows();
+            if (gridView1.SelectedRowsCount == 0)
             {
-                _repositoryHelper.AddPacingList(item);
+                MessageBox.Show("No row(s) selected");
             }
-            MessageBox.Show("Packing List saved");
+            else
+            {
+                foreach (var selectedRow in selectedRows)
+                {
+                    var row = gridView1.GetRow(selectedRow) as PackingListReportView;
+                    _repositoryHelper.AddPacingList(row);
+                }
+                MessageBox.Show("Packing List saved");
+                ExecuteButtonClicked = true;
+
+                this.Close();
+            }
         }
 
         private void Form6_Load(object sender, EventArgs e)
@@ -102,8 +116,6 @@ namespace Sifh.ReportGenerator
                             }
                             row.BoxNumber = 0;
                         }
-
-
                     }
                 }
             };

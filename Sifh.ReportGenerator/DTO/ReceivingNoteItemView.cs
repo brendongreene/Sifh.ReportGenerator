@@ -16,6 +16,7 @@ namespace Sifh.ReportGenerator.DTO
             this.Quantity = receivingNoteItem.Quantity;
             this.SpeciesCode = receivingNoteItem.SpeciesCode;
             this.ReceivingNoteID = receivingNoteItem.ReceivingNoteID;
+            this.ReceivingNoteItemID = receivingNoteItem.ReceivingNoteItemID;
         }
 
         public int GradeClassID { get; set; }

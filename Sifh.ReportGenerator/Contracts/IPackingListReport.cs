@@ -17,5 +17,7 @@ namespace Sifh.ReportGenerator.Contracts
         int BoxNumber { get; set; }
         decimal Weight { get; set; }
         string BoatName { get; set; }
+        int ReceivingNoteItemID { get; set; }
+        int PackingListNumber { get; set; }
     }
 }

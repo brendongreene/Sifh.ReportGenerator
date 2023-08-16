@@ -24,5 +24,7 @@ namespace Sifh.ReportGenerator.DTO
         public int BoxNumber { get; set; }
         public decimal Weight { get; set; }
         public string BoatName { get; set; }
+        public int ReceivingNoteItemID { get; set; }
+        public int PackingListNumber { get; set; }
     }
 }

@@ -343,6 +343,8 @@ namespace Sifh.ReportGenerator
             }
 
             int receivingNoteCounter = 0;
+            var packingListNumber = _repositoryHelper.GetLastPackingList() + 1;
+
 
             foreach (var receivingNote in receivingNoteItemsList)
             {
@@ -352,6 +354,8 @@ namespace Sifh.ReportGenerator
                 box.StatusClassId = receivingNote.GradeClassID;
                 box.Weight = receivingNote.Quantity;
                 box.BoatName = _repositoryHelper.GetVesselName(receivingNote.ReceivingNoteID);
+                box.ReceivingNoteItemID = receivingNote.ReceivingNoteItemID;
+                box.PackingListNumber = packingListNumber;
                 
 
                 packingList.Add(box);
@@ -361,14 +365,28 @@ namespace Sifh.ReportGenerator
 
             FrmPackingList form6 = new FrmPackingList();
             form6.PackingList = packingList;
+
+            form6.FormClosed += Form6_FormClosed;
+
             form6.ShowDialog();
 
         }
 
+        private void Form6_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (sender is FrmPackingList form6)
+            {
+                form6.FormClosed -= Form6_FormClosed;
+
+                if (form6.ExecuteButtonClicked)
+                {
+                    simpleButtonExecute_Click(sender, e);
+                }
+            }
+        }
+
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
         {
-
-
             var menu = new DXPopupMenu();
             menu.Caption = ((ReportDataView)gridView1.GetFocusedRow()).VesselName + " Assign BoxNumber";
 

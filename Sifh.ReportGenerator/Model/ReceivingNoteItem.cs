@@ -32,6 +32,8 @@ namespace Sifh.ReportGenerator.Model
         [StringLength(16)]
         public string SpeciesCode { get; set; }
 
+        public int? PackingListNumber { get; set; }
+
         public virtual GradeClass GradeClass { get; set; }
 
         public virtual PackingList PackingList { get; set; }

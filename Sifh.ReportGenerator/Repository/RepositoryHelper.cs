@@ -26,6 +26,18 @@ namespace Sifh.ReportGenerator.Repository
             }
         }
 
+        public int GetLastPackingList()
+        {
+            using (var context = new SifhContext())
+            {
+                var packingList = context.PackingLists
+                    .OrderByDescending(x => x.PackingListNumber)
+                    .FirstOrDefault();
+
+                return packingList.PackingListNumber;
+            }
+        }
+
         public void AddPacingList(PackingListReportView packingListItem)
         {
             using (var context = new SifhContext())
@@ -37,10 +49,37 @@ namespace Sifh.ReportGenerator.Repository
                     DateCreated = packingListItem.DateCreated,
                     Weight = packingListItem.Weight,
                     BoatName = packingListItem.BoatName,
-                    BoxNumber = packingListItem.BoxNumber
+                    BoxNumber = packingListItem.BoxNumber,
+                    ReceivingNoteItemID = packingListItem.ReceivingNoteItemID,
+                    PackingListNumber = packingListItem.PackingListNumber
+                    
+                    
                 };
                 context.PackingLists.Add(pacingListItemAdd);
                 context.SaveChanges();
+
+                AddPackingListID(packingListItem.ReceivingNoteItemID);
+            }
+        }
+
+        public void AddPackingListID(int receivingNoteItemID)
+        {
+            using (var context = new SifhContext())
+            {
+                var packingList = context.PackingLists
+                    .Where(x => x.ReceivingNoteItemID == receivingNoteItemID)
+                    .FirstOrDefault();
+
+                var receivingNoteItem = context.ReceivingNoteItems
+                    .Where(x => x.ReceivingNoteItemID == receivingNoteItemID)
+                    .FirstOrDefault();
+
+                if (receivingNoteItem != null && packingList != null)
+                {
+                    receivingNoteItem.PackingListID = packingList.PackingListID;
+                    receivingNoteItem.PackingListNumber = packingList.PackingListNumber;
+                    context.SaveChanges();
+                }
             }
         }
 
