@@ -32,6 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.buttonAddTruck = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.buttonRemoveLicence = new System.Windows.Forms.Button();
             this.comboBoxVesselName1 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -75,9 +75,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(-9, -12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1129, 64);
+            this.panel1.Size = new System.Drawing.Size(1017, 76);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -87,7 +87,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(390, -1);
+            this.label1.Location = new System.Drawing.Point(390, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(184, 55);
             this.label1.TabIndex = 0;
@@ -108,6 +108,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1129, 534);
             this.panel2.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(205, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(207, 51);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "LICENSE";
             // 
             // buttonBack
             // 
@@ -164,9 +174,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(199, 67);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.Size = new System.Drawing.Size(79, 13);
             this.label4.TabIndex = 11;
-            this.label4.Text = "CONDUCTOR";
+            this.label4.Text = "CONDUCTOR:";
             // 
             // buttonRemoveConductor
             // 
@@ -220,9 +230,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(8, 182);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(102, 13);
+            this.label13.Size = new System.Drawing.Size(105, 13);
             this.label13.TabIndex = 5;
-            this.label13.Text = "LICENSE NUMBER";
+            this.label13.Text = "LICENSE NUMBER:";
             // 
             // label12
             // 
@@ -365,16 +375,6 @@
             this.panel3.Size = new System.Drawing.Size(380, 175);
             this.panel3.TabIndex = 8;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(205, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(209, 51);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "LICENCE";
-            // 
             // buttonRemoveLicence
             // 
             this.buttonRemoveLicence.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -403,9 +403,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(35, 87);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 13);
+            this.label5.Size = new System.Drawing.Size(138, 13);
             this.label5.TabIndex = 6;
-            this.label5.Text = "CHOOSE VESSEL:";
+            this.label5.Text = "REMOVE LICENSE FROM:";
             // 
             // comboBoxVesselName
             // 
@@ -437,9 +437,9 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "CHOOSE VESSEL:";
+            this.label2.Text = "ADD LICENSE TO:";
             // 
-            // Form2
+            // FrmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -447,7 +447,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form2";
+            this.Name = "FrmAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ADMIN ";
             this.Load += new System.EventHandler(this.Form2_Load);

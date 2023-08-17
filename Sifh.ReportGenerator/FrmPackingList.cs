@@ -65,10 +65,8 @@ namespace Sifh.ReportGenerator
             }
         }
 
-        private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
+        private void gridView1_PopupMenuShowing_1(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
         {
-
-
             var menu = new DXPopupMenu();
             menu.Caption = ((PackingListReportView)gridView1.GetFocusedRow()).BoatName + " Assign BoxNumber";
 
@@ -98,7 +96,7 @@ namespace Sifh.ReportGenerator
 
                         if (row.BoxNumber == 0)
                         {
-                            MessageBox.Show("No box number is assigned");
+                            gridView1.UnselectRow(selectedRow);
                         }
                         else
                         {
@@ -116,6 +114,7 @@ namespace Sifh.ReportGenerator
                             }
                             row.BoxNumber = 0;
                         }
+                        gridView1.UnselectRow(selectedRow);
                     }
                 }
             };

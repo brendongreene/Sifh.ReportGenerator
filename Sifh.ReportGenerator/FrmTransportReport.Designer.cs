@@ -83,9 +83,9 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.comboBoxConductor);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(247, 242);
+            this.panel1.Location = new System.Drawing.Point(247, 221);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(274, 92);
+            this.panel1.Size = new System.Drawing.Size(274, 113);
             this.panel1.TabIndex = 3;
             // 
             // label4
@@ -114,9 +114,9 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.comboBoxTruck);
-            this.panel2.Location = new System.Drawing.Point(247, 123);
+            this.panel2.Location = new System.Drawing.Point(247, 106);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(274, 92);
+            this.panel2.Size = new System.Drawing.Size(274, 109);
             this.panel2.TabIndex = 4;
             // 
             // label3
@@ -144,9 +144,9 @@
             this.panel3.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label5);
-            this.panel3.Location = new System.Drawing.Point(1, -2);
+            this.panel3.Location = new System.Drawing.Point(-7, -7);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(799, 73);
+            this.panel3.Size = new System.Drawing.Size(813, 76);
             this.panel3.TabIndex = 5;
             // 
             // label5
@@ -159,7 +159,7 @@
             this.label5.TabIndex = 3;
             this.label5.Text = "TRANSPORT REPORT";
             // 
-            // Form3
+            // FrmTransportReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -169,7 +169,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonSave);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form3";
+            this.Name = "FrmTransportReport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TRANSPORT REPORT";
             this.Load += new System.EventHandler(this.Form3_Load);
