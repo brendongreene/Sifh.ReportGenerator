@@ -28,15 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPackingList));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.button1 = new System.Windows.Forms.Button();
+            this.popupMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ComboBoxNumber = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            this.popupMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -102,6 +107,28 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // popupMenu
+            // 
+            this.popupMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTextBox1,
+            this.ComboBoxNumber});
+            this.popupMenu.Name = "popupMenu";
+            this.popupMenu.Size = new System.Drawing.Size(182, 78);
+            this.popupMenu.Text = "Box Number";
+            // 
+            // ComboBoxNumber
+            // 
+            this.ComboBoxNumber.BackColor = System.Drawing.SystemColors.Menu;
+            this.ComboBoxNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxNumber.Name = "ComboBoxNumber";
+            this.ComboBoxNumber.Size = new System.Drawing.Size(121, 23);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox1.Text = "Select Box:";
+            // 
             // FrmPackingList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -119,6 +146,8 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            this.popupMenu.ResumeLayout(false);
+            this.popupMenu.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -130,5 +159,8 @@
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ContextMenuStrip popupMenu;
+        private System.Windows.Forms.ToolStripComboBox ComboBoxNumber;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
     }
 }
