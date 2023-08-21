@@ -14,8 +14,8 @@ namespace Sifh.ReportGenerator.Contracts
         DateTime DateCreated { get; set; }
         int StatusClassId { get; set; }
         int AirlineId { get; set; }
-        int BoxNumber { get; set; }
-        decimal Weight { get; set; }
+        int? BoxNumber { get; set; }
+        decimal? Weight { get; set; }
         string BoatName { get; set; }
         int ReceivingNoteItemID { get; set; }
         int PackingListNumber { get; set; }

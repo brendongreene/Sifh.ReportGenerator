@@ -21,10 +21,14 @@ namespace Sifh.ReportGenerator.DTO
         public DateTime DateCreated { get; set; }
         public int StatusClassId { get; set; }
         public int AirlineId { get; set; }
-        public int BoxNumber { get; set; }
-        public decimal Weight { get; set; }
+        public int? BoxNumber { get; set; }
+        public decimal? Weight { get; set; }
         public string BoatName { get; set; }
         public int ReceivingNoteItemID { get; set; }
         public int PackingListNumber { get; set; }
+
+        public string CustomerName { get; set; }
+        public string AirwayBillNumber { get; set; }
+        public string ProductionDate { get; set; }
     }
 }

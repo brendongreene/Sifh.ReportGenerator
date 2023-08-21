@@ -8,13 +8,20 @@ using System.Collections.Generic;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors;
+using System.IO;
+using System.Configuration;
 
 namespace Sifh.ReportGenerator
 {
     public partial class FrmPackingList : Form
     {
         public List<PackingListReportView> PackingList { get; set; }
+        public DateTime productionDate { get; set; }
+        public string productionDateMonth { get; set; }
+        public string CustomerName { get; set; }
+
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
+        private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
 
         public bool ExecuteButtonClicked { get; private set; }
 
@@ -38,11 +45,23 @@ namespace Sifh.ReportGenerator
 
                 if (result == DialogResult.Yes)
                 {
+                   // var archivePath = "Packing Lists";
+                    var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{CustomerName}";
+                    var newFile = new FileInfo("PackingList" + ".xlsx");
+                    if (!Directory.Exists(archivePath))
+                    {
+                        Directory.CreateDirectory(archivePath);
+                    }
+                    var filePath = Path.Combine(archivePath, newFile.Name);
+                    var rows = new List<PackingListReportView>();
                     foreach (var selectedRow in selectedRows)
                     {
                         var row = gridView1.GetRow(selectedRow) as PackingListReportView;
-                        _repositoryHelper.AddPacingList(row);
+                        rows.Add(row);
+                        //_repositoryHelper.AddPacingList(row);
                     }
+                    rows.OrderBy(x => x.BoxNumber);
+                    _reportGenerator.GenerateExcelPackingList(Core.ReportGenerator.ReportType.All, newFile, rows, filePath);
                     MessageBox.Show("Packing List saved");
                     ExecuteButtonClicked = true;
 

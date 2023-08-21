@@ -12,7 +12,7 @@ namespace Sifh.ReportGenerator.Core
 {
     public class ReportGenerator
     {
-
+        public int startingBoxExelValue = 8 ;
 
         public enum ReportType
         {
@@ -46,11 +46,19 @@ namespace Sifh.ReportGenerator.Core
                     dataNum.Value = record.GetType().GetProperty(dataNum.MappingFieldName).GetValue(record);
                 }
             }
+            public void ProcessRecord(PackingListReportView record)
+            {
+                foreach (var dataNum in ExcelValues)
+                {
+                    dataNum.Value = record.GetType().GetProperty(dataNum.MappingFieldName).GetValue(record);
+                }
+            }
         }
 
 
         public FileInfo TemplateFile { get; set; }
         public FileInfo Marumi { get; set; }
+        public FileInfo Packing_List { get; set; }
         private List<ExcelTemplateInfo> excelTemplateData = new List<ExcelTemplateInfo>();
         private ExcelTemplateInfo modelCatchData = new ExcelTemplateInfo();
         private ExcelTemplateInfo modelReprocessingData = new ExcelTemplateInfo();
@@ -58,12 +66,14 @@ namespace Sifh.ReportGenerator.Core
         private ExcelTemplateInfo SummaryVesselData = new ExcelTemplateInfo();
         private ExcelTemplateInfo FirstReceiverData = new ExcelTemplateInfo();
         private ExcelTemplateInfo TransportReportData = new ExcelTemplateInfo();
+        private ExcelTemplateInfo PackingList = new ExcelTemplateInfo();
 
 
         public ReportGenerator()
         {
             TemplateFile = new FileInfo(@"Excel Templates\Templates.xlsx");
             Marumi = new FileInfo(@"Excel Templates\Marumi.xlsx");
+            Packing_List = new FileInfo(@"Excel Templates\Packing_List.xlsx");
             Setup();
         }
 
@@ -107,7 +117,7 @@ namespace Sifh.ReportGenerator.Core
             });
 
             modelReprocessingData.ExcelValues.AddRange(new[]
-           {
+            {
                 new ReportValue()
                 {
                     MappingFieldName = "ReceivingNoteID",
@@ -173,7 +183,7 @@ namespace Sifh.ReportGenerator.Core
 
             });
             modelTransshippingData.ExcelValues.AddRange(new[]
-          {
+            {
                 new ReportValue()
                 {
                     MappingFieldName = "ReceivingNoteID",
@@ -221,7 +231,7 @@ namespace Sifh.ReportGenerator.Core
                 }
             });
             FirstReceiverData.ExcelValues.AddRange(new[]
-          {
+            {
                 new ReportValue()
                 {
                     MappingFieldName = "Quantity",
@@ -244,7 +254,7 @@ namespace Sifh.ReportGenerator.Core
                 }
             });
             SummaryVesselData.ExcelValues.AddRange(new[]
-          {
+            {
                 new ReportValue()
                 {
                     MappingFieldName = "Quantity",
@@ -267,7 +277,7 @@ namespace Sifh.ReportGenerator.Core
                 }
             });
             TransportReportData.ExcelValues.AddRange(new[]
-    {
+            {
                 new ReportValue()
                 {
                     MappingFieldName = "ConductorName",
@@ -293,6 +303,24 @@ namespace Sifh.ReportGenerator.Core
                     MappingFieldName = "NetQuantity",
                     CellAddress = "G15"
                 }
+            });
+            PackingList.ExcelValues.AddRange(new[]
+            {
+                new ReportValue()
+                {
+                    MappingFieldName = "ProductionDate",
+                    CellAddress = "C4"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "CustomerName",
+                    CellAddress = "K4"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "C5"
+                },
             });
 
         }
@@ -347,5 +375,65 @@ namespace Sifh.ReportGenerator.Core
                 package.Save();
             }
         }
+        public void GenerateExcelPackingList(ReportType reportType, FileInfo newFile, List<PackingListReportView> packingListReportView, string filePath)
+        {
+            var itemNumber = 1;
+            int startingBoxExcelValue = 8;
+            newFile = new FileInfo(filePath);
+
+            using (var package = new ExcelPackage(newFile, Packing_List))
+            {
+                var workbook = package.Workbook;
+                var worksheet = workbook.Worksheets["PL"];
+
+                PackingList.ExcelValues.AddRange(new[]
+                {
+                new ReportValue()
+                {
+                    MappingFieldName = "ProductionDate",
+                    CellAddress = "C4"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "CustomerName",
+                    CellAddress = "K4"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "C5"
+                }
+
+                });
+
+                foreach (var item in packingListReportView)
+                {
+                    PackingList.ProcessRecord(item);
+
+                    foreach (var excelInfo in PackingList.ExcelValues)
+                    {
+                        // Assuming excelInfo.Value is the value to set
+                        worksheet.Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                    }
+
+                    // Update the dynamic values
+                    if(itemNumber % 2 == 0)
+                    {
+                        worksheet.Cells["F" + (startingBoxExcelValue)].Value = item.Weight;
+                        worksheet.Cells["G" + (startingBoxExcelValue )].Value = item.BoatName;
+                        startingBoxExcelValue++;
+                    }
+                    else
+                    {
+                        worksheet.Cells["C" + startingBoxExcelValue].Value = item.Weight;
+                        worksheet.Cells["D" + startingBoxExcelValue].Value = item.BoatName;
+                    }
+                    itemNumber++;
+                }
+
+                package.Save();
+            }
+        }
+
     }
 }

@@ -209,6 +209,7 @@
     <None Include="Excel Templates\Marumi.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Excel Templates\Packing_List.xlsx" />
     <None Include="Excel Templates\Templates.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

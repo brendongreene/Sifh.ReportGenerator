@@ -324,6 +324,9 @@ namespace Sifh.ReportGenerator
 
         private void simpleButtonSave_Click(object sender, EventArgs e)
         {
+            var productionDate = new DateTime();
+            var CustomerName = "";
+
             if (gridView1.SelectedRowsCount == 0)
             {
                 MessageBox.Show("Select recieving notes from grid");
@@ -336,6 +339,9 @@ namespace Sifh.ReportGenerator
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
+                CustomerName = row.CustomerName;
+                productionDate = DateTime.Parse(row.FormattedDateCreated);
+
                 foreach (var item in row.ReceivingNoteDetails)
                 {
                     receivingNoteItemsList.Add(new ReceivingNoteItemView(item));
@@ -356,7 +362,11 @@ namespace Sifh.ReportGenerator
                 box.BoatName = _repositoryHelper.GetVesselName(receivingNote.ReceivingNoteID);
                 box.ReceivingNoteItemID = receivingNote.ReceivingNoteItemID;
                 box.PackingListNumber = packingListNumber;
-                
+                box.CustomerName = comboBoxCustomer.Text;
+                box.AirwayBillNumber = textBoxAirwayBillNumber.Text;
+                box.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy"); ;
+
+
 
                 packingList.Add(box);
 
@@ -365,6 +375,9 @@ namespace Sifh.ReportGenerator
 
             FrmPackingList form6 = new FrmPackingList();
             form6.PackingList = packingList;
+            form6.productionDate = productionDate;
+            form6.productionDateMonth = productionDate.ToString("MMMM");
+            form6.CustomerName = CustomerName;
 
             form6.FormClosed += Form6_FormClosed;
 
