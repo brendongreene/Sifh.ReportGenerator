@@ -36,8 +36,8 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.button1 = new System.Windows.Forms.Button();
             this.popupMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ComboBoxNumber = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.ComboBoxNumber = new System.Windows.Forms.ToolStripComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -116,18 +116,22 @@
             this.popupMenu.Size = new System.Drawing.Size(182, 78);
             this.popupMenu.Text = "Box Number";
             // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.ReadOnly = true;
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox1.Text = "Select Box:";
+            // 
             // ComboBoxNumber
             // 
             this.ComboBoxNumber.BackColor = System.Drawing.SystemColors.Menu;
             this.ComboBoxNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxNumber.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.ComboBoxNumber.Name = "ComboBoxNumber";
             this.ComboBoxNumber.Size = new System.Drawing.Size(121, 23);
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
-            this.toolStripTextBox1.Text = "Select Box:";
             // 
             // FrmPackingList
             // 
