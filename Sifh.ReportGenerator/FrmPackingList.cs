@@ -47,7 +47,7 @@ namespace Sifh.ReportGenerator
                 {
                    // var archivePath = "Packing Lists";
                     var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{CustomerName}";
-                    var newFile = new FileInfo("PackingList" + ".xlsx");
+                    var newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList" + ".xlsx");
                     if (!Directory.Exists(archivePath))
                     {
                         Directory.CreateDirectory(archivePath);
