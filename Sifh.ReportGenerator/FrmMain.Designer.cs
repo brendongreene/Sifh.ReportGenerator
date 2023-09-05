@@ -165,7 +165,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Margin = new System.Windows.Forms.Padding(2);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1117, 372);
+            this.gridControl1.Size = new System.Drawing.Size(1117, 429);
             this.gridControl1.TabIndex = 7;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -437,7 +437,7 @@
             // 
             // ribbonStatusBar1
             // 
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 699);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 756);
             this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(2);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
@@ -485,7 +485,7 @@
             this.simpleButtonGenerateReports.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButtonGenerateReports.Appearance.Options.UseFont = true;
             this.simpleButtonGenerateReports.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButtonGenerateReports.Location = new System.Drawing.Point(876, 655);
+            this.simpleButtonGenerateReports.Location = new System.Drawing.Point(875, 712);
             this.simpleButtonGenerateReports.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonGenerateReports.Name = "simpleButtonGenerateReports";
             this.simpleButtonGenerateReports.Size = new System.Drawing.Size(124, 37);
@@ -498,29 +498,31 @@
             this.textBoxArchiveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxArchiveFolder.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBoxArchiveFolder.Location = new System.Drawing.Point(133, 663);
+            this.textBoxArchiveFolder.Location = new System.Drawing.Point(132, 720);
             this.textBoxArchiveFolder.Name = "textBoxArchiveFolder";
             this.textBoxArchiveFolder.ReadOnly = true;
             this.textBoxArchiveFolder.Size = new System.Drawing.Size(614, 21);
             this.textBoxArchiveFolder.TabIndex = 27;
+            this.textBoxArchiveFolder.TextChanged += new System.EventHandler(this.textBoxArchiveFolder_TextChanged);
             // 
             // label12
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(5, 664);
+            this.label12.Location = new System.Drawing.Point(4, 721);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(128, 19);
             this.label12.TabIndex = 28;
             this.label12.Text = "ARCHIVE PATH:";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // buttonShow
             // 
             this.buttonShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonShow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonShow.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonShow.Location = new System.Drawing.Point(750, 663);
+            this.buttonShow.Location = new System.Drawing.Point(749, 720);
             this.buttonShow.Name = "buttonShow";
             this.buttonShow.Size = new System.Drawing.Size(34, 21);
             this.buttonShow.TabIndex = 29;
@@ -535,10 +537,11 @@
             this.comboBoxFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFileType.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFileType.FormattingEnabled = true;
-            this.comboBoxFileType.Location = new System.Drawing.Point(790, 661);
+            this.comboBoxFileType.Location = new System.Drawing.Point(789, 718);
             this.comboBoxFileType.Name = "comboBoxFileType";
             this.comboBoxFileType.Size = new System.Drawing.Size(81, 27);
             this.comboBoxFileType.TabIndex = 32;
+            this.comboBoxFileType.SelectedIndexChanged += new System.EventHandler(this.comboBoxFileType_SelectedIndexChanged);
             // 
             // simpleButtonSave
             // 
@@ -546,12 +549,12 @@
             this.simpleButtonSave.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButtonSave.Appearance.Options.UseFont = true;
             this.simpleButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButtonSave.Location = new System.Drawing.Point(1028, 655);
+            this.simpleButtonSave.Location = new System.Drawing.Point(1007, 712);
             this.simpleButtonSave.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonSave.Name = "simpleButtonSave";
-            this.simpleButtonSave.Size = new System.Drawing.Size(98, 37);
+            this.simpleButtonSave.Size = new System.Drawing.Size(118, 37);
             this.simpleButtonSave.TabIndex = 36;
-            this.simpleButtonSave.Text = "SAVE";
+            this.simpleButtonSave.Text = "PREVIEW ";
             this.simpleButtonSave.Click += new System.EventHandler(this.simpleButtonSave_Click);
             // 
             // FrmMain
@@ -559,7 +562,7 @@
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1140, 730);
+            this.ClientSize = new System.Drawing.Size(1140, 787);
             this.Controls.Add(this.simpleButtonSave);
             this.Controls.Add(this.comboBoxFileType);
             this.Controls.Add(this.buttonShow);
