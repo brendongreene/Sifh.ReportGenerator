@@ -16,6 +16,7 @@ namespace Sifh.ReportGenerator.DTO
         }
 
         public int PackingListId { get; set; }
+        public int ReceivingNoteID { get; set; }
         public int CustomerId { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime DateCreated { get; set; }

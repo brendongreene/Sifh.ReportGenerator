@@ -79,6 +79,19 @@ namespace Sifh.ReportGenerator
 
             gridControl1.DataSource = PackingList;
 
+            gridView1.Columns["PackingListId"].Visible = false;
+            gridView1.Columns["CustomerId"].Visible = false;
+            gridView1.Columns["InvoiceNumber"].Visible = false;
+            gridView1.Columns["StatusClassId"].Visible = false;
+            gridView1.Columns["AirlineId"].Visible = false;
+            gridView1.Columns["PackingListNumber"].Visible = false;
+
+            gridView1.Columns["ReceivingNoteID"].Group();
+
+            gridView1.ExpandAllGroups();
+
+
+
             riEditComboBox.Items.Clear();
             _boxAssignmentTracker.Clear();
 

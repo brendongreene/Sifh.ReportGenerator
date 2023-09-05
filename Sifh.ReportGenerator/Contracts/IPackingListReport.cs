@@ -9,6 +9,7 @@ namespace Sifh.ReportGenerator.Contracts
     public interface IPackingListReport
     {
         int PackingListId { get; set; }
+        int ReceivingNoteID { get; set; }
         int CustomerId { get; set; }
         string InvoiceNumber { get; set; }
         DateTime DateCreated { get; set; }

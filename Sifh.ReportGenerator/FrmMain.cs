@@ -254,6 +254,16 @@ namespace Sifh.ReportGenerator
             riEditComboBox.EditValueChanged -= RiEditComboBox_EditValueChanged;
             riEditComboBox.EditValueChanged += RiEditComboBox_EditValueChanged;
 
+            gridView1.Columns["FormattedDateCreated"].Visible = false;
+            gridView1.Columns["CheckNumber1"].Visible = false;
+            gridView1.Columns["CheckNumber2"].Visible = false;
+            gridView1.Columns["BoxNumber"].Visible = false;
+            gridView1.Columns["TotalBoxes"].Visible = false;
+            gridView1.Columns["ConductorName"].Visible = false;
+            gridView1.Columns["ConductorLicense"].Visible = false;
+            gridView1.Columns["TruckLicense"].Visible = false;
+            gridView1.Columns["VesselIDForLicence"].Visible = false;
+
         }
 
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -364,9 +374,8 @@ namespace Sifh.ReportGenerator
                 box.PackingListNumber = packingListNumber;
                 box.CustomerName = comboBoxCustomer.Text;
                 box.AirwayBillNumber = textBoxAirwayBillNumber.Text;
-                box.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy"); ;
-
-
+                box.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
+                box.ReceivingNoteID = receivingNote.ReceivingNoteID;
 
                 packingList.Add(box);
 
