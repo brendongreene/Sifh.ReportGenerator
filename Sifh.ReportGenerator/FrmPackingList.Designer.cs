@@ -103,7 +103,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 37);
             this.button1.TabIndex = 9;
-            this.button1.Text = "OKAY";
+            this.button1.Text = "SAVE";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -113,13 +113,12 @@
             this.toolStripTextBox1,
             this.ComboBoxNumber});
             this.popupMenu.Name = "popupMenu";
-            this.popupMenu.Size = new System.Drawing.Size(182, 78);
+            this.popupMenu.Size = new System.Drawing.Size(182, 56);
             this.popupMenu.Text = "Box Number";
             // 
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.ReadOnly = true;
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
