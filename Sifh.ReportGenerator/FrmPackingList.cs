@@ -10,6 +10,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors;
 using System.IO;
 using System.Configuration;
+using DevExpress.Data.Filtering.Helpers;
 
 namespace Sifh.ReportGenerator
 {
@@ -100,22 +101,14 @@ namespace Sifh.ReportGenerator
             }
             else
             {
-                menu.Caption = " Assign Box Number to" + ((PackingListReportView)gridView1.GetFocusedRow()).BoatName ;
+                menu.Caption = " Assign Box Number to" + " " + ((PackingListReportView)gridView1.GetFocusedRow()).BoatName ;
             }
 
             var assignBoxNumber = new DXMenuItem("Assign Box Number");
 
             assignBoxNumber.Click += (object s, EventArgs args) =>
             {
-                if (gridView1.SelectedRowsCount == 0)
-                {
-                    MessageBox.Show("Select Row(s)");
-                    return;
-                } 
-                else
-                {
-                    popupMenu.Show(Control.MousePosition);                 
-                }
+                popupMenu.Show(Control.MousePosition);                 
             };    
             
 
@@ -127,29 +120,19 @@ namespace Sifh.ReportGenerator
             clearBoxAssignment.Click += (object s, EventArgs args) =>
             {
                 //var row = ((PackingListReportView)gridView1.GetFocusedRow());
-                var selectedRows = gridView1.GetSelectedRows();
+                var selectedRow = gridView1.GetFocusedRow() as PackingListReportView;
 
-                if (gridView1.SelectedRowsCount == 0)
+                        var key = "Box-" + selectedRow.BoxNumber.ToString();
+
+                if (selectedRow.BoxNumber == 0 || selectedRow.BoxNumber == null)
                 {
-                    MessageBox.Show("No row(s) selected");
+                    MessageBox.Show("No box was assigned to this item");
+                    return;
                 }
-                else
-                {
-                    foreach (var selectedRow in selectedRows)
-                    {
-                        var row = gridView1.GetRow(selectedRow) as PackingListReportView;
 
-                        var key = "Box-" + row.BoxNumber.ToString();
-
-                        if (row.BoxNumber == 0)
-                        {
-                            gridView1.UnselectRow(selectedRow);
-                        }
-                        else
-                        {
                             if (_boxAssignmentTracker[key] == 2)
                             {
-                                ComboBoxNumber.Items.Add("Box-" + row.BoxNumber);
+                                ComboBoxNumber.Items.Add("Box-" + selectedRow.BoxNumber);
 
                                 List<string> sortedItems = ComboBoxNumber.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
                                 ComboBoxNumber.Items.Clear();
@@ -161,11 +144,7 @@ namespace Sifh.ReportGenerator
                             {
                                 _boxAssignmentTracker[key]--;
                             }
-                            row.BoxNumber = 0;
-                        }
-                        gridView1.UnselectRow(selectedRow);
-                    }
-                }
+                            selectedRow.BoxNumber = 0;
             };
 
             menu.Items.Add(assignBoxNumber);
@@ -181,20 +160,18 @@ namespace Sifh.ReportGenerator
             {
                 var key = ComboBoxNumber.SelectedItem.ToString();
 
-                foreach (var selectedRow in gridView1.GetSelectedRows())
-                {
-                    var row = gridView1.GetRow(selectedRow) as PackingListReportView;
+                    var selectedRow = gridView1.GetFocusedRow() as PackingListReportView;
 
-                    var oldKey = "Box-" + row.BoxNumber.ToString();
+                    var oldKey = "Box-" + selectedRow.BoxNumber.ToString();
 
-                    if (row.BoxNumber == Convert.ToInt32(key.Replace("Box-", string.Empty)))
+                    if (selectedRow.BoxNumber == Convert.ToInt32(key.Replace("Box-", string.Empty)))
                     {
-                        MessageBox.Show("Asiigned box number already" + row.BoxNumber);
+                        MessageBox.Show("Asiigned box number already" + " " + selectedRow.BoxNumber);
                         return;
                     }
                     else
                     {
-                        row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
+                        selectedRow.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
 
                         if (_boxAssignmentTracker.ContainsKey(oldKey) && _boxAssignmentTracker[oldKey] > 0)
                         {
@@ -218,7 +195,6 @@ namespace Sifh.ReportGenerator
 
                         }
                     }
-                }
 
                 popupMenu.Close();
 
