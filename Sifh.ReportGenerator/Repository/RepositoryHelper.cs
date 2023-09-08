@@ -38,6 +38,16 @@ namespace Sifh.ReportGenerator.Repository
             }
         }
 
+        public int GetPackingListCount()
+        {
+            using (var context = new SifhContext())
+            {
+                var count = context.PackingLists.Count();
+
+                return count;
+            }
+        }
+
 
         public IEnumerable<PackingListReportView> GetPackingLists()
         {
@@ -129,9 +139,8 @@ namespace Sifh.ReportGenerator.Repository
                     BoatName = packingListItem.BoatName,
                     BoxNumber = packingListItem.BoxNumber,
                     ReceivingNoteItemID = packingListItem.ReceivingNoteItemID,
-                    PackingListNumber = packingListItem.PackingListNumber
-
-
+                    PackingListNumber = packingListItem.PackingListNumber,
+                    ProductionDate = packingListItem.ProductionDate,
                 };
 
 

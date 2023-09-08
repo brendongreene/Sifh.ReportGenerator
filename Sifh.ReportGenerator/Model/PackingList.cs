@@ -23,6 +23,7 @@ namespace Sifh.ReportGenerator.Model
         public string InvoiceNumber { get; set; }
 
         public DateTime? DateCreated { get; set; }
+        public string ProductionDate { get; set; }
 
         public int StatusClassID { get; set; }
 

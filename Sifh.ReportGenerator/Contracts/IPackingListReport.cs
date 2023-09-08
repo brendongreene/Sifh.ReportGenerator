@@ -19,5 +19,6 @@ namespace Sifh.ReportGenerator.Contracts
         string BoatName { get; set; }
         int? ReceivingNoteItemID { get; set; }
         int PackingListNumber { get; set; }
+        string ProductionDate { get; set; }
     }
 }

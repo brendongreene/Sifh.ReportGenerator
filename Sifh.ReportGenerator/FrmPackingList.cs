@@ -24,8 +24,6 @@ namespace Sifh.ReportGenerator
 
         public int CustomerId { get; set; }
 
-        private int packingListCount = 0;
-
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
 
@@ -40,7 +38,6 @@ namespace Sifh.ReportGenerator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            packingListCount++;
             var selectedRows = gridView1.GetSelectedRows();
             if (gridView1.SelectedRowsCount == 0)
             {
@@ -52,40 +49,82 @@ namespace Sifh.ReportGenerator
 
                 if (result == DialogResult.Yes)
                 {
-                   // var archivePath = "Packing Lists";
-                    var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{CustomerName}";
-                    var newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + packingListCount + ".xlsx");
-                    if (!Directory.Exists(archivePath))
-                    {
-                        Directory.CreateDirectory(archivePath);
-                    }
-                    var filePath = Path.Combine(archivePath, newFile.Name);
-                    var rows = new List<PackingListReportView>();
-                    var packingList = new PackingListReportView();
-                    packingList.DateCreated = DateTime.Now;
-                    packingList.CustomerID = CustomerId;
+
+                    bool hasItemWithoutBoxNumber = false;
 
                     foreach (var selectedRow in selectedRows)
                     {
                         var row = gridView1.GetRow(selectedRow) as PackingListReportView;
-                        rows.Add(row);
-                        packingList.ReceivingNoteItemIds.Add(row.ReceivingNoteItemID.Value);
-                        var packingListDetail = new PackingListDetails()
+                        if (row.BoxNumber == null || row.BoxNumber == 0)
                         {
-                            ReceivingNoteItemID = row.ReceivingNoteItemID.Value,
-                            BoxNumber = row.BoxNumber.Value
-                        };
-
-                        _repositoryHelper.createPackingListDetail(packingListDetail);
+                            hasItemWithoutBoxNumber = true;
+                            break;
+                        }
                     }
-                    rows.OrderBy(x => x.BoxNumber);
 
-                    _repositoryHelper.AddPackingList(packingList);
-                    _reportGenerator.GenerateExcelPackingList(Core.ReportGenerator.ReportType.All, newFile, rows, filePath);
-                    MessageBox.Show("Packing List saved");
-                    ExecuteButtonClicked = true;
+                    if (hasItemWithoutBoxNumber == true)
+                    {
+                        MessageBox.Show("Please enter Box Numbers");
+                        return;
+                    } else
+                    {
+                        var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{CustomerName}";
+                        var newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + CustomerName + ".xlsx");
+                        var newFilePath = Path.Combine(archivePath, productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + CustomerName + ".xlsx");
 
-                    this.Close();
+                        if (!Directory.Exists(archivePath))
+                        {
+                            Directory.CreateDirectory(archivePath);
+                        }
+                        if (File.Exists(newFilePath))
+                        {
+                            MessageBox.Show($"A packing list for {productionDate.ToString("dd/MM/yyyy")} already exist");
+                            return;
+                        }
+                        else
+                        {
+                            var filePath = Path.Combine(archivePath, newFile.Name);
+                            var rows = new List<PackingListReportView>();
+                            var packingList = new PackingListReportView();
+                            packingList.DateCreated = DateTime.Now;
+                            packingList.CustomerID = CustomerId;
+                            packingList.ProductionDate = productionDate.ToString("dd_MM_yyyy");
+
+                            foreach (var selectedRow in selectedRows)
+                            {
+                                var row = gridView1.GetRow(selectedRow) as PackingListReportView;
+                                if (row.BoxNumber == null)
+                                {
+                                    MessageBox.Show("Please enter Box Numbers");
+                                    break;
+                                }
+
+                                rows.Add(row);
+                                packingList.ReceivingNoteItemIds.Add(row.ReceivingNoteItemID.Value);
+                            }
+                            rows.OrderBy(x => x.BoxNumber);
+
+                            _repositoryHelper.AddPackingList(packingList);
+
+                            foreach (var row in rows)
+                            {
+                                var packingListDetail = new PackingListDetails()
+                                {
+                                    ReceivingNoteItemID = row.ReceivingNoteItemID.Value,
+                                    BoxNumber = row.BoxNumber.Value
+                                };
+
+                                _repositoryHelper.createPackingListDetail(packingListDetail);
+                            }
+
+                            _reportGenerator.GenerateExcelPackingList(Core.ReportGenerator.ReportType.All, newFile, rows, filePath);
+                            MessageBox.Show("Packing List saved");
+                            ExecuteButtonClicked = true;
+
+                            this.Close();
+                        }
+                    }
+     
                 }
             }
         }

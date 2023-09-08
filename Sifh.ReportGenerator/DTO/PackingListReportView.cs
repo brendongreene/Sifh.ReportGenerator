@@ -26,6 +26,7 @@ namespace Sifh.ReportGenerator.DTO
             this.AirlineID = packingList.AirlineID;
             this.PackingListID = packingList.PackingListID;
             this.StatusClassID = packingList.StatusClassID;
+            this.ProductionDate = packingList.ProductionDate;
           
         }
 

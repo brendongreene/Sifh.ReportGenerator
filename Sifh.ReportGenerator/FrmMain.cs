@@ -44,6 +44,15 @@ namespace Sifh.ReportGenerator
 
             if(textBoxAirwayBillNumber.Text == "" && textBoxNumberOfBoxes.Text == "")
             {
+                MessageBox.Show("Please enter Airway Bill Number and Number of Boxes");
+                return;
+            } else if (textBoxAirwayBillNumber.Text == "")
+            {
+                MessageBox.Show("Please enter Airway Bill Number");
+                return;
+            } else if (textBoxNumberOfBoxes.Text == "")
+            {
+                MessageBox.Show("Please enter Number of Boxes");
                 return;
             }
 
@@ -362,6 +371,12 @@ namespace Sifh.ReportGenerator
                 MessageBox.Show("Select recieving notes from grid");
                 return;
             }
+
+            if(gridView1.Columns["PackingListID"].Visible == true)
+            {
+                MessageBox.Show("Generate receiving notes (PRESS GET)");
+                return;
+            }
             var customerId = Int32.Parse(comboBoxCustomer.SelectedValue.ToString());
             var packingList = new List<PackingListReportView>();
             var receivingNoteItemsList = new List<ReceivingNoteItemView>();
@@ -402,16 +417,16 @@ namespace Sifh.ReportGenerator
                 receivingNoteCounter++;
             }
 
-            FrmPackingList form6 = new FrmPackingList();
-            form6.PackingList = packingList;
-            form6.productionDate = productionDate;
-            form6.productionDateMonth = productionDate.ToString("MMMM");
-            form6.CustomerName = CustomerName;
-            form6.CustomerId = customerId;
+            FrmPackingList formPackingList = new FrmPackingList();
+            formPackingList.PackingList = packingList;
+            formPackingList.productionDate = productionDate;
+            formPackingList.productionDateMonth = productionDate.ToString("MMMM");
+            formPackingList.CustomerName = CustomerName;
+            formPackingList.CustomerId = customerId;
 
-            form6.FormClosed += Form6_FormClosed;
+            formPackingList.FormClosed += Form6_FormClosed;
 
-            form6.ShowDialog();
+            formPackingList.ShowDialog();
 
         }
 
@@ -591,10 +606,10 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["NetQuantity"].Visible = false;
             gridView1.Columns["LineItems"].Visible = false;
             gridView1.Columns["ProductName"].Visible = false;
-            gridView1.Columns["ProductionDate"].Visible = false;
             gridView1.Columns["ReceivingLotIdentifierMRC"].Visible = false;
 
             gridView1.Columns["PackingListID"].Visible = true;
+            gridView1.Columns["ProductionDate"].Visible = true;
 
 
         }
