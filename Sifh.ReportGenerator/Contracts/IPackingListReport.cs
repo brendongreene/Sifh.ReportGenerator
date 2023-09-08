@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace Sifh.ReportGenerator.Contracts
 {
-    public interface IPackingListReport
+    public interface IPackingList
     {
-        int PackingListId { get; set; }
-        int ReceivingNoteID { get; set; }
-        int CustomerId { get; set; }
+        int PackingListID { get; set; }
+        int CustomerID { get; set; }
         string InvoiceNumber { get; set; }
-        DateTime DateCreated { get; set; }
-        int StatusClassId { get; set; }
-        int AirlineId { get; set; }
+        DateTime? DateCreated { get; set; }
+        int StatusClassID { get; set; }
+        int AirlineID { get; set; }
         int? BoxNumber { get; set; }
         decimal? Weight { get; set; }
         string BoatName { get; set; }
-        int ReceivingNoteItemID { get; set; }
+        int? ReceivingNoteItemID { get; set; }
         int PackingListNumber { get; set; }
     }
 }

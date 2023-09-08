@@ -378,7 +378,9 @@ namespace Sifh.ReportGenerator.Core
         public void GenerateExcelPackingList(ReportType reportType, FileInfo newFile, List<PackingListReportView> packingListReportView, string filePath)
         {
             var itemNumber = 1;
-            int startingBoxExcelValue = 8;
+            int startingBoxExcelValue = 7;
+            int oldBoxNumber = 0;
+
             newFile = new FileInfo(filePath);
 
             using (var package = new ExcelPackage(newFile, Packing_List))
@@ -406,29 +408,38 @@ namespace Sifh.ReportGenerator.Core
 
                 });
 
+                foreach (var excelInfo in PackingList.ExcelValues)
+                {
+                    // Assuming excelInfo.Value is the value to set
+                    worksheet.Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                }
+
                 foreach (var item in packingListReportView)
                 {
                     PackingList.ProcessRecord(item);
 
-                    foreach (var excelInfo in PackingList.ExcelValues)
+                    if (oldBoxNumber == item.BoxNumber)
                     {
-                        // Assuming excelInfo.Value is the value to set
-                        worksheet.Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                        itemNumber++;
                     }
 
                     // Update the dynamic values
-                    if(itemNumber % 2 == 0)
+                    if (itemNumber % 2 == 0)
                     {
-                        worksheet.Cells["F" + (startingBoxExcelValue)].Value = item.Weight;
-                        worksheet.Cells["G" + (startingBoxExcelValue )].Value = item.BoatName;
-                        startingBoxExcelValue++;
+                        worksheet.Cells["F" + (startingBoxExcelValue + item.BoxNumber)].Value = item.Weight;
+                        worksheet.Cells["G" + (startingBoxExcelValue + item.BoxNumber)].Value = item.BoatName;
+
+                        itemNumber = 1;
                     }
                     else
                     {
-                        worksheet.Cells["C" + startingBoxExcelValue].Value = item.Weight;
-                        worksheet.Cells["D" + startingBoxExcelValue].Value = item.BoatName;
+                        worksheet.Cells["C" + (startingBoxExcelValue + item.BoxNumber)].Value = item.Weight;
+                        worksheet.Cells["D" + (startingBoxExcelValue + item.BoxNumber)].Value = item.BoatName;
                     }
-                    itemNumber++;
+                
+             
+                        oldBoxNumber = (int)item.BoxNumber;
+                    
                 }
 
                 package.Save();

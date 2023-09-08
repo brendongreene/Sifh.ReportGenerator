@@ -15,6 +15,7 @@ namespace Sifh.ReportGenerator.Model
         public virtual DbSet<GradeClass> GradeClasses { get; set; }
         public virtual DbSet<NextOrderNumber> NextOrderNumbers { get; set; }
         public virtual DbSet<PackingList> PackingLists { get; set; }
+        public virtual DbSet<PackingListDetails> PackingListDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductStatusClass> ProductStatusClasses { get; set; }
         public virtual DbSet<ProductUnitePriceHistory> ProductUnitePriceHistories { get; set; }

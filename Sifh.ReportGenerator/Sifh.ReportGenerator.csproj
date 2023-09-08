@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Contracts\IConductor.cs" />
     <Compile Include="Contracts\ICustomer.cs" />
+    <Compile Include="Contracts\IPackingListDetails.cs" />
     <Compile Include="Contracts\IPackingListReport.cs" />
     <Compile Include="Contracts\ITruck.cs" />
     <Compile Include="Contracts\IVesselView.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Contracts\IReceivingNoteItem.cs" />
     <Compile Include="Model\NextOrderNumber.cs" />
     <Compile Include="Model\PackingList.cs" />
+    <Compile Include="Model\PackingListDetails.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductStatusClass.cs" />
     <Compile Include="Model\ProductUnitePriceHistory.cs" />

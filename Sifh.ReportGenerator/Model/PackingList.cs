@@ -1,3 +1,4 @@
+using Sifh.ReportGenerator.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Sifh.ReportGenerator.Model
 {
     [Table("PackingList")]
-    public partial class PackingList
+    public partial class PackingList: IPackingList
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PackingList()

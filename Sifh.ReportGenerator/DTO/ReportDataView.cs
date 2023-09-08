@@ -50,6 +50,7 @@ namespace Sifh.ReportGenerator.DTO
         public DateTime? InvoiceDate { get; set; }
         public string ReferenceNumber { get; set; }
         public DateTime? OrderDate { get; set; }
+        public int PackingListID { get; set; }
         public int VesselID { get; set; }
         public int StatusClassID { get; set; }
         public decimal TotalPayments { get; set; }
@@ -65,6 +66,7 @@ namespace Sifh.ReportGenerator.DTO
         public string ProductName { get; set; }
 
         public string CustomerName { get; set; }
+        public string CustomerID { get; set; }
         public string AirwayBillNumber { get; set; }
         public string ProductionDate { get; set; }
         public string ReceivingLotIdentifierMRC { get; set; }

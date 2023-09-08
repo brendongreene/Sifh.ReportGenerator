@@ -42,6 +42,11 @@ namespace Sifh.ReportGenerator
             riEditComboBox.Items.Clear();
             _boxAssignmentTracker.Clear();
 
+            if(textBoxAirwayBillNumber.Text == "" && textBoxNumberOfBoxes.Text == "")
+            {
+                return;
+            }
+
             for (int boxCount = 1; boxCount <= Convert.ToInt32(textBoxNumberOfBoxes.Text); boxCount++)
             {
                 var key = "Box-" + boxCount.ToString();
@@ -104,6 +109,7 @@ namespace Sifh.ReportGenerator
             {
                 result.AirwayBillNumber = textBoxAirwayBillNumber.Text;
                 result.CustomerName = comboBoxCustomer.Text.Trim();
+                result.CustomerID = comboBoxCustomer.SelectedValue.ToString();
                 result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
                 result.TotalBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
                 if (comboBoxCustomer.Text.ToString() == "Great Ocean LLC")
@@ -115,6 +121,22 @@ namespace Sifh.ReportGenerator
             }
             Cursor.Current = Cursors.Default;
             gridControl1.DataSource = results.ToList();
+
+            gridView1.Columns["ReceivingNoteID"].Visible = true;
+            gridView1.Columns["InvoiceDate"].Visible = true;
+            gridView1.Columns["ReferenceNumber"].Visible = true;
+            gridView1.Columns["OrderDate"].Visible = true;
+            gridView1.Columns["VesselID"].Visible = true;
+            gridView1.Columns["TotalPayments"].Visible = true;
+            gridView1.Columns["VesselName"].Visible = true;
+            gridView1.Columns["Quantity"].Visible = true;
+            gridView1.Columns["NetQuantity"].Visible = true;
+            gridView1.Columns["LineItems"].Visible = true;
+            gridView1.Columns["ProductName"].Visible = true;
+            gridView1.Columns["ProductionDate"].Visible = true;
+            gridView1.Columns["ReceivingLotIdentifierMRC"].Visible = true;
+
+            gridView1.Columns["PackingListID"].Visible = false;
         }
 
         private void Form3_DataReady(object sender, string ConductorID)
@@ -263,33 +285,31 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["ConductorLicense"].Visible = false;
             gridView1.Columns["TruckLicense"].Visible = false;
             gridView1.Columns["VesselIDForLicence"].Visible = false;
-
+            gridView1.Columns["AirwayBillNumber"].Visible = false;
+            gridView1.Columns["CustomerName"].Visible = false;
+            gridView1.Columns["RegistrationNumber"].Visible = false;
+            gridView1.Columns["CustomerID"].Visible = false;
+            gridView1.Columns["PackingListID"].Visible = false;
         }
 
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
-            FrmAdmin form = new FrmAdmin();
-            form.Show();
         }
 
         private void ribbonControl1_Click(object sender, EventArgs e)
         {
-            FrmAdmin form = new FrmAdmin();
-            form.Show();
+
         }
 
         private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
-            FrmAdmin form = new FrmAdmin();
-            form.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FrmTransportReport form = new FrmTransportReport();
-            form.Show();
+
         }
 
         private void buttonShow_Click(object sender, EventArgs e)
@@ -366,8 +386,8 @@ namespace Sifh.ReportGenerator
             {
                 var box = new PackingListReportView();
                 box.DateCreated = DateTime.Now;
-                box.CustomerId = customerId;
-                box.StatusClassId = receivingNote.GradeClassID;
+                box.CustomerID = customerId;
+                box.StatusClassID = receivingNote.GradeClassID;
                 box.Weight = receivingNote.Quantity;
                 box.BoatName = _repositoryHelper.GetVesselName(receivingNote.ReceivingNoteID);
                 box.ReceivingNoteItemID = receivingNote.ReceivingNoteItemID;
@@ -387,6 +407,7 @@ namespace Sifh.ReportGenerator
             form6.productionDate = productionDate;
             form6.productionDateMonth = productionDate.ToString("MMMM");
             form6.CustomerName = CustomerName;
+            form6.CustomerId = customerId;
 
             form6.FormClosed += Form6_FormClosed;
 
@@ -410,58 +431,71 @@ namespace Sifh.ReportGenerator
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
         {
             var menu = new DXPopupMenu();
-            menu.Caption = ((ReportDataView)gridView1.GetFocusedRow()).VesselName + " Assign BoxNumber";
 
-
-
-            menu.Items.Add(new DXEditMenuItem("Box Number", riEditComboBox, null, null, null, 100, -1));
-
-
-            var clearBoxAssignment = new DXMenuItem("Clear Box Assignment");
-
-            clearBoxAssignment.Click += (object s, EventArgs args) =>
+            if (gridView1.GetFocusedRow().GetType() != typeof(ReportDataView))
             {
-                //var row = ((ReportDataView)gridView1.GetFocusedRow());
-                var selectedRows = gridView1.GetSelectedRows();
+                menu.Caption = ((PackingListReportView)gridView1.GetFocusedRow()).PackingListID + " Packing List ";
+            } 
+            else
+            {
+                return;
+            }
 
-                if(gridView1.SelectedRowsCount == 0)
-                {
-                    MessageBox.Show("No row(s) selected");
-                }
-                else
-                {
-                    foreach (var selectedRow in selectedRows)
-                    {
-                        var row = gridView1.GetRow(selectedRow) as ReportDataView;
 
-                            var key = "Box-" + row.BoxNumber.ToString();
+            //menu.Items.Add(new DXEditMenuItem("Box Number", riEditComboBox, null, null, null, 100, -1));
 
-                            if (row.BoxNumber == 0)
-                            {
-                                MessageBox.Show("No box number is assigned");
-                            }
-                            else
-                            {
-                                if (_boxAssignmentTracker[key] == 2)
-                                {
-                                    riEditComboBox.Items.Add("Box-" + row.BoxNumber);
 
-                                    List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
-                                    riEditComboBox.Items.Clear();
-                                    riEditComboBox.Items.AddRange(sortedItems);
-                                }
-                                else if (_boxAssignmentTracker[key] < 2)
-                                {
-                                    _boxAssignmentTracker[key]--;
-                                }
-                                row.BoxNumber = 0;
-                            }
-                        
-                        
-                    }
-                }         
+            var cancelPackingList = new DXMenuItem("Cancel This Packing List");
+
+            cancelPackingList.Click += (object s, EventArgs args) =>
+            {
+
+                var packingListID = ((PackingListReportView)gridView1.GetFocusedRow()).PackingListID;
+                _repositoryHelper.CancelPackingList(packingListID);
+                var packingLists = _repositoryHelper.GetOpenPackingLists();
+
+                gridView1.GridControl.DataSource = packingLists;
+                ////var row = ((ReportDataView)gridView1.GetFocusedRow());
+                //var selectedRows = gridView1.GetSelectedRows();
+
+                //if(gridView1.SelectedRowsCount == 0)
+                //{
+                //    MessageBox.Show("No row(s) selected");
+                //}
+                //else
+                //{
+                //    foreach (var selectedRow in selectedRows)
+                //    {
+                //        var row = gridView1.GetRow(selectedRow) as ReportDataView;
+
+                //            var key = "Box-" + row.BoxNumber.ToString();
+
+                //            if (row.BoxNumber == 0)
+                //            {
+                //                MessageBox.Show("No box number is assigned");
+                //            }
+                //            else
+                //            {
+                //                if (_boxAssignmentTracker[key] == 2)
+                //                {
+                //                    riEditComboBox.Items.Add("Box-" + row.BoxNumber);
+
+                //                    List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
+                //                    riEditComboBox.Items.Clear();
+                //                    riEditComboBox.Items.AddRange(sortedItems);
+                //                }
+                //                else if (_boxAssignmentTracker[key] < 2)
+                //                {
+                //                    _boxAssignmentTracker[key]--;
+                //                }
+                //                row.BoxNumber = 0;
+                //            }
+
+
+                //    }
+                //}         
             };
-            menu.Items.Add(clearBoxAssignment);
+            menu.Items.Add(cancelPackingList);
             e.Menu.Items.Add(menu);
         }
 
@@ -538,6 +572,38 @@ namespace Sifh.ReportGenerator
         private void comboBoxFileType_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonViewPackingList_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            var packingLists = _repositoryHelper.GetOpenPackingLists();
+
+            gridView1.GridControl.DataSource = packingLists;
+
+            gridView1.Columns["ReceivingNoteID"].Visible = false;
+            gridView1.Columns["InvoiceDate"].Visible = false;
+            gridView1.Columns["ReferenceNumber"].Visible = false;
+            gridView1.Columns["OrderDate"].Visible = false;
+            gridView1.Columns["VesselID"].Visible = false;
+            gridView1.Columns["TotalPayments"].Visible = false;
+            gridView1.Columns["VesselName"].Visible = false;
+            gridView1.Columns["Quantity"].Visible = false;
+            gridView1.Columns["NetQuantity"].Visible = false;
+            gridView1.Columns["LineItems"].Visible = false;
+            gridView1.Columns["ProductName"].Visible = false;
+            gridView1.Columns["ProductionDate"].Visible = false;
+            gridView1.Columns["ReceivingLotIdentifierMRC"].Visible = false;
+
+            gridView1.Columns["PackingListID"].Visible = true;
+
+
+        }
+
+        private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+            FrmAdmin form = new FrmAdmin();
+            form.Show();
         }
     }
 }

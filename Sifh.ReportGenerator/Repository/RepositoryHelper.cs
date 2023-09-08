@@ -38,27 +38,137 @@ namespace Sifh.ReportGenerator.Repository
             }
         }
 
-        public void AddPacingList(PackingListReportView packingListItem)
+
+        public IEnumerable<PackingListReportView> GetPackingLists()
+        {
+
+            using (var context = new SifhContext())
+            {
+                var packingList = context.PackingLists.ToList();
+                   
+
+                return packingList.Select( c=> new PackingListReportView(c));
+            }
+        }
+
+        public void CancelPackingList(int packingListId)
         {
             using (var context = new SifhContext())
             {
-                var pacingListItemAdd = new PackingList
+                var packingList = context.PackingLists.Find(packingListId);
+                if (packingList != null)
+                {
+                    foreach (var item in packingList.ReceivingNoteItems.ToList())
+                    {
+
+                        item.PackingListID = null;
+                        var entry = context.Entry(item);
+                       
+                        entry.State = System.Data.Entity.EntityState.Modified;
+
+                        
+                    }
+
+                    var deleteEntry = context.Entry(packingList);
+                    deleteEntry.State = System.Data.Entity.EntityState.Deleted;
+
+                }
+
+
+                context.SaveChanges();
+            }
+
+            using (SqlConnection connection = new SqlConnection(cn))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = $"DELETE FROM PackingListDetails WHERE PackingListID = '{packingListId}'";
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void createPackingListDetail(PackingListDetails packingListDetails)
+        {
+           
+                using (SqlConnection connection = new SqlConnection(cn))
+                {
+                    connection.Open();
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = $"INSERT INTO PackingListDetails (PackingListID, ReceivingNoteItemID, BoxNumber) VALUES ( '{packingListDetails.PackingListID}','{packingListDetails.ReceivingNoteItemID}', '{packingListDetails.BoxNumber}')";
+                        command.ExecuteNonQuery();
+                    }
+                }
+        }
+
+        public IEnumerable<PackingListReportView> GetOpenPackingLists()
+        {
+
+            using (var context = new SifhContext())
+            {
+                var packingList = context.PackingLists.Where( t=> t.StatusClassID == 10).ToList();
+
+
+                return packingList.Select(c => new PackingListReportView(c));
+            }
+        }
+
+        public void AddPackingList(PackingListReportView packingListItem)
+        {
+            using (var context = new SifhContext())
+            {
+                var packingListItemAdd = new PackingList
                 {
                     AirlineID = 1,
-                    CustomerID = packingListItem.CustomerId,
+                    StatusClassID = 10,
+                    CustomerID = packingListItem.CustomerID,
                     DateCreated = packingListItem.DateCreated,
                     Weight = packingListItem.Weight,
                     BoatName = packingListItem.BoatName,
                     BoxNumber = packingListItem.BoxNumber,
                     ReceivingNoteItemID = packingListItem.ReceivingNoteItemID,
                     PackingListNumber = packingListItem.PackingListNumber
-                    
-                    
+
+
                 };
-                context.PackingLists.Add(pacingListItemAdd);
+
+
+                foreach (var itemId in packingListItem.ReceivingNoteItemIds)
+                {
+                    var receivingNoteItem = context.ReceivingNoteItems.Find(itemId);
+
+                    if(receivingNoteItem  != null)
+                    {
+                        packingListItemAdd.ReceivingNoteItems.Add(receivingNoteItem);
+                    }
+
+
+                }
+                context.PackingLists.Add(packingListItemAdd);
                 context.SaveChanges();
 
-                AddPackingListID(packingListItem.ReceivingNoteItemID);
+                foreach (var itemId in packingListItem.ReceivingNoteItemIds)
+                {
+                    var receivingNoteItem = context.ReceivingNoteItems.Find(itemId);
+
+                    if (receivingNoteItem != null)
+                    {
+                        using (SqlConnection connection = new SqlConnection(cn))
+                        {
+                            connection.Open();
+                            using (SqlCommand command = connection.CreateCommand())
+                            {
+                                command.CommandText = $"UPDATE PackingListDetails SET PackingListID = '{receivingNoteItem.PackingListID}' WHERE ReceivingNoteItemID = '{receivingNoteItem.ReceivingNoteItemID}'";
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+
+                }
+
             }
         }
 

@@ -9,27 +9,44 @@ using System.Globalization;
 
 namespace Sifh.ReportGenerator.DTO
 {
-    public class PackingListReportView : IPackingListReport
+    public class PackingListReportView : IPackingList
     {
         public PackingListReportView()
         {
+            ReceivingNoteItemIds = new List<int>();
         }
 
-        public int PackingListId { get; set; }
+        public PackingListReportView(IPackingList packingList)
+        {
+            this.PackingListNumber = packingList.PackingListNumber;
+            this.BoxNumber = packingList.BoxNumber;
+            this.DateCreated = packingList.DateCreated;
+            this.InvoiceNumber = packingList.InvoiceNumber;
+            this.CustomerID = packingList.CustomerID;
+            this.AirlineID = packingList.AirlineID;
+            this.PackingListID = packingList.PackingListID;
+            this.StatusClassID = packingList.StatusClassID;
+          
+        }
+
+        public int PackingListID { get; set; }
         public int ReceivingNoteID { get; set; }
-        public int CustomerId { get; set; }
+        public int CustomerID { get; set; }
         public string InvoiceNumber { get; set; }
-        public DateTime DateCreated { get; set; }
-        public int StatusClassId { get; set; }
-        public int AirlineId { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public int StatusClassID { get; set; }
+        public int AirlineID { get; set; }
         public int? BoxNumber { get; set; }
         public decimal? Weight { get; set; }
         public string BoatName { get; set; }
-        public int ReceivingNoteItemID { get; set; }
+        public int? ReceivingNoteItemID { get; set; }
         public int PackingListNumber { get; set; }
 
         public string CustomerName { get; set; }
         public string AirwayBillNumber { get; set; }
         public string ProductionDate { get; set; }
+
+
+        public List<int> ReceivingNoteItemIds { get; set; }
     }
 }

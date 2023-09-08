@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using System.IO;
 using System.Configuration;
 using DevExpress.Data.Filtering.Helpers;
+using Sifh.ReportGenerator.Model;
 
 namespace Sifh.ReportGenerator
 {
@@ -20,6 +21,10 @@ namespace Sifh.ReportGenerator
         public DateTime productionDate { get; set; }
         public string productionDateMonth { get; set; }
         public string CustomerName { get; set; }
+
+        public int CustomerId { get; set; }
+
+        private int packingListCount = 0;
 
         private RepositoryHelper _repositoryHelper = new RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
@@ -35,6 +40,7 @@ namespace Sifh.ReportGenerator
 
         private void button1_Click(object sender, EventArgs e)
         {
+            packingListCount++;
             var selectedRows = gridView1.GetSelectedRows();
             if (gridView1.SelectedRowsCount == 0)
             {
@@ -48,20 +54,33 @@ namespace Sifh.ReportGenerator
                 {
                    // var archivePath = "Packing Lists";
                     var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{CustomerName}";
-                    var newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList" + ".xlsx");
+                    var newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + packingListCount + ".xlsx");
                     if (!Directory.Exists(archivePath))
                     {
                         Directory.CreateDirectory(archivePath);
                     }
                     var filePath = Path.Combine(archivePath, newFile.Name);
                     var rows = new List<PackingListReportView>();
+                    var packingList = new PackingListReportView();
+                    packingList.DateCreated = DateTime.Now;
+                    packingList.CustomerID = CustomerId;
+
                     foreach (var selectedRow in selectedRows)
                     {
                         var row = gridView1.GetRow(selectedRow) as PackingListReportView;
                         rows.Add(row);
-                        //_repositoryHelper.AddPacingList(row);
+                        packingList.ReceivingNoteItemIds.Add(row.ReceivingNoteItemID.Value);
+                        var packingListDetail = new PackingListDetails()
+                        {
+                            ReceivingNoteItemID = row.ReceivingNoteItemID.Value,
+                            BoxNumber = row.BoxNumber.Value
+                        };
+
+                        _repositoryHelper.createPackingListDetail(packingListDetail);
                     }
                     rows.OrderBy(x => x.BoxNumber);
+
+                    _repositoryHelper.AddPackingList(packingList);
                     _reportGenerator.GenerateExcelPackingList(Core.ReportGenerator.ReportType.All, newFile, rows, filePath);
                     MessageBox.Show("Packing List saved");
                     ExecuteButtonClicked = true;
@@ -79,11 +98,11 @@ namespace Sifh.ReportGenerator
 
             gridControl1.DataSource = PackingList;
 
-            gridView1.Columns["PackingListId"].Visible = false;
-            gridView1.Columns["CustomerId"].Visible = false;
+            gridView1.Columns["PackingListID"].Visible = false;
+            gridView1.Columns["CustomerID"].Visible = false;
             gridView1.Columns["InvoiceNumber"].Visible = false;
-            gridView1.Columns["StatusClassId"].Visible = false;
-            gridView1.Columns["AirlineId"].Visible = false;
+            gridView1.Columns["StatusClassID"].Visible = false;
+            gridView1.Columns["AirlineID"].Visible = false;
             gridView1.Columns["PackingListNumber"].Visible = false;
 
             gridView1.Columns["ReceivingNoteID"].Group();
@@ -108,14 +127,8 @@ namespace Sifh.ReportGenerator
         {
             var menu = new DXPopupMenu();
             
-            if(gridView1.SelectedRowsCount > 0)
-            {
-                menu.Caption = "Assign Box Number for Selected Rows";
-            }
-            else
-            {
-                menu.Caption = " Assign Box Number to" + " " + ((PackingListReportView)gridView1.GetFocusedRow()).BoatName ;
-            }
+            menu.Caption = " Assign Box Number to" + " " + ((PackingListReportView)gridView1.GetFocusedRow()).BoatName ;
+      
 
             var assignBoxNumber = new DXMenuItem("Assign Box Number");
 
