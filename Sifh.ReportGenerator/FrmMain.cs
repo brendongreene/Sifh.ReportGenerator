@@ -299,6 +299,7 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["RegistrationNumber"].Visible = false;
             gridView1.Columns["CustomerID"].Visible = false;
             gridView1.Columns["PackingListID"].Visible = false;
+            //gridView1.Columns["StatusClassID"].Visible = false;
         }
 
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -423,6 +424,7 @@ namespace Sifh.ReportGenerator
             formPackingList.productionDateMonth = productionDate.ToString("MMMM");
             formPackingList.CustomerName = CustomerName;
             formPackingList.CustomerId = customerId;
+            formPackingList.NumberOfBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
 
             formPackingList.FormClosed += Form6_FormClosed;
 

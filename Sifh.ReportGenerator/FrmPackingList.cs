@@ -21,6 +21,7 @@ namespace Sifh.ReportGenerator
         public DateTime productionDate { get; set; }
         public string productionDateMonth { get; set; }
         public string CustomerName { get; set; }
+        public int NumberOfBoxes { get; set; }
 
         public int CustomerId { get; set; }
 
@@ -78,7 +79,7 @@ namespace Sifh.ReportGenerator
                         }
                         if (File.Exists(newFilePath))
                         {
-                            MessageBox.Show($"A packing list for {productionDate.ToString("dd/MM/yyyy")} already exist");
+                            MessageBox.Show($"A packing list file for {productionDate.ToString("dd/MM/yyyy")} already exist");
                             return;
                         }
                         else
@@ -153,7 +154,7 @@ namespace Sifh.ReportGenerator
             riEditComboBox.Items.Clear();
             _boxAssignmentTracker.Clear();
 
-            for (int boxCount = 1; boxCount <= PackingList.Count; boxCount++)
+            for (int boxCount = 1; boxCount <= NumberOfBoxes; boxCount++)
             {
                 var key = "Box-" + boxCount.ToString();
                 riEditComboBox.Items.Add(key);

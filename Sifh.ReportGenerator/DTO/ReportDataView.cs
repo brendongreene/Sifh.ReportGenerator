@@ -31,6 +31,9 @@ namespace Sifh.ReportGenerator.DTO
             this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
             this.InvoiceDate = receivingNote.InvoiceDate;
             this.ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString();
+            this.OrderDate = receivingNote.OrderDate;
+            this.TotalPayments = receivingNote.TotalPayments;
+            this.StatusClassID = receivingNote.StatusClassID;
 
             this.ReceivingNoteDetails = receivingNote.ReceivingNoteItems.Where(x => x.PackingListID == null).Select(x => new ReceivingNoteItemView(x)).ToList();
             //this.VesselDocument = receivingNote.VesselCertificate.VesselDocument;

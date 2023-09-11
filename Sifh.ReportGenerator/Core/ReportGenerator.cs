@@ -424,21 +424,38 @@ namespace Sifh.ReportGenerator.Core
                     }
 
                     // Update the dynamic values
-                    if (itemNumber % 2 == 0)
+                    if (item.BoxNumber <= 40)
                     {
-                        worksheet.Cells["F" + (startingBoxExcelValue + item.BoxNumber)].Value = item.Weight;
-                        worksheet.Cells["G" + (startingBoxExcelValue + item.BoxNumber)].Value = item.BoatName;
+                        if (itemNumber % 2 == 0)
+                        {
+                            worksheet.Cells["F" + (startingBoxExcelValue + item.BoxNumber)].Value = item.Weight;
+                            worksheet.Cells["G" + (startingBoxExcelValue + item.BoxNumber)].Value = item.BoatName;
 
-                        itemNumber = 1;
-                    }
-                    else
+                            itemNumber = 1;
+                        }
+                        else
+                        {
+                            worksheet.Cells["C" + (startingBoxExcelValue + item.BoxNumber)].Value = item.Weight;
+                            worksheet.Cells["D" + (startingBoxExcelValue + item.BoxNumber)].Value = item.BoatName;
+                        }
+                    } else
                     {
-                        worksheet.Cells["C" + (startingBoxExcelValue + item.BoxNumber)].Value = item.Weight;
-                        worksheet.Cells["D" + (startingBoxExcelValue + item.BoxNumber)].Value = item.BoatName;
+                        var cellNumber = item.BoxNumber - 40;
+                        if (itemNumber % 2 == 0)
+                        {
+                            worksheet.Cells["M" + (startingBoxExcelValue + cellNumber)].Value = item.Weight;
+                            worksheet.Cells["N" + (startingBoxExcelValue + cellNumber)].Value = item.BoatName;
+
+                            itemNumber = 1;
+                        }
+                        else
+                        {
+                            worksheet.Cells["J" + (startingBoxExcelValue + cellNumber)].Value = item.Weight;
+                            worksheet.Cells["K" + (startingBoxExcelValue + cellNumber)].Value = item.BoatName;
+                        }
                     }
-                
-             
-                        oldBoxNumber = (int)item.BoxNumber;
+
+                    oldBoxNumber = (int)item.BoxNumber;
                     
                 }
 
