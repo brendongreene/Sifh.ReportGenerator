@@ -100,7 +100,7 @@ namespace Sifh.ReportGenerator
             }
 
 
-            if (comboBoxCustomer.Text.ToString() == "Great Ocean LLC")
+            if (comboBoxCustomer.Text.ToString() == "Marumi llc")
             {
                 form.DataReady += Form3_DataReady;
                 form.TruckData += Form3_TruckData;
@@ -112,7 +112,7 @@ namespace Sifh.ReportGenerator
 
             var conductor = await _repositoryHelper.GetConductorByIDAsync(conductorID);
             var truck = await _repositoryHelper.GetTruckByIDAsync(truckID);
-            var results = _repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime);
+            var results = _repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime).Where(k => k.ReceivingNoteDetails.Count() > 0);
 
             foreach (var result in results)
             {
@@ -121,7 +121,7 @@ namespace Sifh.ReportGenerator
                 result.CustomerID = comboBoxCustomer.SelectedValue.ToString();
                 result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
                 result.TotalBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
-                if (comboBoxCustomer.Text.ToString() == "Great Ocean LLC")
+                if (comboBoxCustomer.Text.ToString() == "Marumi llc")
                 {
                     result.ConductorName = conductor.Name;
                     result.ConductorLicense = conductor.LicenseNumber;
@@ -146,6 +146,10 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["ReceivingLotIdentifierMRC"].Visible = true;
 
             gridView1.Columns["PackingListID"].Visible = false;
+
+            gridView1.Columns["VesselName"].Group();
+
+            gridView1.ExpandAllGroups();
         }
 
         private void Form3_DataReady(object sender, string ConductorID)
@@ -212,7 +216,7 @@ namespace Sifh.ReportGenerator
                 }
 
                 //_reportGenerator.TemplateFile = "";
-                if (reportName == "Great Ocean LLC")
+                if (reportName == "Marumi llc")
                 {
                     newFile = new FileInfo("Required_" + reportName + "_" + vesselName + "_" + reportRNId + ".xlsx");
                     filePath = Path.Combine(archivePath, newFile.Name);
@@ -384,6 +388,8 @@ namespace Sifh.ReportGenerator
 
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
+                if (rowHandle < 0)
+                    continue;
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
                 CustomerName = row.CustomerName;
                 productionDate = DateTime.Parse(row.FormattedDateCreated);

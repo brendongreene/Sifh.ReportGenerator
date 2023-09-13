@@ -26,7 +26,7 @@ namespace Sifh.ReportGenerator.DTO
             this.VesselName = receivingNote.Vessel.VesselName;
             this.Quantity = receivingNote.ReceivingNoteItems.Sum(x => x.Quantity);
             this.NetQuantity = this.Quantity*conversionToKg;
-            this.LineItems = receivingNote.ReceivingNoteItems.Count();
+            
             this.RegistrationNumber = receivingNote.Vessel.RegistrationNumber;
             this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
             this.InvoiceDate = receivingNote.InvoiceDate;
@@ -35,7 +35,8 @@ namespace Sifh.ReportGenerator.DTO
             this.TotalPayments = receivingNote.TotalPayments;
             this.StatusClassID = receivingNote.StatusClassID;
 
-            this.ReceivingNoteDetails = receivingNote.ReceivingNoteItems.Where(x => x.PackingListID == null).Select(x => new ReceivingNoteItemView(x)).ToList();
+            this.ReceivingNoteDetails = receivingNote.ReceivingNoteItems.Where(x => x.PackingListID == null && x.ProductStatusClassID == 10).Select(x => new ReceivingNoteItemView(x)).ToList();
+            this.LineItems = this.ReceivingNoteDetails.Count(); // receivingNote.ReceivingNoteItems.Count();
             //this.VesselDocument = receivingNote.VesselCertificate.VesselDocument;
             //this.CustomerDocument = receivingNote.CustomerFiles.CustomerDocument;
         }

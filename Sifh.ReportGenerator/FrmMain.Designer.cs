@@ -59,8 +59,16 @@
             this.barButtonItemAddDocument = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemAddCustomerFiles = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemGetCustomerFile = new DevExpress.XtraBars.BarButtonItem();
+            this.buttonViewPackingList = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
+            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageVesselDocument = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
@@ -69,21 +77,14 @@
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             this.entityCommand2 = new System.Data.Entity.Core.EntityClient.EntityCommand();
-            this.simpleButtonGenerateReports = new DevExpress.XtraEditors.SimpleButton();
-            this.textBoxArchiveFolder = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.buttonShow = new System.Windows.Forms.Button();
-            this.comboBoxFileType = new System.Windows.Forms.ComboBox();
-            this.simpleButtonSave = new DevExpress.XtraEditors.SimpleButton();
-            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage7 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.buttonViewPackingList = new DevExpress.XtraBars.BarButtonItem();
-            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
-            this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
-            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.simpleButtonSave = new DevExpress.XtraEditors.SimpleButton();
+            this.comboBoxFileType = new System.Windows.Forms.ComboBox();
+            this.buttonShow = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxArchiveFolder = new System.Windows.Forms.TextBox();
+            this.simpleButtonGenerateReports = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEditEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -93,14 +94,14 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dateEditStartDate
             // 
             this.dateEditStartDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateEditStartDate.EditValue = null;
-            this.dateEditStartDate.Location = new System.Drawing.Point(107, 72);
-            this.dateEditStartDate.Margin = new System.Windows.Forms.Padding(2);
+            this.dateEditStartDate.Location = new System.Drawing.Point(160, 105);
             this.dateEditStartDate.Name = "dateEditStartDate";
             this.dateEditStartDate.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateEditStartDate.Properties.Appearance.Options.UseFont = true;
@@ -109,15 +110,14 @@
             this.dateEditStartDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditStartDate.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.dateEditStartDate.Size = new System.Drawing.Size(162, 26);
+            this.dateEditStartDate.Size = new System.Drawing.Size(243, 36);
             this.dateEditStartDate.TabIndex = 4;
             // 
             // dateEditEndDate
             // 
             this.dateEditEndDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateEditEndDate.EditValue = null;
-            this.dateEditEndDate.Location = new System.Drawing.Point(107, 112);
-            this.dateEditEndDate.Margin = new System.Windows.Forms.Padding(2);
+            this.dateEditEndDate.Location = new System.Drawing.Point(160, 164);
             this.dateEditEndDate.Name = "dateEditEndDate";
             this.dateEditEndDate.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateEditEndDate.Properties.Appearance.Options.UseFont = true;
@@ -126,17 +126,16 @@
             this.dateEditEndDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditEndDate.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.dateEditEndDate.Size = new System.Drawing.Size(162, 26);
+            this.dateEditEndDate.Size = new System.Drawing.Size(243, 36);
             this.dateEditEndDate.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 78);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(20, 114);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
+            this.label1.Size = new System.Drawing.Size(118, 29);
             this.label1.TabIndex = 13;
             this.label1.Text = "Start Date";
             // 
@@ -144,10 +143,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 117);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(26, 171);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 20);
+            this.label2.Size = new System.Drawing.Size(112, 29);
             this.label2.TabIndex = 14;
             this.label2.Text = "End Date";
             // 
@@ -156,10 +154,9 @@
             this.simpleButtonExecute.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButtonExecute.Appearance.Options.UseFont = true;
             this.simpleButtonExecute.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButtonExecute.Location = new System.Drawing.Point(303, 90);
-            this.simpleButtonExecute.Margin = new System.Windows.Forms.Padding(2);
+            this.simpleButtonExecute.Location = new System.Drawing.Point(454, 132);
             this.simpleButtonExecute.Name = "simpleButtonExecute";
-            this.simpleButtonExecute.Size = new System.Drawing.Size(52, 27);
+            this.simpleButtonExecute.Size = new System.Drawing.Size(78, 39);
             this.simpleButtonExecute.TabIndex = 6;
             this.simpleButtonExecute.Text = "GET";
             this.simpleButtonExecute.Click += new System.EventHandler(this.simpleButtonExecute_Click);
@@ -169,12 +166,10 @@
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2);
-            this.gridControl1.Location = new System.Drawing.Point(9, 279);
+            this.gridControl1.Location = new System.Drawing.Point(14, 408);
             this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Margin = new System.Windows.Forms.Padding(2);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1117, 429);
+            this.gridControl1.Size = new System.Drawing.Size(1676, 447);
             this.gridControl1.TabIndex = 7;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -199,9 +194,10 @@
             this.comboBoxCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBoxCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCustomer.FormattingEnabled = true;
-            this.comboBoxCustomer.Location = new System.Drawing.Point(187, 18);
+            this.comboBoxCustomer.Location = new System.Drawing.Point(280, 26);
+            this.comboBoxCustomer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxCustomer.Name = "comboBoxCustomer";
-            this.comboBoxCustomer.Size = new System.Drawing.Size(241, 24);
+            this.comboBoxCustomer.Size = new System.Drawing.Size(360, 33);
             this.comboBoxCustomer.TabIndex = 7;
             this.comboBoxCustomer.SelectedIndexChanged += new System.EventHandler(this.comboBoxCustomer_SelectedIndexChanged);
             // 
@@ -209,9 +205,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(29, 22);
+            this.label3.Location = new System.Drawing.Point(44, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 20);
+            this.label3.Size = new System.Drawing.Size(117, 29);
             this.label3.TabIndex = 9;
             this.label3.Text = "Customer";
             // 
@@ -219,27 +216,30 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(29, 59);
+            this.label4.Location = new System.Drawing.Point(44, 86);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 20);
+            this.label4.Size = new System.Drawing.Size(217, 29);
             this.label4.TabIndex = 10;
             this.label4.Text = "Airway Bill Number";
             // 
             // textBoxAirwayBillNumber
             // 
             this.textBoxAirwayBillNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAirwayBillNumber.Location = new System.Drawing.Point(187, 59);
+            this.textBoxAirwayBillNumber.Location = new System.Drawing.Point(280, 86);
+            this.textBoxAirwayBillNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxAirwayBillNumber.Name = "textBoxAirwayBillNumber";
-            this.textBoxAirwayBillNumber.Size = new System.Drawing.Size(241, 22);
+            this.textBoxAirwayBillNumber.Size = new System.Drawing.Size(360, 30);
             this.textBoxAirwayBillNumber.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(29, 99);
+            this.label5.Location = new System.Drawing.Point(44, 145);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 20);
+            this.label5.Size = new System.Drawing.Size(185, 29);
             this.label5.TabIndex = 11;
             this.label5.Text = "Production Date";
             // 
@@ -247,9 +247,10 @@
             // 
             this.dateTimePicker.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker.Location = new System.Drawing.Point(187, 99);
+            this.dateTimePicker.Location = new System.Drawing.Point(280, 145);
+            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(241, 22);
+            this.dateTimePicker.Size = new System.Drawing.Size(360, 30);
             this.dateTimePicker.TabIndex = 2;
             this.dateTimePicker.Value = new System.DateTime(2023, 7, 16, 0, 0, 0, 0);
             this.dateTimePicker.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
@@ -258,19 +259,19 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(29, 142);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(44, 208);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(131, 20);
+            this.label6.Size = new System.Drawing.Size(199, 29);
             this.label6.TabIndex = 12;
             this.label6.Text = "Number of Boxes";
             // 
             // textBoxNumberOfBoxes
             // 
             this.textBoxNumberOfBoxes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNumberOfBoxes.Location = new System.Drawing.Point(187, 140);
+            this.textBoxNumberOfBoxes.Location = new System.Drawing.Point(280, 205);
+            this.textBoxNumberOfBoxes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxNumberOfBoxes.Name = "textBoxNumberOfBoxes";
-            this.textBoxNumberOfBoxes.Size = new System.Drawing.Size(241, 22);
+            this.textBoxNumberOfBoxes.Size = new System.Drawing.Size(360, 30);
             this.textBoxNumberOfBoxes.TabIndex = 3;
             // 
             // label7
@@ -278,9 +279,10 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(17, 22);
+            this.label7.Location = new System.Drawing.Point(26, 32);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(15, 20);
+            this.label7.Size = new System.Drawing.Size(23, 29);
             this.label7.TabIndex = 15;
             this.label7.Text = "*";
             // 
@@ -289,9 +291,10 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(17, 59);
+            this.label8.Location = new System.Drawing.Point(26, 86);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(15, 20);
+            this.label8.Size = new System.Drawing.Size(23, 29);
             this.label8.TabIndex = 16;
             this.label8.Text = "*";
             // 
@@ -300,9 +303,10 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(17, 96);
+            this.label9.Location = new System.Drawing.Point(26, 140);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(15, 20);
+            this.label9.Size = new System.Drawing.Size(23, 29);
             this.label9.TabIndex = 17;
             this.label9.Text = "*";
             // 
@@ -311,9 +315,10 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(17, 140);
+            this.label10.Location = new System.Drawing.Point(26, 205);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(15, 20);
+            this.label10.Size = new System.Drawing.Size(23, 29);
             this.label10.TabIndex = 18;
             this.label10.Text = "*";
             // 
@@ -321,9 +326,10 @@
             // 
             this.label11.BackColor = System.Drawing.SystemColors.Control;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(3, 3);
+            this.label11.Location = new System.Drawing.Point(4, 4);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(368, 42);
+            this.label11.Size = new System.Drawing.Size(552, 61);
             this.label11.TabIndex = 19;
             this.label11.Text = "SELECT TIME PERIOD";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -338,9 +344,10 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.simpleButtonExecute);
-            this.panel1.Location = new System.Drawing.Point(750, 90);
+            this.panel1.Location = new System.Drawing.Point(1125, 132);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(376, 176);
+            this.panel1.Size = new System.Drawing.Size(563, 256);
             this.panel1.TabIndex = 20;
             // 
             // panel2
@@ -359,18 +366,20 @@
             this.panel2.Controls.Add(this.dateTimePicker);
             this.panel2.Controls.Add(this.textBoxNumberOfBoxes);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(9, 90);
+            this.panel2.Location = new System.Drawing.Point(14, 132);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(480, 179);
+            this.panel2.Size = new System.Drawing.Size(719, 261);
             this.panel2.TabIndex = 21;
             // 
             // addCustomer
             // 
             this.addCustomer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addCustomer.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addCustomer.Location = new System.Drawing.Point(434, 18);
+            this.addCustomer.Location = new System.Drawing.Point(651, 26);
+            this.addCustomer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addCustomer.Name = "addCustomer";
-            this.addCustomer.Size = new System.Drawing.Size(26, 24);
+            this.addCustomer.Size = new System.Drawing.Size(39, 35);
             this.addCustomer.TabIndex = 19;
             this.addCustomer.Text = "+";
             this.addCustomer.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -394,14 +403,13 @@
             this.barSubItem1,
             this.barButtonItem3});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(2);
             this.ribbonControl1.MaxItemId = 16;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageVesselDocument,
             this.ribbonPage1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.TabletOffice;
-            this.ribbonControl1.Size = new System.Drawing.Size(1140, 80);
+            this.ribbonControl1.Size = new System.Drawing.Size(1710, 123);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
             this.ribbonControl1.Click += new System.EventHandler(this.ribbonControl1_Click);
             // 
@@ -437,6 +445,32 @@
             this.barButtonItemGetCustomerFile.Id = 10;
             this.barButtonItemGetCustomerFile.Name = "barButtonItemGetCustomerFile";
             // 
+            // buttonViewPackingList
+            // 
+            this.buttonViewPackingList.Caption = "Packing Lists";
+            this.buttonViewPackingList.Id = 12;
+            this.buttonViewPackingList.Name = "buttonViewPackingList";
+            this.buttonViewPackingList.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.buttonViewPackingList_ItemClick);
+            // 
+            // barButtonItem2
+            // 
+            this.barButtonItem2.Caption = "barButtonItem2";
+            this.barButtonItem2.Id = 13;
+            this.barButtonItem2.Name = "barButtonItem2";
+            // 
+            // barSubItem1
+            // 
+            this.barSubItem1.Caption = "barSubItem1";
+            this.barSubItem1.Id = 14;
+            this.barSubItem1.Name = "barSubItem1";
+            // 
+            // barButtonItem3
+            // 
+            this.barButtonItem3.Caption = "Management";
+            this.barButtonItem3.Id = 15;
+            this.barButtonItem3.Name = "barButtonItem3";
+            this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
+            // 
             // ribbonPageVesselDocument
             // 
             this.ribbonPageVesselDocument.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -451,13 +485,36 @@
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "ribbonPageGroup3";
             // 
+            // ribbonPageGroup4
+            // 
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
+            // 
+            // ribbonPage1
+            // 
+            this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup1,
+            this.ribbonPageGroup2});
+            this.ribbonPage1.Name = "ribbonPage1";
+            this.ribbonPage1.Text = "VIEW";
+            // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.buttonViewPackingList);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
+            // 
             // ribbonStatusBar1
             // 
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 756);
-            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(2);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 1102);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1140, 31);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1710, 48);
             // 
             // ribbonPage2
             // 
@@ -495,56 +552,39 @@
             this.entityCommand2.EnablePlanCaching = true;
             this.entityCommand2.Transaction = null;
             // 
-            // simpleButtonGenerateReports
+            // ribbonPage7
             // 
-            this.simpleButtonGenerateReports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.simpleButtonGenerateReports.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButtonGenerateReports.Appearance.Options.UseFont = true;
-            this.simpleButtonGenerateReports.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButtonGenerateReports.Location = new System.Drawing.Point(875, 712);
-            this.simpleButtonGenerateReports.Margin = new System.Windows.Forms.Padding(2);
-            this.simpleButtonGenerateReports.Name = "simpleButtonGenerateReports";
-            this.simpleButtonGenerateReports.Size = new System.Drawing.Size(124, 37);
-            this.simpleButtonGenerateReports.TabIndex = 8;
-            this.simpleButtonGenerateReports.Text = "GENERATE";
-            this.simpleButtonGenerateReports.Click += new System.EventHandler(this.simpleButtonGenerateReports_Click);
+            this.ribbonPage7.Name = "ribbonPage7";
+            this.ribbonPage7.Text = "ribbonPage7";
             // 
-            // textBoxArchiveFolder
+            // groupBox1
             // 
-            this.textBoxArchiveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxArchiveFolder.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBoxArchiveFolder.Location = new System.Drawing.Point(132, 720);
-            this.textBoxArchiveFolder.Name = "textBoxArchiveFolder";
-            this.textBoxArchiveFolder.ReadOnly = true;
-            this.textBoxArchiveFolder.Size = new System.Drawing.Size(614, 21);
-            this.textBoxArchiveFolder.TabIndex = 27;
-            this.textBoxArchiveFolder.TextChanged += new System.EventHandler(this.textBoxArchiveFolder_TextChanged);
+            this.groupBox1.Controls.Add(this.simpleButtonSave);
+            this.groupBox1.Controls.Add(this.comboBoxFileType);
+            this.groupBox1.Controls.Add(this.buttonShow);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.textBoxArchiveFolder);
+            this.groupBox1.Controls.Add(this.simpleButtonGenerateReports);
+            this.groupBox1.Location = new System.Drawing.Point(14, 861);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1676, 77);
+            this.groupBox1.TabIndex = 39;
+            this.groupBox1.TabStop = false;
             // 
-            // label12
+            // simpleButtonSave
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(4, 721);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(128, 19);
-            this.label12.TabIndex = 28;
-            this.label12.Text = "ARCHIVE PATH:";
-            this.label12.Click += new System.EventHandler(this.label12_Click);
-            // 
-            // buttonShow
-            // 
-            this.buttonShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonShow.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonShow.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonShow.Location = new System.Drawing.Point(749, 720);
-            this.buttonShow.Name = "buttonShow";
-            this.buttonShow.Size = new System.Drawing.Size(34, 21);
-            this.buttonShow.TabIndex = 29;
-            this.buttonShow.Text = "....";
-            this.buttonShow.UseVisualStyleBackColor = true;
-            this.buttonShow.Click += new System.EventHandler(this.buttonShow_Click);
+            this.simpleButtonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.simpleButtonSave.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButtonSave.Appearance.Options.UseFont = true;
+            this.simpleButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.simpleButtonSave.Location = new System.Drawing.Point(1464, 17);
+            this.simpleButtonSave.Name = "simpleButtonSave";
+            this.simpleButtonSave.Size = new System.Drawing.Size(177, 54);
+            this.simpleButtonSave.TabIndex = 42;
+            this.simpleButtonSave.Text = "PREVIEW ";
+            this.simpleButtonSave.Click += new System.EventHandler(this.simpleButtonSave_Click);
             // 
             // comboBoxFileType
             // 
@@ -553,100 +593,76 @@
             this.comboBoxFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFileType.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFileType.FormattingEnabled = true;
-            this.comboBoxFileType.Location = new System.Drawing.Point(789, 718);
+            this.comboBoxFileType.Location = new System.Drawing.Point(1077, 27);
+            this.comboBoxFileType.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxFileType.Name = "comboBoxFileType";
-            this.comboBoxFileType.Size = new System.Drawing.Size(81, 27);
-            this.comboBoxFileType.TabIndex = 32;
-            this.comboBoxFileType.SelectedIndexChanged += new System.EventHandler(this.comboBoxFileType_SelectedIndexChanged);
+            this.comboBoxFileType.Size = new System.Drawing.Size(87, 37);
+            this.comboBoxFileType.TabIndex = 41;
             // 
-            // simpleButtonSave
+            // buttonShow
             // 
-            this.simpleButtonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.simpleButtonSave.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButtonSave.Appearance.Options.UseFont = true;
-            this.simpleButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButtonSave.Location = new System.Drawing.Point(1007, 712);
-            this.simpleButtonSave.Margin = new System.Windows.Forms.Padding(2);
-            this.simpleButtonSave.Name = "simpleButtonSave";
-            this.simpleButtonSave.Size = new System.Drawing.Size(118, 37);
-            this.simpleButtonSave.TabIndex = 36;
-            this.simpleButtonSave.Text = "PREVIEW ";
-            this.simpleButtonSave.Click += new System.EventHandler(this.simpleButtonSave_Click);
+            this.buttonShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonShow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonShow.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonShow.Location = new System.Drawing.Point(1018, 31);
+            this.buttonShow.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonShow.Name = "buttonShow";
+            this.buttonShow.Size = new System.Drawing.Size(51, 31);
+            this.buttonShow.TabIndex = 40;
+            this.buttonShow.Text = "....";
+            this.buttonShow.UseVisualStyleBackColor = true;
+            this.buttonShow.Click += new System.EventHandler(this.buttonShow_Click);
             // 
-            // ribbonPage1
+            // label12
             // 
-            this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1,
-            this.ribbonPageGroup2});
-            this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "VIEW";
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(7, 33);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(181, 29);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "ARCHIVE PATH:";
             // 
-            // ribbonPageGroup1
+            // textBoxArchiveFolder
             // 
-            this.ribbonPageGroup1.ItemLinks.Add(this.buttonViewPackingList);
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
+            this.textBoxArchiveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxArchiveFolder.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.textBoxArchiveFolder.Location = new System.Drawing.Point(199, 31);
+            this.textBoxArchiveFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxArchiveFolder.Name = "textBoxArchiveFolder";
+            this.textBoxArchiveFolder.ReadOnly = true;
+            this.textBoxArchiveFolder.Size = new System.Drawing.Size(811, 27);
+            this.textBoxArchiveFolder.TabIndex = 38;
             // 
-            // ribbonPage7
+            // simpleButtonGenerateReports
             // 
-            this.ribbonPage7.Name = "ribbonPage7";
-            this.ribbonPage7.Text = "ribbonPage7";
-            // 
-            // ribbonPageGroup2
-            // 
-            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
-            // 
-            // buttonViewPackingList
-            // 
-            this.buttonViewPackingList.Caption = "Packing Lists";
-            this.buttonViewPackingList.Id = 12;
-            this.buttonViewPackingList.Name = "buttonViewPackingList";
-            this.buttonViewPackingList.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.buttonViewPackingList_ItemClick);
-            // 
-            // ribbonPageGroup4
-            // 
-            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
-            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
-            // 
-            // barButtonItem2
-            // 
-            this.barButtonItem2.Caption = "barButtonItem2";
-            this.barButtonItem2.Id = 13;
-            this.barButtonItem2.Name = "barButtonItem2";
-            // 
-            // barSubItem1
-            // 
-            this.barSubItem1.Caption = "barSubItem1";
-            this.barSubItem1.Id = 14;
-            this.barSubItem1.Name = "barSubItem1";
-            // 
-            // barButtonItem3
-            // 
-            this.barButtonItem3.Caption = "Management";
-            this.barButtonItem3.Id = 15;
-            this.barButtonItem3.Name = "barButtonItem3";
-            this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
+            this.simpleButtonGenerateReports.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.simpleButtonGenerateReports.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButtonGenerateReports.Appearance.Options.UseFont = true;
+            this.simpleButtonGenerateReports.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.simpleButtonGenerateReports.Location = new System.Drawing.Point(1272, 16);
+            this.simpleButtonGenerateReports.Name = "simpleButtonGenerateReports";
+            this.simpleButtonGenerateReports.Size = new System.Drawing.Size(186, 54);
+            this.simpleButtonGenerateReports.TabIndex = 37;
+            this.simpleButtonGenerateReports.Text = "GENERATE";
+            this.simpleButtonGenerateReports.Click += new System.EventHandler(this.simpleButtonGenerateReports_Click);
             // 
             // FrmMain
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1140, 787);
-            this.Controls.Add(this.simpleButtonSave);
-            this.Controls.Add(this.comboBoxFileType);
-            this.Controls.Add(this.buttonShow);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.textBoxArchiveFolder);
+            this.ClientSize = new System.Drawing.Size(1710, 1150);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.simpleButtonGenerateReports);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmMain";
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -664,6 +680,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -709,13 +727,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage4;
         private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
         private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand2;
-        private DevExpress.XtraEditors.SimpleButton simpleButtonGenerateReports;
-        private System.Windows.Forms.TextBox textBoxArchiveFolder;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button buttonShow;
-        private System.Windows.Forms.ComboBox comboBoxFileType;
         private System.Windows.Forms.Button addCustomer;
-        private DevExpress.XtraEditors.SimpleButton simpleButtonSave;
         private DevExpress.XtraBars.BarButtonItem buttonViewPackingList;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
@@ -725,6 +737,13 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.BarSubItem barSubItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonSave;
+        private System.Windows.Forms.ComboBox comboBoxFileType;
+        private System.Windows.Forms.Button buttonShow;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxArchiveFolder;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonGenerateReports;
     }
 }
 

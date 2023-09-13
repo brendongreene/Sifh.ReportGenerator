@@ -20,7 +20,7 @@ namespace Sifh.ReportGenerator.Repository
             using (var context = new SifhContext())
             {
                 var receivingNotes =
-                    context.ReceivingNotes.Where(x => x.InvoiceDate >= startDate && x.InvoiceDate <= endDate);
+                    context.ReceivingNotes.Where(x => x.InvoiceDate >= startDate.Date && x.InvoiceDate <= endDate.Date );
 
                 return receivingNotes.ToList().Select( t=> new ReportDataView(t)).ToList();
             }
