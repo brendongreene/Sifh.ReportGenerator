@@ -17,11 +17,12 @@ namespace Sifh.ReportGenerator
 {
     public partial class FrmPackingList : Form
     {
-        public List<PackingListReportView> PackingList { get; set; }
+        public List<PackingListReportView> packingList { get; set; }
         public DateTime productionDate { get; set; }
         public string productionDateMonth { get; set; }
         public string CustomerName { get; set; }
         public int NumberOfBoxes { get; set; }
+        public List<string> Vessels { get; set; }
 
         public int CustomerId { get; set; }
 
@@ -136,7 +137,7 @@ namespace Sifh.ReportGenerator
             ComboBoxNumber.SelectedIndexChanged -= ComboBoxNumber_EditValueChanged;
             ComboBoxNumber.SelectedIndexChanged += ComboBoxNumber_EditValueChanged;
 
-            gridControl1.DataSource = PackingList;
+            gridControl1.DataSource = packingList;
 
             gridView1.Columns["PackingListID"].Visible = false;
             gridView1.Columns["CustomerID"].Visible = false;
@@ -145,14 +146,20 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["AirlineID"].Visible = false;
             gridView1.Columns["PackingListNumber"].Visible = false;
 
-            gridView1.Columns["ReceivingNoteID"].Group();
+            gridView1.Columns["BoatName"].Group();
 
             gridView1.ExpandAllGroups();
 
 
-
+            comboBoxVessels.Items.Clear();
             riEditComboBox.Items.Clear();
             _boxAssignmentTracker.Clear();
+
+            foreach(var vessel in Vessels)
+            {
+                comboBoxVessels.Items.Add(vessel);
+                comboBoxVessels.SelectedItem = comboBoxVessels.Items[0];
+            }
 
             for (int boxCount = 1; boxCount <= NumberOfBoxes; boxCount++)
             {
@@ -265,6 +272,21 @@ namespace Sifh.ReportGenerator
                 popupMenu.Close();
 
             }
+        }
+
+        private void textBoxWeight_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+              if(textBoxWeight.Text != string.Empty)
+              {
+                        var weightToSearch = Decimal.Parse(textBoxWeight.Text);
+                        var packingListToSelect = packingList.Where(x => x.BoatName == (comboBoxVessels.SelectedItem).ToString() && x.Weight == weightToSearch);
+                        //gridView1.SelectRow(packingList.IndexOf(packingListToSelect));
+              }
+
+            }
+      
         }
 
         //private void RiEditComboBox_EditValueChanged(object sender, EventArgs e)

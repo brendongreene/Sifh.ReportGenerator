@@ -368,6 +368,7 @@ namespace Sifh.ReportGenerator
 
         private void simpleButtonSave_Click(object sender, EventArgs e)
         {
+            var vessels = new List<string>();
             var productionDate = new DateTime();
             var CustomerName = "";
 
@@ -391,6 +392,7 @@ namespace Sifh.ReportGenerator
                 if (rowHandle < 0)
                     continue;
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
+                vessels.Add(row.VesselName);
                 CustomerName = row.CustomerName;
                 productionDate = DateTime.Parse(row.FormattedDateCreated);
 
@@ -424,13 +426,17 @@ namespace Sifh.ReportGenerator
                 receivingNoteCounter++;
             }
 
+            var filteredPackingList = new List<PackingListReportView>(packingList.OrderBy(x => x.BoatName));
+            var filteredVessels = new List<string>(vessels.OrderBy(x => x));
+
             FrmPackingList formPackingList = new FrmPackingList();
-            formPackingList.PackingList = packingList;
+            formPackingList.packingList = filteredPackingList;
             formPackingList.productionDate = productionDate;
             formPackingList.productionDateMonth = productionDate.ToString("MMMM");
             formPackingList.CustomerName = CustomerName;
             formPackingList.CustomerId = customerId;
             formPackingList.NumberOfBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
+            formPackingList.Vessels = vessels;
 
             formPackingList.FormClosed += Form6_FormClosed;
 
