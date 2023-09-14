@@ -43,11 +43,17 @@
             this.comboBoxVessels = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.textBoxOverall = new System.Windows.Forms.TextBox();
+            this.textBoxVesselTotal = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.labelVesseLTotal = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.popupMenu.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -88,6 +94,7 @@
             this.gridControl1.TabIndex = 8;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            this.gridControl1.Click += new System.EventHandler(this.gridControl1_Click);
             // 
             // gridView1
             // 
@@ -167,6 +174,7 @@
             this.comboBoxVessels.Name = "comboBoxVessels";
             this.comboBoxVessels.Size = new System.Drawing.Size(101, 21);
             this.comboBoxVessels.TabIndex = 12;
+            this.comboBoxVessels.SelectedIndexChanged += new System.EventHandler(this.comboBoxVessels_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -185,17 +193,65 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.textBoxWeight);
-            this.panel2.Location = new System.Drawing.Point(341, 68);
+            this.panel2.Location = new System.Drawing.Point(336, 69);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(161, 62);
+            this.panel2.Size = new System.Drawing.Size(173, 62);
             this.panel2.TabIndex = 14;
+            // 
+            // textBoxOverall
+            // 
+            this.textBoxOverall.Location = new System.Drawing.Point(93, 590);
+            this.textBoxOverall.Name = "textBoxOverall";
+            this.textBoxOverall.ReadOnly = true;
+            this.textBoxOverall.Size = new System.Drawing.Size(116, 20);
+            this.textBoxOverall.TabIndex = 15;
+            // 
+            // textBoxVesselTotal
+            // 
+            this.textBoxVesselTotal.Location = new System.Drawing.Point(79, 39);
+            this.textBoxVesselTotal.Name = "textBoxVesselTotal";
+            this.textBoxVesselTotal.ReadOnly = true;
+            this.textBoxVesselTotal.Size = new System.Drawing.Size(116, 20);
+            this.textBoxVesselTotal.TabIndex = 16;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.labelVesseLTotal);
+            this.panel3.Controls.Add(this.textBoxVesselTotal);
+            this.panel3.Location = new System.Drawing.Point(541, 68);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(276, 62);
+            this.panel3.TabIndex = 17;
+            // 
+            // labelVesseLTotal
+            // 
+            this.labelVesseLTotal.Location = new System.Drawing.Point(2, 13);
+            this.labelVesseLTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelVesseLTotal.Name = "labelVesseLTotal";
+            this.labelVesseLTotal.Size = new System.Drawing.Size(272, 20);
+            this.labelVesseLTotal.TabIndex = 14;
+            this.labelVesseLTotal.Text = "Vessel Total Weight:";
+            this.labelVesseLTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(8, 590);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 20);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Overall Weight:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FrmPackingList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(829, 622);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.textBoxOverall);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.panel1);
@@ -212,7 +268,10 @@
             this.popupMenu.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -231,5 +290,10 @@
         private System.Windows.Forms.ComboBox comboBoxVessels;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox textBoxOverall;
+        private System.Windows.Forms.TextBox textBoxVesselTotal;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelVesseLTotal;
     }
 }

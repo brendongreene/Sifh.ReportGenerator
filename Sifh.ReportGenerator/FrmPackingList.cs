@@ -23,6 +23,9 @@ namespace Sifh.ReportGenerator
         public string CustomerName { get; set; }
         public int NumberOfBoxes { get; set; }
         public List<string> Vessels { get; set; }
+        public decimal? vesselTotal { get; set; }
+        public decimal? overallTotal { get; set; }
+
 
         public int CustomerId { get; set; }
 
@@ -133,11 +136,11 @@ namespace Sifh.ReportGenerator
 
         private void Form6_Load(object sender, EventArgs e)
         {
-
             ComboBoxNumber.SelectedIndexChanged -= ComboBoxNumber_EditValueChanged;
             ComboBoxNumber.SelectedIndexChanged += ComboBoxNumber_EditValueChanged;
 
             gridControl1.DataSource = packingList;
+            gridView1.SelectionChanged += GridView1_SelectionChanged; ;
 
             gridView1.Columns["PackingListID"].Visible = false;
             gridView1.Columns["CustomerID"].Visible = false;
@@ -145,7 +148,10 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["StatusClassID"].Visible = false;
             gridView1.Columns["AirlineID"].Visible = false;
             gridView1.Columns["PackingListNumber"].Visible = false;
+            gridView1.Columns["AirwayBillNumber"].Visible = false;
 
+
+            gridView1.Columns["Weight"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
             gridView1.Columns["BoatName"].Group();
 
             gridView1.ExpandAllGroups();
@@ -158,8 +164,10 @@ namespace Sifh.ReportGenerator
             foreach(var vessel in Vessels)
             {
                 comboBoxVessels.Items.Add(vessel);
-                comboBoxVessels.SelectedItem = comboBoxVessels.Items[0];
             }
+
+            comboBoxVessels.SelectedItem = comboBoxVessels.Items[0];
+            //labelVesseLTotal.Text = comboBoxVessels.SelectedItem.ToString();
 
             for (int boxCount = 1; boxCount <= NumberOfBoxes; boxCount++)
             {
@@ -168,6 +176,34 @@ namespace Sifh.ReportGenerator
                 ComboBoxNumber.Items.Add(key);
                 _boxAssignmentTracker.Add(key, 0);
             }
+        }
+
+        private void GridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            overallTotal = 0;
+            foreach (var selectedRows in gridView1.GetSelectedRows())
+            {
+                if (selectedRows < 0)
+                    continue;
+                var row = gridView1.GetRow(selectedRows) as PackingListReportView;
+                if (row != null)
+                {
+                    overallTotal += row.Weight;
+                }
+            }
+            textBoxOverall.Text = overallTotal.ToString();
+
+            var vesselRows = packingList.Where(x => x.BoatName == (comboBoxVessels.SelectedItem).ToString()).ToList();
+            decimal? vesselTotal = 0;
+            foreach (var vesselRow in vesselRows)
+            {
+                var selectedRow = gridView1.LocateByValue("ReceivingNoteItemID", vesselRow.ReceivingNoteItemID);
+                if (gridView1.IsRowSelected(selectedRow) == true)
+                {
+                    vesselTotal += vesselRow.Weight;
+                }
+            }
+            textBoxVesselTotal.Text = vesselTotal.ToString();
         }
 
         private void gridView1_PopupMenuShowing_1(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
@@ -281,12 +317,56 @@ namespace Sifh.ReportGenerator
               if(textBoxWeight.Text != string.Empty)
               {
                         var weightToSearch = Decimal.Parse(textBoxWeight.Text);
-                        var packingListToSelect = packingList.Where(x => x.BoatName == (comboBoxVessels.SelectedItem).ToString() && x.Weight == weightToSearch);
-                        //gridView1.SelectRow(packingList.IndexOf(packingListToSelect));
+                        var selectedPackingListItem = packingList.Where(x => x.BoatName == (comboBoxVessels.SelectedItem).ToString() && x.Weight == weightToSearch).ToList();
+                        if (selectedPackingListItem.Count > 0)
+                        {
+                            var row = gridView1.LocateByValue("ReceivingNoteItemID", selectedPackingListItem[0].ReceivingNoteItemID);
+                            if (row != DevExpress.XtraGrid.GridControl.InvalidRowHandle && gridView1.IsRowSelected(row) == false)
+                            {
+                                gridView1.SelectRow(row);
+                            } else if(row != DevExpress.XtraGrid.GridControl.InvalidRowHandle && gridView1.IsRowSelected(row) == true)
+                            {
+                                for (int i = 0; i < selectedPackingListItem.Count; i++)
+                                {
+                                    var newRow = gridView1.LocateByValue("ReceivingNoteItemID", selectedPackingListItem[i].ReceivingNoteItemID);
+                                    if (gridView1.IsRowSelected(newRow) == false)
+                                    {
+                                        gridView1.SelectRow(newRow);
+                                    }
+                                }  
+                            }
+                            textBoxWeight.Text = "";
+                        } else
+                        {
+                            textBoxWeight.Text = "";
+                            return;
+                        }
+                        
               }
 
             }
       
+        }
+
+        private void comboBoxVessels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            labelVesseLTotal.Text = comboBoxVessels.SelectedItem.ToString() + " " + "Total Weight:";
+            var vesselRows = packingList.Where(x => x.BoatName == (comboBoxVessels.SelectedItem).ToString()).ToList();
+            decimal? vesselTotal = 0;
+            foreach (var vesselRow in vesselRows)
+            {
+                var row = gridView1.LocateByValue("ReceivingNoteItemID", vesselRow.ReceivingNoteItemID);
+                if (gridView1.IsRowSelected(row) == true)
+                {
+                    vesselTotal += vesselRow.Weight;
+                }
+            }
+            textBoxVesselTotal.Text = vesselTotal.ToString();
+        }
+
+        private void gridControl1_Click(object sender, EventArgs e)
+        {
+            
         }
 
         //private void RiEditComboBox_EditValueChanged(object sender, EventArgs e)

@@ -386,6 +386,7 @@ namespace Sifh.ReportGenerator
             var customerId = Int32.Parse(comboBoxCustomer.SelectedValue.ToString());
             var packingList = new List<PackingListReportView>();
             var receivingNoteItemsList = new List<ReceivingNoteItemView>();
+            var packingListNumber = _repositoryHelper.GetLastPackingList() + 1;
 
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
@@ -396,41 +397,29 @@ namespace Sifh.ReportGenerator
                 CustomerName = row.CustomerName;
                 productionDate = DateTime.Parse(row.FormattedDateCreated);
 
-                foreach (var item in row.ReceivingNoteDetails)
+                foreach (var receivingNote in row.ReceivingNoteDetails)
                 {
-                    receivingNoteItemsList.Add(new ReceivingNoteItemView(item));
+                    //receivingNoteItemsList.Add(new ReceivingNoteItemView(item));
+                    var box = new PackingListReportView();
+                    box.DateCreated = DateTime.Now;
+                    box.CustomerID = customerId;
+                    box.StatusClassID = receivingNote.GradeClassID;
+                    box.Weight = receivingNote.Quantity;
+                    box.BoatName = _repositoryHelper.GetVesselName(receivingNote.ReceivingNoteID);
+                    box.ReceivingNoteItemID = receivingNote.ReceivingNoteItemID;
+                    box.PackingListNumber = packingListNumber;
+                    box.CustomerName = comboBoxCustomer.Text;
+                    box.AirwayBillNumber = textBoxAirwayBillNumber.Text;
+                    box.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
+                    box.ReceivingNoteID = receivingNote.ReceivingNoteID;
+
+                    packingList.Add(box);
                 }
             }
-
-            int receivingNoteCounter = 0;
-            var packingListNumber = _repositoryHelper.GetLastPackingList() + 1;
-
-
-            foreach (var receivingNote in receivingNoteItemsList)
-            {
-                var box = new PackingListReportView();
-                box.DateCreated = DateTime.Now;
-                box.CustomerID = customerId;
-                box.StatusClassID = receivingNote.GradeClassID;
-                box.Weight = receivingNote.Quantity;
-                box.BoatName = _repositoryHelper.GetVesselName(receivingNote.ReceivingNoteID);
-                box.ReceivingNoteItemID = receivingNote.ReceivingNoteItemID;
-                box.PackingListNumber = packingListNumber;
-                box.CustomerName = comboBoxCustomer.Text;
-                box.AirwayBillNumber = textBoxAirwayBillNumber.Text;
-                box.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
-                box.ReceivingNoteID = receivingNote.ReceivingNoteID;
-
-                packingList.Add(box);
-
-                receivingNoteCounter++;
-            }
-
-            var filteredPackingList = new List<PackingListReportView>(packingList.OrderBy(x => x.BoatName));
-            var filteredVessels = new List<string>(vessels.OrderBy(x => x));
+            
 
             FrmPackingList formPackingList = new FrmPackingList();
-            formPackingList.packingList = filteredPackingList;
+            formPackingList.packingList = packingList;
             formPackingList.productionDate = productionDate;
             formPackingList.productionDateMonth = productionDate.ToString("MMMM");
             formPackingList.CustomerName = CustomerName;
