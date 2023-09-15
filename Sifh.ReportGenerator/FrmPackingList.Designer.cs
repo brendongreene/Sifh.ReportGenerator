@@ -43,6 +43,8 @@
             this.comboBoxVessels = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.textBoxBoxNumber = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.textBoxOverall = new System.Windows.Forms.TextBox();
             this.textBoxVesselTotal = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -149,7 +151,7 @@
             // 
             // textBoxWeight
             // 
-            this.textBoxWeight.Location = new System.Drawing.Point(53, 38);
+            this.textBoxWeight.Location = new System.Drawing.Point(168, 36);
             this.textBoxWeight.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxWeight.Name = "textBoxWeight";
             this.textBoxWeight.Size = new System.Drawing.Size(101, 20);
@@ -158,13 +160,13 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(2, 37);
+            this.label2.Location = new System.Drawing.Point(118, 39);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 20);
+            this.label2.Size = new System.Drawing.Size(46, 17);
             this.label2.TabIndex = 11;
             this.label2.Text = "Weight: ";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // comboBoxVessels
             // 
@@ -172,7 +174,7 @@
             this.comboBoxVessels.FormattingEnabled = true;
             this.comboBoxVessels.Location = new System.Drawing.Point(53, 3);
             this.comboBoxVessels.Name = "comboBoxVessels";
-            this.comboBoxVessels.Size = new System.Drawing.Size(101, 21);
+            this.comboBoxVessels.Size = new System.Drawing.Size(111, 21);
             this.comboBoxVessels.TabIndex = 12;
             this.comboBoxVessels.SelectedIndexChanged += new System.EventHandler(this.comboBoxVessels_SelectedIndexChanged);
             // 
@@ -189,14 +191,33 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.textBoxBoxNumber);
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.comboBoxVessels);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.textBoxWeight);
-            this.panel2.Location = new System.Drawing.Point(336, 69);
+            this.panel2.Location = new System.Drawing.Point(152, 69);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(173, 62);
+            this.panel2.Size = new System.Drawing.Size(279, 61);
             this.panel2.TabIndex = 14;
+            // 
+            // textBoxBoxNumber
+            // 
+            this.textBoxBoxNumber.Location = new System.Drawing.Point(53, 36);
+            this.textBoxBoxNumber.Name = "textBoxBoxNumber";
+            this.textBoxBoxNumber.Size = new System.Drawing.Size(54, 20);
+            this.textBoxBoxNumber.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(2, 36);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 20);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Box: ";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxOverall
             // 
@@ -295,5 +316,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelVesseLTotal;
+        private System.Windows.Forms.TextBox textBoxBoxNumber;
+        private System.Windows.Forms.Label label4;
     }
 }
