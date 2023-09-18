@@ -102,7 +102,7 @@
             this.dateEditStartDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateEditStartDate.EditValue = null;
             this.dateEditStartDate.Location = new System.Drawing.Point(107, 56);
-            this.dateEditStartDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateEditStartDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateEditStartDate.Name = "dateEditStartDate";
             this.dateEditStartDate.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateEditStartDate.Properties.Appearance.Options.UseFont = true;
@@ -119,7 +119,7 @@
             this.dateEditEndDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateEditEndDate.EditValue = null;
             this.dateEditEndDate.Location = new System.Drawing.Point(107, 96);
-            this.dateEditEndDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateEditEndDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateEditEndDate.Name = "dateEditEndDate";
             this.dateEditEndDate.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateEditEndDate.Properties.Appearance.Options.UseFont = true;
@@ -159,7 +159,7 @@
             this.simpleButtonExecute.Appearance.Options.UseFont = true;
             this.simpleButtonExecute.Cursor = System.Windows.Forms.Cursors.Hand;
             this.simpleButtonExecute.Location = new System.Drawing.Point(303, 74);
-            this.simpleButtonExecute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButtonExecute.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonExecute.Name = "simpleButtonExecute";
             this.simpleButtonExecute.Size = new System.Drawing.Size(52, 27);
             this.simpleButtonExecute.TabIndex = 6;
@@ -171,10 +171,10 @@
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2);
             this.gridControl1.Location = new System.Drawing.Point(9, 238);
             this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(2);
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(1258, 430);
             this.gridControl1.TabIndex = 7;
@@ -348,9 +348,12 @@
             // 
             // ribbonControl1
             // 
+            this.ribbonControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ribbonControl1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ribbonControl1.Dock = System.Windows.Forms.DockStyle.None;
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
-            this.ribbonControl1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ribbonControl1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
             this.barButtonItem1,
@@ -363,7 +366,7 @@
             this.barSubItem1,
             this.barButtonItem3});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(2);
             this.ribbonControl1.MaxItemId = 16;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -473,7 +476,7 @@
             // ribbonStatusBar1
             // 
             this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 804);
-            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(2);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
             this.ribbonStatusBar1.Size = new System.Drawing.Size(1281, 31);
@@ -530,9 +533,9 @@
             this.groupBox1.Controls.Add(this.textBoxArchiveFolder);
             this.groupBox1.Controls.Add(this.simpleButtonGenerateReports);
             this.groupBox1.Location = new System.Drawing.Point(9, 672);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(1258, 53);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
@@ -544,7 +547,7 @@
             this.simpleButtonSave.Appearance.Options.UseFont = true;
             this.simpleButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.simpleButtonSave.Location = new System.Drawing.Point(990, 12);
-            this.simpleButtonSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButtonSave.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonSave.Name = "simpleButtonSave";
             this.simpleButtonSave.Size = new System.Drawing.Size(118, 37);
             this.simpleButtonSave.TabIndex = 42;
@@ -605,7 +608,7 @@
             this.simpleButtonGenerateReports.Appearance.Options.UseFont = true;
             this.simpleButtonGenerateReports.Cursor = System.Windows.Forms.Cursors.Hand;
             this.simpleButtonGenerateReports.Location = new System.Drawing.Point(1130, 12);
-            this.simpleButtonGenerateReports.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButtonGenerateReports.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButtonGenerateReports.Name = "simpleButtonGenerateReports";
             this.simpleButtonGenerateReports.Size = new System.Drawing.Size(124, 37);
             this.simpleButtonGenerateReports.TabIndex = 37;
@@ -663,7 +666,7 @@
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmMain";
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
