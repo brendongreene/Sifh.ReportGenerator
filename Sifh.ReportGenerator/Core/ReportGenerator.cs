@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OfficeOpenXml;
 using Sifh.ReportGenerator.DTO;
+using Sifh.ReportGenerator.Model;
 
 namespace Sifh.ReportGenerator.Core
 {
@@ -39,7 +40,7 @@ namespace Sifh.ReportGenerator.Core
             public ReportType ReportType { get; set; }
             public List<ReportValue> ExcelValues { get; set; }
 
-            public void ProcessRecord(ReportDataView record)
+            public void ProcessRecord(ReportFromPackingListView record)
             {
                 foreach (var dataNum in ExcelValues)
                 {
@@ -111,7 +112,7 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "GrossQuantity",
                     CellAddress = "H29"
                 }
             });
@@ -157,7 +158,7 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "GrossQuantity",
                     CellAddress = "D26"
                 },
                 new ReportValue()
@@ -325,7 +326,7 @@ namespace Sifh.ReportGenerator.Core
 
         }
 
-        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath, int fileType)
+        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportFromPackingListView receivingNoteView, string filePath, int fileType)
         {
             newFile = new FileInfo(filePath);
 
@@ -350,7 +351,7 @@ namespace Sifh.ReportGenerator.Core
                 package.Save();
             }
         }
-        public void GenerateExcelReportCustomer(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath)
+        public void GenerateExcelReportCustomer(ReportType reportType, FileInfo newFile, ReportFromPackingListView receivingNoteView, string filePath)
         {
             newFile = new FileInfo(filePath);
 

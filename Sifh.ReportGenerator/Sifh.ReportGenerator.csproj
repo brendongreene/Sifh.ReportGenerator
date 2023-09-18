@@ -120,6 +120,7 @@
     <Compile Include="DTO\CustomerView.cs" />
     <Compile Include="DTO\PackingListReportView.cs" />
     <Compile Include="DTO\ReceivingNoteItemView.cs" />
+    <Compile Include="DTO\ReportFromPackingListView.cs" />
     <Compile Include="DTO\ReportDataView.cs" />
     <Compile Include="DTO\ConductorView.cs" />
     <Compile Include="DTO\TruckView.cs" />

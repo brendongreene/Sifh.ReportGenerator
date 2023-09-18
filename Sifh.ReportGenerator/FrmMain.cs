@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors;
+using System.Globalization;
 
 namespace Sifh.ReportGenerator
 {
@@ -27,6 +28,7 @@ namespace Sifh.ReportGenerator
         private Core.ExcelToPDF _exelToPDF = new Core.ExcelToPDF();
         public string fileName;
         public byte[] fileContent;
+        public int fontSize = 3;
         public string cn = "data source=mis.sifishhouse.com;initial catalog=sifhmis;user id=bgreene;password=@Kw5408bi;MultipleActiveResultSets=True;App=EntityFramework";
 
         private RepositoryItemComboBox riEditComboBox = new RepositoryItemComboBox();
@@ -39,49 +41,17 @@ namespace Sifh.ReportGenerator
 
         private async void simpleButtonExecute_Click(object sender, EventArgs e)
         {
+            this.simpleButtonGenerateReports.Enabled = false;
             riEditComboBox.Items.Clear();
             _boxAssignmentTracker.Clear();
 
-            if(textBoxAirwayBillNumber.Text == "" && textBoxNumberOfBoxes.Text == "")
-            {
-                MessageBox.Show("Please enter Airway Bill Number and Number of Boxes");
-                return;
-            } else if (textBoxAirwayBillNumber.Text == "")
-            {
-                MessageBox.Show("Please enter Airway Bill Number");
-                return;
-            } else if (textBoxNumberOfBoxes.Text == "")
-            {
-                MessageBox.Show("Please enter Number of Boxes");
-                return;
-            }
-
-            for (int boxCount = 1; boxCount <= Convert.ToInt32(textBoxNumberOfBoxes.Text); boxCount++)
-            {
-                var key = "Box-" + boxCount.ToString();
-                riEditComboBox.Items.Add(key);
-                _boxAssignmentTracker.Add(key, 0);
-            }
-
-            this.simpleButtonGenerateReports.Enabled = true;
-
             Cursor.Current = Cursors.WaitCursor;
 
-            if (textBoxAirwayBillNumber.Text == string.Empty && textBoxNumberOfBoxes.Text == string.Empty)
-            {
-                MessageBox.Show("Please enter Airway Bill Number and number of boxes");
-                return;
-            }
-            else if (textBoxAirwayBillNumber.Text == string.Empty)
+            if (textBoxAirwayBillNumber.Text == string.Empty)
             {
                 MessageBox.Show("Please enter Airway Bill Number");
                 return;
-            }
-            else if (textBoxNumberOfBoxes.Text == string.Empty)
-            {
-                MessageBox.Show("Please enter number of boxes");
-                return;
-            }
+            } else this.simpleButtonSave.Enabled = true;
 
             if (dateEditStartDate.Text == string.Empty && dateEditEndDate.Text == string.Empty)
             {
@@ -120,7 +90,6 @@ namespace Sifh.ReportGenerator
                 result.CustomerName = comboBoxCustomer.Text.Trim();
                 result.CustomerID = comboBoxCustomer.SelectedValue.ToString();
                 result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
-                result.TotalBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
                 if (comboBoxCustomer.Text.ToString() == "Marumi llc")
                 {
                     result.ConductorName = conductor.Name;
@@ -164,6 +133,12 @@ namespace Sifh.ReportGenerator
 
         private void simpleButtonGenerateReports_Click(object sender, EventArgs e)
         {
+            if(textBoxAirwayBillNumber.Text == String.Empty)
+            {
+                MessageBox.Show("Enter Airway Bill Number");
+                return;
+            }
+
             Cursor.Current = Cursors.WaitCursor;
             if (gridView1.SelectedRowsCount == 0)
             {
@@ -175,95 +150,133 @@ namespace Sifh.ReportGenerator
 
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
-                var row = gridView1.GetRow(rowHandle) as ReportDataView;
-                var vesselID = row.VesselID;
-                var vesselName = row.VesselName;
-                var reportRNId = row.ReceivingNoteID;
-                var fileNameDate = dateTimePicker.Value.ToString("MMMM_dd_yyy");
-
-                var productionDate = DateTime.Parse(row.ProductionDate);
-                var productionDateMonth = productionDate.ToString("MMMM");
+                var row = gridView1.GetRow(rowHandle) as PackingListReportView;
+                var recievingNoteItems = _repositoryHelper.getReceivingNoteItems(row.PackingListID);
+                var packingListQuantity = recievingNoteItems.Sum(x => x.Quantity);
+                var product = _repositoryHelper.getProductName(recievingNoteItems.First().ProductID);
+                var receivingNotes = _repositoryHelper.GetReceivingNotesDetails(row.PackingListID);
+                var totalNumberOfBoxes = _repositoryHelper.getTotalNumberOfBoxes(row.PackingListID);
 
 
-
-
-                var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{row.VesselName}";
-                var textBoxPath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}";
-                textBoxArchiveFolder.Text = textBoxPath;
-                var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + reportRNId + ".xlsx");
-
-
-
-                if (!Directory.Exists(archivePath))
+                foreach (var receivingNote in receivingNotes)
                 {
-                    Directory.CreateDirectory(archivePath);
-                }
-                var filePath = Path.Combine(archivePath, newFile.Name);
+                    var receivingNoteItemsTotal = _repositoryHelper.getReceivingNoteItemsByReceivingNoteID(receivingNote.ReceivingNoteID);
+                    var grossQuantity = receivingNoteItemsTotal.Sum(x => x.Quantity);
+                    var vessel = _repositoryHelper.GetVesselByID(receivingNote.VesselID);
+                    ReportFromPackingListView receivingNoteInUse = new ReportFromPackingListView
+                    {
+                        ReceivingNoteID = receivingNote.ReceivingNoteID,
+                        InvoiceDate = receivingNote.InvoiceDate,
+                        ReferenceNumber = receivingNote.ReferenceNumber,
+                        OrderDate = receivingNote.OrderDate,
+                        VesselID = vessel.VesselID,
+                        VesselName = vessel.VesselName,
+                        Quantity = packingListQuantity,
+                        GrossQuantity = grossQuantity,
+                        ProductName = product.ProductName,
+                        CustomerName = comboBoxCustomer.SelectedText,
+                        AirwayBillNumber = textBoxAirwayBillNumber.Text,
+                        RegistrationNumber = vessel.RegistrationNumber,
+                        BoxNumber = totalNumberOfBoxes,
+                        ProductionDate = row.ProductionDate.Replace("_","/"),
+                        ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString(),
+                        StatusClassID = receivingNote.StatusClassID,
+                        TotalPayments = receivingNote.TotalPayments,
+                        CheckNumber1 = receivingNote.CheckNumber1,
+                        CheckNumber2 = receivingNote.CheckNumber2,
+                        DateCreated = receivingNote.DateCreated,
+                        FormattedDateCreated = receivingNote.DateCreated.ToString("MMMM dd yyyy", CultureInfo.InvariantCulture)
+                };
 
-                var fileType = Int32.Parse(comboBoxFileType.SelectedValue.ToString());
+                    
+                    var fileNameDate = dateTimePicker.Value.ToString("MMMM_dd_yyy");
 
-                _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile, row, filePath, fileType);
+                    DateTime productionDate = DateTime.ParseExact(row.ProductionDate, "dd_MM_yyyy", CultureInfo.InvariantCulture);
+                    var productionDateMonth = productionDate.ToString("MMMM");
 
-                if (fileType == 2)
-                {
-                    string pdfFilePath = Path.ChangeExtension(filePath, ".pdf");
-                    _exelToPDF.ConvertExcelToPdfUsingAspose(filePath, pdfFilePath);
-                    MessageBox.Show("PDF report have been generated");
-                }
-                else
-                {
-                    MessageBox.Show("Report(s) have been generated");
-                }
 
-                //_reportGenerator.TemplateFile = "";
-                if (reportName == "Marumi llc")
-                {
-                    newFile = new FileInfo("Required_" + reportName + "_" + vesselName + "_" + reportRNId + ".xlsx");
-                    filePath = Path.Combine(archivePath, newFile.Name);
-                    _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, newFile, row, filePath);
+
+
+                    var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{vessel.VesselName}";
+                    var textBoxPath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}";
+                    textBoxArchiveFolder.Text = textBoxPath;
+                    var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + receivingNote.ReceivingNoteID + ".xlsx");
+
+
+
+                    if (!Directory.Exists(archivePath))
+                    {
+                        Directory.CreateDirectory(archivePath);
+                    }
+                    var filePath = Path.Combine(archivePath, newFile.Name);
+
+                    var fileType = Int32.Parse(comboBoxFileType.SelectedValue.ToString());
+
+                    _reportGenerator.GenerateExcelReport(Core.ReportGenerator.ReportType.All, newFile, receivingNoteInUse, filePath, fileType);
 
                     if (fileType == 2)
                     {
                         string pdfFilePath = Path.ChangeExtension(filePath, ".pdf");
                         _exelToPDF.ConvertExcelToPdfUsingAspose(filePath, pdfFilePath);
-
-                        MessageBox.Show("PDF for additional files have been generated");
+                        MessageBox.Show("PDF report have been generated");
                     }
                     else
                     {
-                        MessageBox.Show($"Additional files for {reportName}");
+                        MessageBox.Show("Report(s) have been generated");
                     }
 
-
-
-                    byte[] fileContent;
-
-                    using (SqlConnection connection = new SqlConnection(cn))
+                    //_reportGenerator.TemplateFile = "";
+                    if (reportName == "Marumi llc")
                     {
-                        connection.Open();
-                        using (SqlCommand command = connection.CreateCommand())
+                        newFile = new FileInfo("Required_" + reportName + "_" + vessel.VesselName + "_" + receivingNote.ReceivingNoteID + ".xlsx");
+                        filePath = Path.Combine(archivePath, newFile.Name);
+                        _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, newFile, receivingNoteInUse, filePath);
+
+                        if (fileType == 2)
                         {
-                            command.CommandText = $"SELECT VesselDocument FROM VesselCertificate WHERE VesselID = {vesselID}";
-                            fileContent = (byte[])command.ExecuteScalar();
+                            string pdfFilePath = Path.ChangeExtension(filePath, ".pdf");
+                            _exelToPDF.ConvertExcelToPdfUsingAspose(filePath, pdfFilePath);
+
+                            MessageBox.Show("PDF for additional files have been generated");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Additional files for {reportName}");
+                        }
+
+
+
+                        byte[] fileContent;
+
+                        using (SqlConnection connection = new SqlConnection(cn))
+                        {
+                            connection.Open();
+                            using (SqlCommand command = connection.CreateCommand())
+                            {
+                                command.CommandText = $"SELECT VesselDocument FROM VesselCertificate WHERE VesselID = {vessel.VesselID}";
+                                fileContent = (byte[])command.ExecuteScalar();
+                            }
+                        }
+
+                        if (fileContent != null)
+                        {
+                            var licensePath = $"{archivePath}\\{vessel.VesselName}_licence.pdf";
+                            File.WriteAllBytes(licensePath, fileContent);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"{vessel.VesselName}'s licence NOT found");
                         }
                     }
-
-                    if (fileContent != null)
-                    {
-                        var licensePath = $"{archivePath}\\{vesselName}_licence.pdf";
-                        File.WriteAllBytes(licensePath, fileContent);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"{vesselName}'s licence NOT found");
-                    }
                 }
-            }
+            }  
             Cursor.Current = Cursors.Default;
+            gridView1.ClearSelection();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.simpleButtonSave.Enabled = false;
             this.simpleButtonGenerateReports.Enabled = false;
             this.textBoxArchiveFolder.Text = ConfigurationManager.AppSettings["ArchivePath"].ToString();
 
@@ -286,8 +299,8 @@ namespace Sifh.ReportGenerator
             comboBoxFileType.DisplayMember = "Type";
             comboBoxFileType.ValueMember = "ID";
 
-            riEditComboBox.EditValueChanged -= RiEditComboBox_EditValueChanged;
-            riEditComboBox.EditValueChanged += RiEditComboBox_EditValueChanged;
+            //riEditComboBox.EditValueChanged -= RiEditComboBox_EditValueChanged;
+            //riEditComboBox.EditValueChanged += RiEditComboBox_EditValueChanged;
 
             gridView1.Columns["FormattedDateCreated"].Visible = false;
             gridView1.Columns["CheckNumber1"].Visible = false;
@@ -304,6 +317,8 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["CustomerID"].Visible = false;
             gridView1.Columns["PackingListID"].Visible = false;
             //gridView1.Columns["StatusClassID"].Visible = false;
+
+            gridView1.Appearance.Row.FontSizeDelta = fontSize;
         }
 
         private void barButtonItem2_ItemClick_1(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -424,8 +439,8 @@ namespace Sifh.ReportGenerator
             formPackingList.productionDateMonth = productionDate.ToString("MMMM");
             formPackingList.CustomerName = CustomerName;
             formPackingList.CustomerId = customerId;
-            formPackingList.NumberOfBoxes = Int32.Parse(textBoxNumberOfBoxes.Text);
             formPackingList.Vessels = vessels;
+            formPackingList.FontSize = fontSize;
 
             formPackingList.FormClosed += Form6_FormClosed;
 
@@ -449,6 +464,11 @@ namespace Sifh.ReportGenerator
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
         {
             var menu = new DXPopupMenu();
+
+            if(gridView1.GetFocusedRow() == null)
+            {
+                return;
+            }
 
             if (gridView1.GetFocusedRow().GetType() != typeof(ReportDataView))
             {
@@ -514,63 +534,67 @@ namespace Sifh.ReportGenerator
                 //}         
             };
             menu.Items.Add(cancelPackingList);
-            e.Menu.Items.Add(menu);
-        }
-
-        private void RiEditComboBox_EditValueChanged(object sender, EventArgs e)
-        {
-            var comboBoxEdit = sender as ComboBoxEdit;
-
-            //var row = ((ReportDataView)gridView1.GetFocusedRow());
-
-            var key = comboBoxEdit.EditValue.ToString();
-
-            if(gridView1.SelectedRowsCount == 0)
+            if (e.Menu != null)
             {
-                MessageBox.Show("No row(s) selected");
-                return; 
-            } else
-            {
-                foreach (var selectedRow in gridView1.GetSelectedRows())
-                {
-                    var row = gridView1.GetRow(selectedRow) as ReportDataView;
-                    
-                        var oldKey = "Box-" + row.BoxNumber.ToString();
-
-                        if (row.BoxNumber == Convert.ToInt32(key.Replace("Box-", string.Empty)))
-                        {
-                            MessageBox.Show("Choose a different box to replace.");
-                            return;
-                        }
-                        else
-                        {
-                            row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
-
-                            if (_boxAssignmentTracker.ContainsKey(oldKey) && _boxAssignmentTracker[oldKey] > 0)
-                            {
-                                _boxAssignmentTracker[oldKey]--;
-                                
-                                if (_boxAssignmentTracker[oldKey] <= 0)
-                                {
-                                    riEditComboBox.Items.Add(oldKey);
-
-                                    List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
-                                    riEditComboBox.Items.Clear();
-                                    riEditComboBox.Items.AddRange(sortedItems);
-                                }
-                            }
-
-                            _boxAssignmentTracker[key]++;
-
-                            if (_boxAssignmentTracker[key] >= 2)
-                            {
-                                riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
-
-                            }
-                        } 
-                }
+                e.Menu.Items.Add(menu);
             }
+            else return;
         }
+
+        //private void RiEditComboBox_EditValueChanged(object sender, EventArgs e)
+        //{
+        //    var comboBoxEdit = sender as ComboBoxEdit;
+
+        //    //var row = ((ReportDataView)gridView1.GetFocusedRow());
+
+        //    var key = comboBoxEdit.EditValue.ToString();
+
+        //    if(gridView1.SelectedRowsCount == 0)
+        //    {
+        //        MessageBox.Show("No row(s) selected");
+        //        return; 
+        //    } else
+        //    {
+        //        foreach (var selectedRow in gridView1.GetSelectedRows())
+        //        {
+        //            var row = gridView1.GetRow(selectedRow) as ReportDataView;
+                    
+        //                var oldKey = "Box-" + row.BoxNumber.ToString();
+
+        //                if (row.BoxNumber == Convert.ToInt32(key.Replace("Box-", string.Empty)))
+        //                {
+        //                    MessageBox.Show("Choose a different box to replace.");
+        //                    return;
+        //                }
+        //                else
+        //                {
+        //                    row.BoxNumber = Convert.ToInt32(key.Replace("Box-", string.Empty));
+
+        //                    if (_boxAssignmentTracker.ContainsKey(oldKey) && _boxAssignmentTracker[oldKey] > 0)
+        //                    {
+        //                        _boxAssignmentTracker[oldKey]--;
+                                
+        //                        if (_boxAssignmentTracker[oldKey] <= 0)
+        //                        {
+        //                            riEditComboBox.Items.Add(oldKey);
+
+        //                            List<string> sortedItems = riEditComboBox.Items.Cast<string>().OrderBy(item => Convert.ToInt32(item.Replace("Box-", ""))).ToList();
+        //                            riEditComboBox.Items.Clear();
+        //                            riEditComboBox.Items.AddRange(sortedItems);
+        //                        }
+        //                    }
+
+        //                    _boxAssignmentTracker[key]++;
+
+        //                    if (_boxAssignmentTracker[key] >= 2)
+        //                    {
+        //                        riEditComboBox.Items.RemoveAt(comboBoxEdit.SelectedIndex);
+
+        //                    }
+        //                } 
+        //        }
+        //    }
+        //}
 
         private void AddToBoxMenu_Click(object sender, EventArgs e)
         {
@@ -594,6 +618,7 @@ namespace Sifh.ReportGenerator
 
         private void buttonViewPackingList_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            this.simpleButtonSave.Enabled = false;
             var packingLists = _repositoryHelper.GetOpenPackingLists();
 
             gridView1.GridControl.DataSource = packingLists;
@@ -612,9 +637,11 @@ namespace Sifh.ReportGenerator
             gridView1.Columns["ReceivingLotIdentifierMRC"].Visible = false;
 
             gridView1.Columns["PackingListID"].Visible = true;
+            gridView1.Columns["PackingListID"].VisibleIndex = 1;
+            gridView1.Columns["DateCreated"].VisibleIndex = 2;
             gridView1.Columns["ProductionDate"].Visible = true;
 
-
+            this.simpleButtonGenerateReports.Enabled = true;
         }
 
         private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -622,6 +649,20 @@ namespace Sifh.ReportGenerator
 
             FrmAdmin form = new FrmAdmin();
             form.Show();
+        }
+
+        private void buttonIncreaseFontSize_Click(object sender, EventArgs e)
+        {
+            fontSize++;
+            gridView1.Appearance.Row.FontSizeDelta = fontSize;
+            gridView1.RefreshData();
+        }
+
+        private void buttonDecreaseFontSize_Click(object sender, EventArgs e)
+        {
+            fontSize--;
+            gridView1.Appearance.Row.FontSizeDelta = fontSize;
+            gridView1.RefreshData();
         }
     }
 }

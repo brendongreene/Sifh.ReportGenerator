@@ -67,7 +67,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-4, -9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(834, 72);
+            this.panel1.Size = new System.Drawing.Size(958, 72);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -92,7 +92,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Margin = new System.Windows.Forms.Padding(2);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(807, 434);
+            this.gridControl1.Size = new System.Drawing.Size(931, 539);
             this.gridControl1.TabIndex = 8;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -108,13 +108,12 @@
             this.gridView1.OptionsSelection.ShowCheckBoxSelectorInPrintExport = DevExpress.Utils.DefaultBoolean.False;
             this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
             this.gridView1.OptionsView.ShowFooter = true;
-            this.gridView1.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.gridView1_PopupMenuShowing_1);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(728, 573);
+            this.button1.Location = new System.Drawing.Point(852, 682);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 37);
             this.button1.TabIndex = 9;
@@ -135,7 +134,6 @@
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.ReadOnly = true;
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
@@ -221,7 +219,8 @@
             // 
             // textBoxOverall
             // 
-            this.textBoxOverall.Location = new System.Drawing.Point(93, 590);
+            this.textBoxOverall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBoxOverall.Location = new System.Drawing.Point(96, 693);
             this.textBoxOverall.Name = "textBoxOverall";
             this.textBoxOverall.ReadOnly = true;
             this.textBoxOverall.Size = new System.Drawing.Size(116, 20);
@@ -256,7 +255,8 @@
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(8, 590);
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.Location = new System.Drawing.Point(8, 692);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 20);
@@ -268,7 +268,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 622);
+            this.ClientSize = new System.Drawing.Size(953, 727);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
