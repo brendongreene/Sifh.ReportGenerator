@@ -97,6 +97,8 @@ namespace Sifh.ReportGenerator
 
                             foreach (var selectedRow in selectedRows)
                             {
+                                if (selectedRow < 0)
+                                    continue;
                                 var row = gridView1.GetRow(selectedRow) as PackingListReportView;
                                 if (row.BoxNumber == null)
                                 {
@@ -107,7 +109,7 @@ namespace Sifh.ReportGenerator
                                 rows.Add(row);
                                 packingList.ReceivingNoteItemIds.Add(row.ReceivingNoteItemID.Value);
                             }
-                            rows.OrderBy(x => x.BoxNumber);
+                            rows = rows.OrderBy(x => x.BoxNumber).ToList();
 
                             _repositoryHelper.AddPackingList(packingList);
 
