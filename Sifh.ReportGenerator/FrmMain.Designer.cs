@@ -629,6 +629,7 @@
             // buttonDecreaseFontSize
             // 
             this.buttonDecreaseFontSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDecreaseFontSize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonDecreaseFontSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDecreaseFontSize.Location = new System.Drawing.Point(647, 164);
             this.buttonDecreaseFontSize.Name = "buttonDecreaseFontSize";
@@ -641,6 +642,7 @@
             // buttonIncreaseFontSize
             // 
             this.buttonIncreaseFontSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonIncreaseFontSize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonIncreaseFontSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonIncreaseFontSize.Location = new System.Drawing.Point(647, 139);
             this.buttonIncreaseFontSize.Name = "buttonIncreaseFontSize";
