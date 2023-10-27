@@ -39,7 +39,7 @@ namespace Sifh.ReportGenerator
             InitializeComponent();
         }
 
-        private async void simpleButtonExecute_Click(object sender, EventArgs e)
+        private void simpleButtonExecute_Click(object sender, EventArgs e)
         {
             this.simpleButtonGenerateReports.Enabled = false;
             riEditComboBox.Items.Clear();
@@ -69,19 +69,6 @@ namespace Sifh.ReportGenerator
                 return;
             }
 
-
-            if (comboBoxCustomer.Text.ToString() == "Marumi llc")
-            {
-                form.DataReady += Form3_DataReady;
-                form.TruckData += Form3_TruckData;
-                form.ShowDialog();
-            }
-
-            var conductorID = Convert.ToInt32(this.conductorID);
-            var truckID = Convert.ToInt32(this.truckID);
-
-            var conductor = await _repositoryHelper.GetConductorByIDAsync(conductorID);
-            var truck = await _repositoryHelper.GetTruckByIDAsync(truckID);
             var results = _repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime).Where(k => k.ReceivingNoteDetails.Count() > 0);
 
             foreach (var result in results)
@@ -90,12 +77,6 @@ namespace Sifh.ReportGenerator
                 result.CustomerName = comboBoxCustomer.Text.Trim();
                 result.CustomerID = comboBoxCustomer.SelectedValue.ToString();
                 result.ProductionDate = dateTimePicker.Value.ToString("MMMM dd yyyy");
-                if (comboBoxCustomer.Text.ToString() == "Marumi llc")
-                {
-                    result.ConductorName = conductor.Name;
-                    result.ConductorLicense = conductor.LicenseNumber;
-                    result.TruckLicense = truck.License;
-                }
             }
             Cursor.Current = Cursors.Default;
             gridControl1.DataSource = results.ToList();
@@ -131,13 +112,25 @@ namespace Sifh.ReportGenerator
             truckID = TruckID;
         }
 
-        private void simpleButtonGenerateReports_Click(object sender, EventArgs e)
+        private async void simpleButtonGenerateReports_Click(object sender, EventArgs e)
         {
-            if(textBoxAirwayBillNumber.Text == String.Empty)
+            if (textBoxAirwayBillNumber.Text == String.Empty)
             {
                 MessageBox.Show("Enter Airway Bill Number");
                 return;
             }
+
+            if (comboBoxCustomer.Text.ToString() != null)
+            {
+                form.DataReady += Form3_DataReady;
+                form.TruckData += Form3_TruckData;
+                form.ShowDialog();
+            }
+            var conductorID = Convert.ToInt32(this.conductorID);
+            var truckID = Convert.ToInt32(this.truckID);
+
+            var conductor = await _repositoryHelper.GetConductorByIDAsync(conductorID);
+            var truck = await _repositoryHelper.GetTruckByIDAsync(truckID);
 
             Cursor.Current = Cursors.WaitCursor;
             if (gridView1.SelectedRowsCount == 0)
@@ -156,12 +149,15 @@ namespace Sifh.ReportGenerator
                 var product = _repositoryHelper.getProductName(recievingNoteItems.First().ProductID);
                 var receivingNotes = _repositoryHelper.GetReceivingNotesDetails(row.PackingListID);
                 var totalNumberOfBoxes = _repositoryHelper.getTotalNumberOfBoxes(row.PackingListID);
+                DateTime productionDate = DateTime.ParseExact(row.ProductionDate, "dd_MM_yyyy", CultureInfo.InvariantCulture);
+                DateTime productionDateInput = dateTimePicker.Value;
 
 
                 foreach (var receivingNote in receivingNotes)
                 {
                     var receivingNoteItemsTotal = _repositoryHelper.getReceivingNoteItemsByReceivingNoteID(receivingNote.ReceivingNoteID);
                     var grossQuantity = receivingNoteItemsTotal.Sum(x => x.Quantity);
+                    var packingListNetQuantity = recievingNoteItems.Where(x => x.ReceivingNoteID == receivingNote.ReceivingNoteID).Sum(x => x.Quantity);
                     var vessel = _repositoryHelper.GetVesselByID(receivingNote.VesselID);
                     ReportFromPackingListView receivingNoteInUse = new ReportFromPackingListView
                     {
@@ -169,6 +165,7 @@ namespace Sifh.ReportGenerator
                         InvoiceDate = receivingNote.InvoiceDate,
                         ReferenceNumber = receivingNote.ReferenceNumber,
                         OrderDate = receivingNote.OrderDate,
+                        FormattedOrderDate = receivingNote.OrderDate.HasValue ? receivingNote.OrderDate.Value.ToString("MMMM dd yyyy", CultureInfo.InvariantCulture) : null,
                         VesselID = vessel.VesselID,
                         VesselName = vessel.VesselName,
                         Quantity = packingListQuantity,
@@ -178,20 +175,25 @@ namespace Sifh.ReportGenerator
                         AirwayBillNumber = textBoxAirwayBillNumber.Text,
                         RegistrationNumber = vessel.RegistrationNumber,
                         BoxNumber = totalNumberOfBoxes,
-                        ProductionDate = row.ProductionDate.Replace("_","/"),
+                        ProductionDate = productionDate.ToString("dd MMMM yyyy"),
                         ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString(),
                         StatusClassID = receivingNote.StatusClassID,
                         TotalPayments = receivingNote.TotalPayments,
                         CheckNumber1 = receivingNote.CheckNumber1,
                         CheckNumber2 = receivingNote.CheckNumber2,
                         DateCreated = receivingNote.DateCreated,
-                        FormattedDateCreated = receivingNote.DateCreated.ToString("MMMM dd yyyy", CultureInfo.InvariantCulture)
-                };
+                        FormattedDateCreated = receivingNote.DateCreated.ToString("MMMM dd yyyy", CultureInfo.InvariantCulture),
+                        ConductorName = conductor.Name,
+                        ConductorLicense = conductor.LicenseNumber,
+                        TruckLicense = truck.License,
+                        NetQuantity = packingListNetQuantity
+                    };
 
                     
-                    var fileNameDate = dateTimePicker.Value.ToString("MMMM_dd_yyy");
 
-                    DateTime productionDate = DateTime.ParseExact(row.ProductionDate, "dd_MM_yyyy", CultureInfo.InvariantCulture);
+                    var fileNameDate = productionDate.ToString("MMMM_dd_yyy");
+
+                    
                     var productionDateMonth = productionDate.ToString("MMMM");
 
 
@@ -226,9 +228,9 @@ namespace Sifh.ReportGenerator
                     }
 
                     //_reportGenerator.TemplateFile = "";
-                    if (reportName == "Marumi llc")
+                    if (reportName != null)
                     {
-                        newFile = new FileInfo("Required_" + reportName + "_" + vessel.VesselName + "_" + receivingNote.ReceivingNoteID + ".xlsx");
+                        newFile = new FileInfo("Transport_" + reportName + "_" + vessel.VesselName + "_" + receivingNote.ReceivingNoteID + ".xlsx");
                         filePath = Path.Combine(archivePath, newFile.Name);
                         _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, newFile, receivingNoteInUse, filePath);
 
@@ -384,7 +386,7 @@ namespace Sifh.ReportGenerator
         private void simpleButtonSave_Click(object sender, EventArgs e)
         {
             var vessels = new List<string>();
-            var productionDate = new DateTime();
+            var productionDate = dateTimePicker;
             var CustomerName = "";
 
             if (gridView1.SelectedRowsCount == 0)
@@ -410,7 +412,6 @@ namespace Sifh.ReportGenerator
                 var row = gridView1.GetRow(rowHandle) as ReportDataView;
                 vessels.Add(row.VesselName);
                 CustomerName = row.CustomerName;
-                productionDate = DateTime.Parse(row.FormattedDateCreated);
 
                 foreach (var receivingNote in row.ReceivingNoteDetails)
                 {
@@ -435,8 +436,8 @@ namespace Sifh.ReportGenerator
 
             FrmPackingList formPackingList = new FrmPackingList();
             formPackingList.packingList = packingList;
-            formPackingList.productionDate = productionDate;
-            formPackingList.productionDateMonth = productionDate.ToString("MMMM");
+            formPackingList.productionDate = productionDate.Value;
+            formPackingList.productionDateMonth = productionDate.Value.ToString("MMMM");
             formPackingList.CustomerName = CustomerName;
             formPackingList.CustomerId = customerId;
             formPackingList.Vessels = vessels;

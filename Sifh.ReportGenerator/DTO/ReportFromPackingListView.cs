@@ -13,6 +13,7 @@ namespace Sifh.ReportGenerator.DTO
         public DateTime? InvoiceDate { get; set; }
         public string ReferenceNumber { get; set; }
         public DateTime? OrderDate { get; set; }
+        public string FormattedOrderDate { get; set; }
         public int VesselID { get; set; }
         public string VesselName { get; set; }
         public string CustomerName { get; set; }
@@ -20,6 +21,7 @@ namespace Sifh.ReportGenerator.DTO
         public decimal GrossQuantity { get; set; }
         public string RegistrationNumber { get; set; }
         public decimal Quantity { get; set; }
+        public decimal NetQuantity { get; set; }
         public string ProductName { get; set; }
         public int StatusClassID { get; set; }
         public decimal TotalPayments { get; set; }
@@ -30,5 +32,8 @@ namespace Sifh.ReportGenerator.DTO
         public string ReceivingLotIdentifierMRC { get; set; }
         public int BoxNumber { get; set; }
         public string FormattedDateCreated { get; set; }
+        public string ConductorName { get; set; }
+        public string ConductorLicense { get; set; }
+        public string TruckLicense { get; set; }
     }
 }

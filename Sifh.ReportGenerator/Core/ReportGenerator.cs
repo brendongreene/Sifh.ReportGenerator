@@ -107,12 +107,12 @@ namespace Sifh.ReportGenerator.Core
                 ,
                 new ReportValue()
                 {
-                    MappingFieldName = "OrderDate",
+                    MappingFieldName = "FormattedDateCreated",
                     CellAddress = "G25"
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "GrossQuantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "H29"
                 }
             });
@@ -168,12 +168,12 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "D29"
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "D32"
                 },
                 new ReportValue()
@@ -207,7 +207,7 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "C32"
                 },
                 new ReportValue()
@@ -235,7 +235,7 @@ namespace Sifh.ReportGenerator.Core
             {
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "J22"
                 },
                 new ReportValue()
@@ -246,7 +246,7 @@ namespace Sifh.ReportGenerator.Core
                 new ReportValue()
                 {
                     MappingFieldName = "VesselName",
-                    CellAddress = "K21"
+                    CellAddress = "L21"
                 },
                 new ReportValue()
                 {
@@ -258,7 +258,7 @@ namespace Sifh.ReportGenerator.Core
             {
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "J19"
                 },
                 new ReportValue()
@@ -301,7 +301,7 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "NetQuantity",
+                    MappingFieldName = "Quantity",
                     CellAddress = "G15"
                 }
             });
@@ -386,38 +386,20 @@ namespace Sifh.ReportGenerator.Core
 
             using (var package = new ExcelPackage(newFile, Packing_List))
             {
-                var workbook = package.Workbook;
-                var worksheet = workbook.Worksheets["PL"];
-
-                PackingList.ExcelValues.AddRange(new[]
-                {
-                new ReportValue()
-                {
-                    MappingFieldName = "ProductionDate",
-                    CellAddress = "C4"
-                },
-                new ReportValue()
-                {
-                    MappingFieldName = "CustomerName",
-                    CellAddress = "K4"
-                },
-                new ReportValue()
-                {
-                    MappingFieldName = "AirwayBillNumber",
-                    CellAddress = "C5"
-                }
-
-                });
-
-                foreach (var excelInfo in PackingList.ExcelValues)
-                {
-                    // Assuming excelInfo.Value is the value to set
-                    worksheet.Cells[excelInfo.CellAddress].Value = excelInfo.Value;
-                }
 
                 foreach (var item in packingListReportView)
                 {
+                    
+                    var workbook = package.Workbook;
                     PackingList.ProcessRecord(item);
+                    var worksheet = workbook.Worksheets["PL"];
+
+
+                    foreach (var excelInfo in PackingList.ExcelValues)
+                    {
+                        // Assuming excelInfo.Value is the value to set
+                        worksheet.Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                    }
 
                     if (oldBoxNumber == item.BoxNumber)
                     {

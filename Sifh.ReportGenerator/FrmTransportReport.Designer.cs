@@ -48,6 +48,7 @@
             // comboBoxConductor
             // 
             this.comboBoxConductor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxConductor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxConductor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxConductor.FormattingEnabled = true;
             this.comboBoxConductor.Location = new System.Drawing.Point(78, 47);
@@ -58,6 +59,7 @@
             // comboBoxTruck
             // 
             this.comboBoxTruck.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxTruck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTruck.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxTruck.FormattingEnabled = true;
             this.comboBoxTruck.Location = new System.Drawing.Point(78, 46);
