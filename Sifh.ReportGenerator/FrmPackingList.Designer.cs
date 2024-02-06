@@ -94,6 +94,7 @@
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(931, 539);
             this.gridControl1.TabIndex = 8;
+            this.gridControl1.TabStop = false;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             this.gridControl1.Click += new System.EventHandler(this.gridControl1_Click);
@@ -117,6 +118,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 37);
             this.button1.TabIndex = 9;
+            this.button1.TabStop = false;
             this.button1.Text = "SAVE";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -134,6 +136,7 @@
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.ReadOnly = true;
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
@@ -153,7 +156,7 @@
             this.textBoxWeight.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxWeight.Name = "textBoxWeight";
             this.textBoxWeight.Size = new System.Drawing.Size(101, 20);
-            this.textBoxWeight.TabIndex = 10;
+            this.textBoxWeight.TabIndex = 3;
             this.textBoxWeight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxWeight_KeyDown);
             // 
             // label2
@@ -173,7 +176,7 @@
             this.comboBoxVessels.Location = new System.Drawing.Point(53, 3);
             this.comboBoxVessels.Name = "comboBoxVessels";
             this.comboBoxVessels.Size = new System.Drawing.Size(111, 21);
-            this.comboBoxVessels.TabIndex = 12;
+            this.comboBoxVessels.TabIndex = 1;
             this.comboBoxVessels.SelectedIndexChanged += new System.EventHandler(this.comboBoxVessels_SelectedIndexChanged);
             // 
             // label3
@@ -205,7 +208,7 @@
             this.textBoxBoxNumber.Location = new System.Drawing.Point(53, 36);
             this.textBoxBoxNumber.Name = "textBoxBoxNumber";
             this.textBoxBoxNumber.Size = new System.Drawing.Size(54, 20);
-            this.textBoxBoxNumber.TabIndex = 15;
+            this.textBoxBoxNumber.TabIndex = 2;
             // 
             // label4
             // 
@@ -224,7 +227,8 @@
             this.textBoxOverall.Name = "textBoxOverall";
             this.textBoxOverall.ReadOnly = true;
             this.textBoxOverall.Size = new System.Drawing.Size(116, 20);
-            this.textBoxOverall.TabIndex = 15;
+            this.textBoxOverall.TabIndex = 10;
+            this.textBoxOverall.TabStop = false;
             // 
             // textBoxVesselTotal
             // 
@@ -233,6 +237,7 @@
             this.textBoxVesselTotal.ReadOnly = true;
             this.textBoxVesselTotal.Size = new System.Drawing.Size(116, 20);
             this.textBoxVesselTotal.TabIndex = 16;
+            this.textBoxVesselTotal.TabStop = false;
             // 
             // panel3
             // 

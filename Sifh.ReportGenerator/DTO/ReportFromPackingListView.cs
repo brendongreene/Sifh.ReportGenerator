@@ -20,6 +20,7 @@ namespace Sifh.ReportGenerator.DTO
         public string AirwayBillNumber { get; set; }
         public decimal GrossQuantity { get; set; }
         public string RegistrationNumber { get; set; }
+        public string CaptainName { get; set; }
         public decimal Quantity { get; set; }
         public decimal NetQuantity { get; set; }
         public string ProductName { get; set; }

@@ -125,6 +125,10 @@ namespace Sifh.ReportGenerator
                 form.DataReady += Form3_DataReady;
                 form.TruckData += Form3_TruckData;
                 form.ShowDialog();
+                if (form.IsDisposed)
+                {
+                    return;
+                }
             }
             var conductorID = Convert.ToInt32(this.conductorID);
             var truckID = Convert.ToInt32(this.truckID);
@@ -174,6 +178,7 @@ namespace Sifh.ReportGenerator
                         CustomerName = comboBoxCustomer.SelectedText,
                         AirwayBillNumber = textBoxAirwayBillNumber.Text,
                         RegistrationNumber = vessel.RegistrationNumber,
+                        CaptainName = vessel.ContactName,
                         BoxNumber = totalNumberOfBoxes,
                         ProductionDate = productionDate.ToString("dd MMMM yyyy"),
                         ReceivingLotIdentifierMRC = receivingNote.ReceivingNoteID.ToString() + "/" + receivingNote.ReferenceNumber.ToString(),
@@ -189,8 +194,8 @@ namespace Sifh.ReportGenerator
                         NetQuantity = packingListNetQuantity
                     };
 
-                    
 
+                    var i = 0;
                     var fileNameDate = productionDate.ToString("MMMM_dd_yyy");
 
                     
@@ -202,7 +207,7 @@ namespace Sifh.ReportGenerator
                     var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{row.CustomerName}\\{vessel.VesselName}";
                     var textBoxPath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}";
                     textBoxArchiveFolder.Text = textBoxPath;
-                    var newFile = new FileInfo(fileNameDate + "_" + reportName + "_" + receivingNote.ReceivingNoteID + ".xlsx");
+                    var newFile = new FileInfo(fileNameDate + "_" + receivingNote.ReceivingNoteID + "_" + i + ".xlsx");
 
 
 
@@ -211,6 +216,13 @@ namespace Sifh.ReportGenerator
                         Directory.CreateDirectory(archivePath);
                     }
                     var filePath = Path.Combine(archivePath, newFile.Name);
+                    do
+                    {
+                        i++;
+                        newFile = newFile = new FileInfo(fileNameDate + "_" + receivingNote.ReceivingNoteID + "_" + i + ".xlsx");
+                        filePath = Path.Combine(archivePath, newFile.Name);
+                    }
+                    while (File.Exists(filePath)) ;
 
                     var fileType = Int32.Parse(comboBoxFileType.SelectedValue.ToString());
 
@@ -230,9 +242,17 @@ namespace Sifh.ReportGenerator
                     //_reportGenerator.TemplateFile = "";
                     if (reportName != null)
                     {
-                        newFile = new FileInfo("Transport_" + reportName + "_" + vessel.VesselName + "_" + receivingNote.ReceivingNoteID + ".xlsx");
-                        filePath = Path.Combine(archivePath, newFile.Name);
-                        _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, newFile, receivingNoteInUse, filePath);
+                        var j = 0;
+                        var trasnportNewFile = new FileInfo("Transport_" + reportName + "_" + vessel.VesselName + "_" + receivingNote.ReceivingNoteID + "_" + j + ".xlsx");
+                        var transportFilePath = Path.Combine(archivePath, trasnportNewFile.Name);
+                        do
+                        {
+                            j++;
+                            trasnportNewFile = new FileInfo("Transport_" + reportName + "_" + vessel.VesselName + "_" + receivingNote.ReceivingNoteID + "_" + j + ".xlsx");
+                            transportFilePath = Path.Combine(archivePath, trasnportNewFile.Name);
+                        }
+                        while (File.Exists(transportFilePath));
+                        _reportGenerator.GenerateExcelReportCustomer(Core.ReportGenerator.ReportType.All, trasnportNewFile, receivingNoteInUse, transportFilePath);
 
                         if (fileType == 2)
                         {

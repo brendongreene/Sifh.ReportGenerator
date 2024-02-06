@@ -73,20 +73,23 @@ namespace Sifh.ReportGenerator
                         return;
                     } else
                     {
+                        var i = 0;
                         var archivePath = $"{ConfigurationManager.AppSettings["ArchivePath"].ToString()}\\{productionDate.Year}\\{productionDateMonth}\\{productionDate.Day}\\{CustomerName}";
-                        var newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + CustomerName + ".xlsx");
+                        var newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + CustomerName + "_" + i + ".xlsx");
                         var newFilePath = Path.Combine(archivePath, productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + CustomerName + ".xlsx");
 
                         if (!Directory.Exists(archivePath))
                         {
                             Directory.CreateDirectory(archivePath);
                         }
-                        if (File.Exists(newFilePath))
+                        do
                         {
-                            MessageBox.Show($"A packing list file for {productionDate.ToString("dd/MM/yyyy")} already exist");
-                            return;
+                            i++;
+                            newFile = new FileInfo(productionDate.ToString("dd_MM_yyyy") + "_PackingList_" + CustomerName + "_" + i + ".xlsx");
+                            newFilePath = Path.Combine(archivePath, newFile.ToString());
                         }
-                        else
+                        while (File.Exists(newFilePath));
+                        if(!File.Exists(newFilePath))
                         {
                             var filePath = Path.Combine(archivePath, newFile.Name);
                             var rows = new List<PackingListReportView>();

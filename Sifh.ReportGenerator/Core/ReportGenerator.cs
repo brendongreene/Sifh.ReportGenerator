@@ -252,6 +252,11 @@ namespace Sifh.ReportGenerator.Core
                 {
                     MappingFieldName = "ProductionDate",
                     CellAddress = "C22"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "H18"
                 }
             });
             SummaryVesselData.ExcelValues.AddRange(new[]
@@ -260,6 +265,11 @@ namespace Sifh.ReportGenerator.Core
                 {
                     MappingFieldName = "NetQuantity",
                     CellAddress = "J19"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "CaptainName",
+                    CellAddress = "C12"
                 },
                 new ReportValue()
                 {
@@ -303,6 +313,11 @@ namespace Sifh.ReportGenerator.Core
                 {
                     MappingFieldName = "Quantity",
                     CellAddress = "G15"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "F12"
                 }
             });
             PackingList.ExcelValues.AddRange(new[]
@@ -321,7 +336,7 @@ namespace Sifh.ReportGenerator.Core
                 {
                     MappingFieldName = "AirwayBillNumber",
                     CellAddress = "C5"
-                },
+                }
             });
 
         }
