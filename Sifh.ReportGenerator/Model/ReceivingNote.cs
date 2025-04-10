@@ -43,6 +43,8 @@ namespace Sifh.ReportGenerator.Model
 
         public virtual Vessel Vessel { get; set; }
 
+        //public string VesselName { get; set; }
+
         //public virtual VesselCertificate VesselCertificate { get; set; }
         //public virtual CustomerFiles CustomerFiles { get; set; }
 

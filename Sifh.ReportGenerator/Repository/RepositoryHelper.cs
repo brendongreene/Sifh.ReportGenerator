@@ -107,8 +107,8 @@ namespace Sifh.ReportGenerator.Repository
                     connection.Open();
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = $"INSERT INTO PackingListDetails (PackingListID, ReceivingNoteItemID, BoxNumber) VALUES ( '{packingListDetails.PackingListID}','{packingListDetails.ReceivingNoteItemID}', '{packingListDetails.BoxNumber}')";
-                        command.ExecuteNonQuery();
+                    command.CommandText = $"UPDATE PackingListDetails SET BoxNumber = '{packingListDetails.BoxNumber}' WHERE ReceivingNoteItemID = '{packingListDetails.ReceivingNoteItemID}'";
+                    command.ExecuteNonQuery();
                     }
                 }
         }
@@ -167,7 +167,7 @@ namespace Sifh.ReportGenerator.Repository
                             connection.Open();
                             using (SqlCommand command = connection.CreateCommand())
                             {
-                                command.CommandText = $"UPDATE PackingListDetails SET PackingListID = '{receivingNoteItem.PackingListID}' WHERE ReceivingNoteItemID = '{receivingNoteItem.ReceivingNoteItemID}'";
+                                command.CommandText = $"INSERT INTO PackingListDetails (PackingListID, ReceivingNoteItemID, BoxNumber) VALUES ( '{receivingNoteItem.PackingListID}','{receivingNoteItem.ReceivingNoteItemID}', '0')";
                                 command.ExecuteNonQuery();
                             }
                         }
@@ -341,6 +341,79 @@ namespace Sifh.ReportGenerator.Repository
             {
                 var vessels = context.Vessels;
                 return context.Vessels.ToList().Select( x=> new VesselView(x)).ToList();
+            }
+        }
+
+        public Vessel GetVesselByID(int vesselID)
+        {
+            using (var context = new SifhContext())
+            {
+                var vessel = context.Vessels.Find(vesselID);
+
+                return vessel;
+            }  
+        }
+
+        public IEnumerable<ReceivingNote> GetReceivingNotesDetails(int packingListID)
+        {
+            var receivingNotesDetails = new List<ReceivingNote>();
+            using (var context = new SifhContext())
+            {
+                var receivingNoteItems = context.ReceivingNoteItems.Where(x => x.PackingListID == packingListID).ToList();
+                var temp = new ReceivingNote();
+                foreach(var item in receivingNoteItems)
+                {
+                    var receivingNote = item.ReceivingNote;
+                    if (temp != receivingNote)
+                    {
+                        receivingNotesDetails.Add(receivingNote);
+                    }
+                    temp = receivingNote;
+                }
+            }
+            return receivingNotesDetails;
+        }
+
+        public IEnumerable<ReceivingNoteItem> getReceivingNoteItems(int packingListID)
+        {
+            using (var context = new SifhContext())
+            {
+                var receivingNoteItems = context.ReceivingNoteItems.Where(x => x.PackingListID == packingListID).ToList();
+                return receivingNoteItems;
+            }     
+        }
+
+        public IEnumerable<ReceivingNoteItem> getReceivingNoteItemsByReceivingNoteID(int receivingNoteID)
+        {
+            using (var context = new SifhContext())
+            {
+                var receivingNoteItems = context.ReceivingNoteItems.Where(x => x.ReceivingNoteID == receivingNoteID).ToList();
+                return receivingNoteItems;
+            }
+        }
+
+        public Product getProductName(int productID)
+        {
+            using (var context = new SifhContext())
+            {
+                var product = context.Products.Find(productID);
+                return product;
+            }
+        }
+
+        public int getTotalNumberOfBoxes(int packingListID)
+        {
+            using (SqlConnection connection = new SqlConnection(cn))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = $"SELECT MAX(BoxNumber) FROM PackingListDetails WHERE PackingListID = '{packingListID}'";
+
+                    object result = command.ExecuteScalar();
+
+                    return Convert.ToInt32(result);
+                }
             }
         }
     }

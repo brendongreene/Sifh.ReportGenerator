@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OfficeOpenXml;
 using Sifh.ReportGenerator.DTO;
+using Sifh.ReportGenerator.Model;
 
 namespace Sifh.ReportGenerator.Core
 {
@@ -39,7 +40,7 @@ namespace Sifh.ReportGenerator.Core
             public ReportType ReportType { get; set; }
             public List<ReportValue> ExcelValues { get; set; }
 
-            public void ProcessRecord(ReportDataView record)
+            public void ProcessRecord(ReportFromPackingListView record)
             {
                 foreach (var dataNum in ExcelValues)
                 {
@@ -106,12 +107,12 @@ namespace Sifh.ReportGenerator.Core
                 ,
                 new ReportValue()
                 {
-                    MappingFieldName = "OrderDate",
+                    MappingFieldName = "FormattedDateCreated",
                     CellAddress = "G25"
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "H29"
                 }
             });
@@ -157,7 +158,7 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "GrossQuantity",
                     CellAddress = "D26"
                 },
                 new ReportValue()
@@ -167,12 +168,12 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "D29"
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "D32"
                 },
                 new ReportValue()
@@ -206,7 +207,7 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "C32"
                 },
                 new ReportValue()
@@ -234,7 +235,7 @@ namespace Sifh.ReportGenerator.Core
             {
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "J22"
                 },
                 new ReportValue()
@@ -245,20 +246,30 @@ namespace Sifh.ReportGenerator.Core
                 new ReportValue()
                 {
                     MappingFieldName = "VesselName",
-                    CellAddress = "K21"
+                    CellAddress = "L21"
                 },
                 new ReportValue()
                 {
                     MappingFieldName = "ProductionDate",
                     CellAddress = "C22"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "H18"
                 }
             });
             SummaryVesselData.ExcelValues.AddRange(new[]
             {
                 new ReportValue()
                 {
-                    MappingFieldName = "Quantity",
+                    MappingFieldName = "NetQuantity",
                     CellAddress = "J19"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "CaptainName",
+                    CellAddress = "C12"
                 },
                 new ReportValue()
                 {
@@ -300,8 +311,13 @@ namespace Sifh.ReportGenerator.Core
                 },
                 new ReportValue()
                 {
-                    MappingFieldName = "NetQuantity",
+                    MappingFieldName = "Quantity",
                     CellAddress = "G15"
+                },
+                new ReportValue()
+                {
+                    MappingFieldName = "AirwayBillNumber",
+                    CellAddress = "F12"
                 }
             });
             PackingList.ExcelValues.AddRange(new[]
@@ -320,12 +336,12 @@ namespace Sifh.ReportGenerator.Core
                 {
                     MappingFieldName = "AirwayBillNumber",
                     CellAddress = "C5"
-                },
+                }
             });
 
         }
 
-        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath, int fileType)
+        public void GenerateExcelReport(ReportType reportType, FileInfo newFile, ReportFromPackingListView receivingNoteView, string filePath, int fileType)
         {
             newFile = new FileInfo(filePath);
 
@@ -350,7 +366,7 @@ namespace Sifh.ReportGenerator.Core
                 package.Save();
             }
         }
-        public void GenerateExcelReportCustomer(ReportType reportType, FileInfo newFile, ReportDataView receivingNoteView, string filePath)
+        public void GenerateExcelReportCustomer(ReportType reportType, FileInfo newFile, ReportFromPackingListView receivingNoteView, string filePath)
         {
             newFile = new FileInfo(filePath);
 
@@ -385,38 +401,20 @@ namespace Sifh.ReportGenerator.Core
 
             using (var package = new ExcelPackage(newFile, Packing_List))
             {
-                var workbook = package.Workbook;
-                var worksheet = workbook.Worksheets["PL"];
-
-                PackingList.ExcelValues.AddRange(new[]
-                {
-                new ReportValue()
-                {
-                    MappingFieldName = "ProductionDate",
-                    CellAddress = "C4"
-                },
-                new ReportValue()
-                {
-                    MappingFieldName = "CustomerName",
-                    CellAddress = "K4"
-                },
-                new ReportValue()
-                {
-                    MappingFieldName = "AirwayBillNumber",
-                    CellAddress = "C5"
-                }
-
-                });
-
-                foreach (var excelInfo in PackingList.ExcelValues)
-                {
-                    // Assuming excelInfo.Value is the value to set
-                    worksheet.Cells[excelInfo.CellAddress].Value = excelInfo.Value;
-                }
 
                 foreach (var item in packingListReportView)
                 {
+                    
+                    var workbook = package.Workbook;
                     PackingList.ProcessRecord(item);
+                    var worksheet = workbook.Worksheets["PL"];
+
+
+                    foreach (var excelInfo in PackingList.ExcelValues)
+                    {
+                        // Assuming excelInfo.Value is the value to set
+                        worksheet.Cells[excelInfo.CellAddress].Value = excelInfo.Value;
+                    }
 
                     if (oldBoxNumber == item.BoxNumber)
                     {
