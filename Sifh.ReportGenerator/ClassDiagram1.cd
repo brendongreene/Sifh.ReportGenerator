@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Sifh.ReportGenerator.Model.Vessel">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAggAAAAAAABkACAEAEAAAAAAA=</HashCode>
+      <FileName>Model\Vessel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.Airline">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAACAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Airline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.Customer" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAUAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Customer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.19899999999999998" Collapsed="true" />
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.FileType">
+    <Position X="6.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Model\FileType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.GradeClass">
+    <Position X="10.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAIAAAAAAAAA=</HashCode>
+      <FileName>Model\GradeClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.NextOrderNumber">
+    <Position X="0.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\NextOrderNumber.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.PackingList" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEAAAAAAAAAgIgAAgAAAAAgkCAAAAAgAJAEAAAAACA=</HashCode>
+      <FileName>Model\PackingList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.19899999999999998" Collapsed="true" />
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.PackingListDetails" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAggBAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\PackingListDetails.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.19899999999999998" Collapsed="true" />
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.Product">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAIAAAAAIAAA=</HashCode>
+      <FileName>Model\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.ProductStatusClass">
+    <Position X="2.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Model\ProductStatusClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.ProductUnitePriceHistory">
+    <Position X="8.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACBAIAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ProductUnitePriceHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.ReceivingNote" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAKAAAAAEAAAAAAAAAAAACCgAMAEAAAAIAA=</HashCode>
+      <FileName>Model\ReceivingNote.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.19899999999999998" Collapsed="true" />
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.ReceivingNoteItem" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MBACgAAAAAEAASAAACAAAAAggAgQACAAABAAgAAEAAA=</HashCode>
+      <FileName>Model\ReceivingNoteItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.19899999999999998" Collapsed="true" />
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.SifhContext">
+    <Position X="15.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAACAAAAAQDAABAAAEACAAgAAIIEAAACAAAQ=</HashCode>
+      <FileName>Model\SifhContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sifh.ReportGenerator.Model.StatusClass">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAgAAAAAAIAAAA=</HashCode>
+      <FileName>Model\StatusClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

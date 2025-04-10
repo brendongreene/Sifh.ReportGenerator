@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace Sifh.ReportGenerator.Repository
 {
-    public class RepositoryHelper
+    public class RepositoryHelper : IRepositoryHelper
     {
         public string cn = "data source=mis.sifishhouse.com;initial catalog=sifhmis;user id=bgreene;password=@Kw5408bi;MultipleActiveResultSets=True;App=EntityFramework";
 
@@ -152,8 +152,6 @@ namespace Sifh.ReportGenerator.Repository
                     {
                         packingListItemAdd.ReceivingNoteItems.Add(receivingNoteItem);
                     }
-
-
                 }
                 context.PackingLists.Add(packingListItemAdd);
                 context.SaveChanges();

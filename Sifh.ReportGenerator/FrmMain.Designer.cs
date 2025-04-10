@@ -195,7 +195,7 @@
             this.comboBoxCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCustomer.FormattingEnabled = true;
             this.comboBoxCustomer.Location = new System.Drawing.Point(280, 26);
-            this.comboBoxCustomer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxCustomer.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxCustomer.Name = "comboBoxCustomer";
             this.comboBoxCustomer.Size = new System.Drawing.Size(360, 33);
             this.comboBoxCustomer.TabIndex = 7;
@@ -227,7 +227,7 @@
             // 
             this.textBoxAirwayBillNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAirwayBillNumber.Location = new System.Drawing.Point(280, 86);
-            this.textBoxAirwayBillNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAirwayBillNumber.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAirwayBillNumber.Name = "textBoxAirwayBillNumber";
             this.textBoxAirwayBillNumber.Size = new System.Drawing.Size(360, 30);
             this.textBoxAirwayBillNumber.TabIndex = 1;
@@ -248,7 +248,7 @@
             this.dateTimePicker.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker.Location = new System.Drawing.Point(280, 145);
-            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(360, 30);
             this.dateTimePicker.TabIndex = 2;
@@ -269,7 +269,7 @@
             // 
             this.textBoxNumberOfBoxes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNumberOfBoxes.Location = new System.Drawing.Point(280, 205);
-            this.textBoxNumberOfBoxes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxNumberOfBoxes.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxNumberOfBoxes.Name = "textBoxNumberOfBoxes";
             this.textBoxNumberOfBoxes.Size = new System.Drawing.Size(360, 30);
             this.textBoxNumberOfBoxes.TabIndex = 3;
@@ -345,7 +345,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.simpleButtonExecute);
             this.panel1.Location = new System.Drawing.Point(1125, 132);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(563, 256);
             this.panel1.TabIndex = 20;
@@ -367,7 +367,7 @@
             this.panel2.Controls.Add(this.textBoxNumberOfBoxes);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(14, 132);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(719, 261);
             this.panel2.TabIndex = 21;
@@ -377,7 +377,7 @@
             this.addCustomer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addCustomer.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addCustomer.Location = new System.Drawing.Point(651, 26);
-            this.addCustomer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addCustomer.Margin = new System.Windows.Forms.Padding(4);
             this.addCustomer.Name = "addCustomer";
             this.addCustomer.Size = new System.Drawing.Size(39, 35);
             this.addCustomer.TabIndex = 19;

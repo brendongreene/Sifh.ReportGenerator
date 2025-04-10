@@ -14,5 +14,6 @@
         string SpeciesCode { get; set; }
         decimal? Temperature { get; set; }
         decimal UnitPrice { get; set; }
+        string ProductName { get; set; }
     }
 }

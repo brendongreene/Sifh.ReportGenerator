@@ -132,6 +132,8 @@ namespace Sifh.ReportGenerator
 
         private void Form6_Load(object sender, EventArgs e)
         {
+            if (PackingList == null)
+                return;
 
             ComboBoxNumber.SelectedIndexChanged -= ComboBoxNumber_EditValueChanged;
             ComboBoxNumber.SelectedIndexChanged += ComboBoxNumber_EditValueChanged;

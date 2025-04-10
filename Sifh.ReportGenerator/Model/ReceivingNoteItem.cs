@@ -43,5 +43,7 @@ namespace Sifh.ReportGenerator.Model
         public virtual ProductStatusClass ProductStatusClass { get; set; }
 
         public virtual ReceivingNote ReceivingNote { get; set; }
+
+        public string ProductName { get; set; }
     }
 }

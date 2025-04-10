@@ -17,6 +17,7 @@ namespace Sifh.ReportGenerator.DTO
             this.SpeciesCode = receivingNoteItem.SpeciesCode;
             this.ReceivingNoteID = receivingNoteItem.ReceivingNoteID;
             this.ReceivingNoteItemID = receivingNoteItem.ReceivingNoteItemID;
+            this.ProductName = receivingNoteItem.ProductName;
         }
 
         public int GradeClassID { get; set; }
@@ -30,5 +31,6 @@ namespace Sifh.ReportGenerator.DTO
         public string SpeciesCode { get; set; }
         public decimal? Temperature { get; set; }
         public decimal UnitPrice { get; set; }
+        public string ProductName { get; set; }
     }
 }

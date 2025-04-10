@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace Sifh.ReportGenerator.DTO
 {
-    public class ReportDataView: IReceivingNote
+    public class ReportDataView : IReceivingNote
     {
 
         public ReportDataView()
@@ -19,14 +19,15 @@ namespace Sifh.ReportGenerator.DTO
 
         public ReportDataView(ReceivingNote receivingNote)
         {
+            
             this.ReceivingNoteID = receivingNote.ReceivingNoteID;
             this.VesselID = receivingNote.VesselID;
             this.DateCreated = receivingNote.DateCreated;
             this.ReferenceNumber = receivingNote.ReferenceNumber;
             this.VesselName = receivingNote.Vessel.VesselName;
             this.Quantity = receivingNote.ReceivingNoteItems.Sum(x => x.Quantity);
-            this.NetQuantity = this.Quantity*conversionToKg;
-            
+            this.NetQuantity = this.Quantity * ConversionToKg;
+
             this.RegistrationNumber = receivingNote.Vessel.RegistrationNumber;
             this.ProductName = receivingNote.ReceivingNoteItems.FirstOrDefault()?.Product.ProductName;
             this.InvoiceDate = receivingNote.InvoiceDate;
@@ -49,7 +50,8 @@ namespace Sifh.ReportGenerator.DTO
                 return DateCreated.ToString("MMMM dd yyyy", CultureInfo.InvariantCulture);
             }
         }
-        public decimal conversionToKg = 0.45m;
+
+        public decimal ConversionToKg { get; set; } = 0.45m;
         public int ReceivingNoteID { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public string ReferenceNumber { get; set; }
@@ -85,6 +87,8 @@ namespace Sifh.ReportGenerator.DTO
         //public byte[] VesselDocument { get; set; }
         //public byte[] CustomerDocument { get; set; }
         public int VesselIDForLicence { get; set; }
+
+        public string InvoiceNumber { get; set; }
 
 
         public List<ReceivingNoteItemView> ReceivingNoteDetails { get; set; }

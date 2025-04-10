@@ -22,7 +22,7 @@ namespace Sifh.ReportGenerator
         private string conductorID;
         private string truckID;
         FrmTransportReport form = new FrmTransportReport();
-        private RepositoryHelper _repositoryHelper = new RepositoryHelper();
+        private IRepositoryHelper _repositoryHelper;  //RepositoryHelper();
         private Core.ReportGenerator _reportGenerator = new Core.ReportGenerator();
         private Core.ExcelToPDF _exelToPDF = new Core.ExcelToPDF();
         public string fileName;
@@ -107,12 +107,14 @@ namespace Sifh.ReportGenerator
                 form.ShowDialog();
             }
 
+
+            var results = _repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime).Where(k => k.ReceivingNoteDetails.Count() > 0);
+
             var conductorID = Convert.ToInt32(this.conductorID);
             var truckID = Convert.ToInt32(this.truckID);
 
             var conductor = await _repositoryHelper.GetConductorByIDAsync(conductorID);
             var truck = await _repositoryHelper.GetTruckByIDAsync(truckID);
-            var results = _repositoryHelper.GetReceivingNotesByDateRange(dateEditStartDate.DateTime, dateEditEndDate.DateTime).Where(k => k.ReceivingNoteDetails.Count() > 0);
 
             foreach (var result in results)
             {
@@ -264,10 +266,12 @@ namespace Sifh.ReportGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this._repositoryHelper = new ODOO_RepositoryHelper("https://sifhstaging.odoo.com", "admin", "60b9394cf114453e690f7ddae58b335f30696ba3", "adeel9911-sifh17-uat1-19557728");
             this.simpleButtonGenerateReports.Enabled = false;
             this.textBoxArchiveFolder.Text = ConfigurationManager.AppSettings["ArchivePath"].ToString();
 
             dateTimePicker.Value = DateTime.Now;
+
             var customers = _repositoryHelper.GetCustomers().Select(x => new CustomerView()
             {
                 CustomerID = x.CustomerID,
