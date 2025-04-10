@@ -148,18 +148,18 @@ namespace Sifh.ReportGenerator
             foreach (var rowHandle in gridView1.GetSelectedRows())
             {
                 var row = gridView1.GetRow(rowHandle) as PackingListReportView;
-                var recievingNoteItems = _repositoryHelper.getReceivingNoteItems(row.PackingListID);
+                var recievingNoteItems = _repositoryHelper.GetReceivingNoteItems(row.PackingListID);
                 var packingListQuantity = recievingNoteItems.Sum(x => x.Quantity);
-                var product = _repositoryHelper.getProductName(recievingNoteItems.First().ProductID);
+                var product = _repositoryHelper.GetProductName(recievingNoteItems.First().ProductID);
                 var receivingNotes = _repositoryHelper.GetReceivingNotesDetails(row.PackingListID);
-                var totalNumberOfBoxes = _repositoryHelper.getTotalNumberOfBoxes(row.PackingListID);
+                var totalNumberOfBoxes = _repositoryHelper.GetTotalNumberOfBoxes(row.PackingListID);
                 DateTime productionDate = DateTime.ParseExact(row.ProductionDate, "dd_MM_yyyy", CultureInfo.InvariantCulture);
                 DateTime productionDateInput = dateTimePicker.Value;
 
 
                 foreach (var receivingNote in receivingNotes)
                 {
-                    var receivingNoteItemsTotal = _repositoryHelper.getReceivingNoteItemsByReceivingNoteID(receivingNote.ReceivingNoteID);
+                    var receivingNoteItemsTotal = _repositoryHelper.GetReceivingNoteItemsByReceivingNoteID(receivingNote.ReceivingNoteID);
                     var grossQuantity = receivingNoteItemsTotal.Sum(x => x.Quantity);
                     var packingListNetQuantity = recievingNoteItems.Where(x => x.ReceivingNoteID == receivingNote.ReceivingNoteID).Sum(x => x.Quantity);
                     var vessel = _repositoryHelper.GetVesselByID(receivingNote.VesselID);

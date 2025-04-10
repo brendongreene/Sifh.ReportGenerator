@@ -25,5 +25,11 @@ namespace Sifh.ReportGenerator.Repository
         IEnumerable<ITruck> GetTrucks();
         string GetVesselName(int receivingNoteId);
         IEnumerable<IVesselView> GetVessels();
+        IEnumerable<ReceivingNoteItem> GetReceivingNoteItems(int packingListID);
+        Product GetProductName(int productID);
+        IEnumerable<ReceivingNoteItem> GetReceivingNoteItemsByReceivingNoteID(int receivingNoteID);
+        IEnumerable<ReceivingNote> GetReceivingNotesDetails(int packingListID);
+        int GetTotalNumberOfBoxes(int packingListID);
+        Vessel GetVesselByID(int vesselID);
     }
 }

@@ -374,7 +374,7 @@ namespace Sifh.ReportGenerator.Repository
             return receivingNotesDetails;
         }
 
-        public IEnumerable<ReceivingNoteItem> getReceivingNoteItems(int packingListID)
+        public IEnumerable<ReceivingNoteItem> GetReceivingNoteItems(int packingListID)
         {
             using (var context = new SifhContext())
             {
@@ -383,7 +383,7 @@ namespace Sifh.ReportGenerator.Repository
             }     
         }
 
-        public IEnumerable<ReceivingNoteItem> getReceivingNoteItemsByReceivingNoteID(int receivingNoteID)
+        public IEnumerable<ReceivingNoteItem> GetReceivingNoteItemsByReceivingNoteID(int receivingNoteID)
         {
             using (var context = new SifhContext())
             {
@@ -392,7 +392,7 @@ namespace Sifh.ReportGenerator.Repository
             }
         }
 
-        public Product getProductName(int productID)
+        public Product GetProductName(int productID)
         {
             using (var context = new SifhContext())
             {
@@ -401,7 +401,7 @@ namespace Sifh.ReportGenerator.Repository
             }
         }
 
-        public int getTotalNumberOfBoxes(int packingListID)
+        public int GetTotalNumberOfBoxes(int packingListID)
         {
             using (SqlConnection connection = new SqlConnection(cn))
             {

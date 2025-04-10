@@ -289,5 +289,35 @@ namespace Sifh.ReportGenerator.Repository
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<ReceivingNoteItem> GetReceivingNoteItems(int packingListID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product GetProductName(int productID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ReceivingNoteItem> GetReceivingNoteItemsByReceivingNoteID(int receivingNoteID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ReceivingNote> GetReceivingNotesDetails(int packingListID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetTotalNumberOfBoxes(int packingListID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vessel GetVesselByID(int vesselID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
